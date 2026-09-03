@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Elementos de la solución/">
+    <File Path="ReadMe.md" />
+  </Folder>
+  <Project Path="Data/Data.csproj" />
+  <Project Path="PsychologistsAPI/PsychologistsAPI.csproj" />
+</Solution>

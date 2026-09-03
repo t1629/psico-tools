@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "iMUQ6o7dxms=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tomas\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.6\\microsoft.aspnetcore.openapi.10.0.6.nupkg.sha512",
+    "C:\\Users\\tomas\\.nuget\\packages\\microsoft.openapi\\3.10.2\\microsoft.openapi.3.10.2.nupkg.sha512"
+  ],
+  "logs": []
+}
