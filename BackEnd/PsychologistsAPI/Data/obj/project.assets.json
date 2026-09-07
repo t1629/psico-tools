@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj",
+      "projectUniqueName": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj",
       "projectName": "Data",
-      "projectPath": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj",
+      "projectPath": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj",
       "packagesPath": "C:\\Users\\tomas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\Data\\obj\\",
+      "outputPath": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

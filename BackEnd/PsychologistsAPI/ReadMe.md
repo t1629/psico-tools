@@ -79,3 +79,12 @@ Endpoints de Disponibilidad (/api/disponibilidades)
 -GET /api/planTurnos
 -GET /api/planTurnos/{id}/paciente
 -POST /api/planTurnos
+
+
+
+
+
+------------------------------------------------
+
+## Se empezo con el mapeo a la base de datos
+## Ver bien el gitignore que eso tare problemas

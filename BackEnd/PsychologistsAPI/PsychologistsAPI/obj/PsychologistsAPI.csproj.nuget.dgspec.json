@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj": {}
+    "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj": {
+    "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj",
+        "projectUniqueName": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj",
         "projectName": "Data",
-        "projectPath": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj",
+        "projectPath": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj",
         "packagesPath": "C:\\Users\\tomas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\Data\\obj\\",
+        "outputPath": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -346,14 +346,14 @@
         }
       }
     },
-    "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj": {
+    "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj",
+        "projectUniqueName": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj",
         "projectName": "PsychologistsAPI",
-        "projectPath": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj",
+        "projectPath": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj",
         "packagesPath": "C:\\Users\\tomas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\obj\\",
+        "outputPath": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -376,8 +376,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj": {
-                "projectPath": "C:\\Users\\tomas\\Downloads\\spy_clinic\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj"
+              "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj": {
+                "projectPath": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Data.csproj"
               }
             }
           }
