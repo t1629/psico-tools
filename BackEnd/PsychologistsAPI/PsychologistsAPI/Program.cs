@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Data.Context;
 
 namespace PsychologistsAPI
 {
@@ -13,11 +15,12 @@ namespace PsychologistsAPI
             // Registrar servicios
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
-           
 
-            // Ejemplo: si tenés DbContext
-            // builder.Services.AddDbContext<AppDbContext>(options =>
-            //     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<PsychologistContext>(options =>
+                options.UseSqlServer(connectionString));
+
 
             var app = builder.Build();
 
