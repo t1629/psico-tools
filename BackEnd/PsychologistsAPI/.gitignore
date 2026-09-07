@@ -7,3 +7,5 @@ obj/
 *.db
 *.log
 publish/
+*.tmp
+*.bak
