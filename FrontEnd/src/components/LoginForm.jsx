@@ -1,15 +1,24 @@
-import React from "react";
 import { useState } from "react";
-import { authService } from "../services/AuthService";
+import { Login } from "../services/authService";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      return alert("Faltan datos");
+    }
+
     try {
-      await authService.login(email, password);
-      alert("exit");
+      const data = await Login(email, password);
+
+      // Aquí puedes guardar el token en localStorage o context
+      localStorage.setItem("token", data.token);
+
+      // Redirigir o actualizar estado
+      console.log("Login exitoso", data);
     } catch (error) {
       alert(error.message);
     }
