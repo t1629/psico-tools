@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PsychologistsAPI.Services;
 using System.Text;
@@ -25,6 +26,8 @@ namespace PsychologistsAPI
             builder.Services.AddAuthorization();
 
             builder.Services.AddScoped<LoginService>();
+            builder.Services.AddScoped<sessionService>();
+
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<PsychologistContext>(options =>
@@ -67,36 +70,46 @@ namespace PsychologistsAPI
                         Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
                     )
                 };
-            });
-
+            
+            options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
+            {
+                OnAuthenticationFailed = ctx =>
+                {
+                    // escribe el error en consola/log para depurar
+                    Console.WriteLine("Auth failed: " + ctx.Exception?.Message);
+                    return Task.CompletedTask;
+                },
+                OnMessageReceived = ctx =>
+                {
+                    Console.WriteLine("Token received: " + (ctx.Token?.Substring(0, Math.Min(20, ctx.Token.Length)) ?? "null"));
+                    return Task.CompletedTask;
+                },
+                OnTokenValidated = ctx =>
+                {
+                    Console.WriteLine("Token valid for: " + ctx.Principal?.Identity?.Name);
+                    return Task.CompletedTask;
+                }
+            };
+        });
 
 
 
 
             var app = builder.Build();
-
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
-            
-
-            app.UseAuthentication();
-            // Configuración del pipeline
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
                 app.UseCors("DevPolicy");
-
             }
             else
             {
                 app.UseCors("ProdPolicy");
             }
+
+            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
-            app.UseHttpsRedirection();
             app.MapControllers();
 
             app.Run();

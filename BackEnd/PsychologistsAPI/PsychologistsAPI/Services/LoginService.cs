@@ -48,6 +48,7 @@ namespace PsychologistsAPI.Services
 
             var claims = new[]
             {
+                new Claim(ClaimTypes.NameIdentifier, _User.UsuarioId.ToString()),
                 new Claim(ClaimTypes.Email, _User.Email),
                 new Claim(ClaimTypes.Name, _User.Nombre),
                 new Claim(ClaimTypes.Role, _User.Rol)
