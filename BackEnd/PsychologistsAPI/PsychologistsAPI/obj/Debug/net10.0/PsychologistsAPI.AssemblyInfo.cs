@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PsychologistsAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ff57cdb0c4f793abab769ac2d09dcbde54fb410")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+91872dbc9b00d807b180eeae1c5542407dcdf0fd")]
 [assembly: System.Reflection.AssemblyProductAttribute("PsychologistsAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PsychologistsAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
