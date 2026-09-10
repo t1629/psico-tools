@@ -4,6 +4,9 @@ namespace PsychologistsAPI.Models
 {
     public class usuarioDto
     {
+        [Key]
+        public int Id { get; set; }
+
         [Required]
         public string Name { get; set; }
 
