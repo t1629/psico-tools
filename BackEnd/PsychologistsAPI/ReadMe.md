@@ -50,10 +50,13 @@ Endpoints de Disponibilidad (/api/disponibilidades)
 1.3 Endpoints de login (/api/login)
 --------------------------------------------------------------------------------
 -POST /api/login   
+## hecho
 
 1.4 Endpoints de session (/api/session)
 --------------------------------------------------------------------------------
 -GET /api/session
+## hecho
+
 
 1.5 Endpoints de logout (/api/logout)
 --------------------------------------------------------------------------------
