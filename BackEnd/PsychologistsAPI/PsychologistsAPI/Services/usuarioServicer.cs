@@ -22,7 +22,7 @@ namespace PsychologistsAPI.Services
 
         public async Task<usuarioDto?> getUser(int id)
         {
-            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id);
+            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id   && u.Estado == true);
 
             if (user == null)
 
@@ -53,10 +53,10 @@ namespace PsychologistsAPI.Services
 
             var user = new Usuario
             {
-               Nombre = dto.Name,
-               PasswordHash = dto.PasswordHash,
-               Email = dto.Email,
-
+                Nombre = dto.Name,
+                PasswordHash = dto.PasswordHash,
+                Email = dto.Email,
+                Estado = true,
             };
 
             _context.Usuarios.Add(user);
@@ -72,5 +72,52 @@ namespace PsychologistsAPI.Services
             };
 
         }
+
+        public async Task<usuarioDto?> putUser(usuarioDto dto, int id)
+        {
+            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id && u.Estado == true);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            if (!dto.Email.Contains("@"))
+                throw new ArgumentException("El email no tiene un formato válido.");
+
+
+            user.Nombre = dto.Name;
+            user.Email = dto.Email;
+            user.PasswordHash = dto.PasswordHash;
+
+            await _context.SaveChangesAsync();
+
+
+            return new usuarioDto
+            {
+                Name = user.Nombre,
+                Email = user.Email,
+                PasswordHash = user.PasswordHash,
+            };
+        }
+       
+
+
+        public async Task<bool> softDeleteUser(int id)
+        {
+            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id);
+
+            if(user == null)
+            {
+                return false;
+            }
+
+            user.Estado = false;
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+        
     }
 }
