@@ -27,6 +27,10 @@ namespace PsychologistsAPI
 
             builder.Services.AddScoped<LoginService>();
             builder.Services.AddScoped<sessionService>();
+            builder.Services.AddScoped<DisponibilidadService>();
+            builder.Services.AddScoped<TurnoService>();
+            builder.Services.AddScoped<AgendaService>();
+            builder.Services.AddScoped<PlanTurnoService>();
 
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
