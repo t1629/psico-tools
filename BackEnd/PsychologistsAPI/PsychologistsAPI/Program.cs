@@ -27,6 +27,7 @@ namespace PsychologistsAPI
 
             builder.Services.AddScoped<LoginService>();
             builder.Services.AddScoped<sessionService>();
+            builder.Services.AddScoped<DisponibilidadService>();
 
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
