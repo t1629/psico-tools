@@ -67,8 +67,8 @@ namespace PsychologistsAPI.Controllers
             }
         }
 
-        // GET: api/agenda/5/pacientes
-        [HttpGet("{id}/pacientes")]
+        // GET: api/agenda/pacientes/5
+        [HttpGet("pacientes/{id}")]
         public async Task<IActionResult> GetByIdWithPaciente(int id)
         {
             try

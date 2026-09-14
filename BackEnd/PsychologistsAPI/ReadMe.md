@@ -38,6 +38,7 @@ Endpoints de Disponibilidad (/api/disponibilidades)
 - GET    /api/turnos?desde=YYYY-MM-DD&hasta=YYYY-MM-DD : Listado de turnos en rango.
 -GET /api/turnos/{id}
 -GET /api/turnos/{id}/paciente
+-GET /api/turnos/{id}/paciente/{pacienteId} //esto se hara leugo para ver todos los turnos del paciente
 - POST   /api/turnos                                   : Agenda un nuevo turno.
 -PUT /api/turnos/{id}
 -PUT /api/turnos/{id}/estado
