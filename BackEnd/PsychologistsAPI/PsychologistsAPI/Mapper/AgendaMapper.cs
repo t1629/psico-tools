@@ -16,7 +16,8 @@ namespace PsychologistsAPI.Mapper
                 ConsultorioId = entity.ConsultorioId,
                 DiaSemana = entity.DiaSemana,
                 HoraInicio = entity.HoraInicio,
-                HoraFin = entity.HoraFin
+                HoraFin = entity.HoraFin,
+                Fecha = CalcularFechaDesdeDiaSemana(entity.DiaSemana)
             };
         }
 
@@ -32,6 +33,16 @@ namespace PsychologistsAPI.Mapper
                 HoraFin = dto.HoraFin
                 
             };
+        }
+
+        private static string CalcularFechaDesdeDiaSemana(string diaSemana)
+        {
+            var dias = new[] { "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado" };
+            var today = DateTime.Today;
+            var targetDay = Array.IndexOf(dias, diaSemana);
+            var diff = (targetDay - (int)today.DayOfWeek + 7) % 7;
+            var fecha = today.AddDays(diff);
+            return fecha.ToString("yyyy-MM-dd"); 
         }
     }
 
