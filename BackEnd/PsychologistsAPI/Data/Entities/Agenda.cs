@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PsychologistsAPI.Entities;
 
-public partial class Agendum
+public partial class Agenda
 {
     public int AgendaId { get; set; }
 
