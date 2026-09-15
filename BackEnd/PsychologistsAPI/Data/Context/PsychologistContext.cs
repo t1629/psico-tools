@@ -16,7 +16,7 @@ public partial class PsychologistContext : DbContext
     {
     }
 
-    public virtual DbSet<Agendum> Agenda { get; set; }
+    public virtual DbSet<Agenda> Agenda { get; set; }
 
     public virtual DbSet<Consultorio> Consultorios { get; set; }
 
@@ -42,7 +42,7 @@ public partial class PsychologistContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Agendum>(entity =>
+        modelBuilder.Entity<Agenda>(entity =>
         {
             entity.HasKey(e => e.AgendaId);
 

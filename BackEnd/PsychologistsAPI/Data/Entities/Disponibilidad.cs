@@ -17,7 +17,7 @@ public partial class Disponibilidad
 
     public int PsicologoId { get; set; }
 
-    public virtual ICollection<Agendum> Agenda { get; set; } = new List<Agendum>();
+    public virtual ICollection<Agenda> Agenda { get; set; } = new List<Agenda>();
 
     public virtual Psicologo Psicologo { get; set; } = null!;
 }

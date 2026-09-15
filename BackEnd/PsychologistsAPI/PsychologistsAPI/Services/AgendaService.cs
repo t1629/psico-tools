@@ -2,6 +2,7 @@ using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using PsychologistsAPI.Entities;
 using PsychologistsAPI.Models;
+using PsychologistsAPI.Mapper;
 
 namespace PsychologistsAPI.Services
 {
@@ -16,38 +17,43 @@ namespace PsychologistsAPI.Services
 
         public async Task<List<AgendaDto>> GetAll()
         {
-            return await _context.Agenda
-                .Select(a => MapToDto(a))
+            var agendas = await _context.Agenda
+                .Include(a => a.Psicologo) 
                 .ToListAsync();
+
+            return agendas.Select(a => AgendaMapper.ToDto(a)).ToList();
         }
 
         public async Task<List<AgendaDto>> GetByDate(DateOnly? fecha)
         {
-            var query = _context.Agenda.AsQueryable();
+            var query = _context.Agenda
+                .Include(a => a.Psicologo) 
+                .AsQueryable();
 
             // Por ahora la entidad Agenda trabaja con DiaSemana.
             // El filtro por fecha se podrá ajustar cuando se defina
             // la lógica completa de agenda/disponibilidad.
 
-            return await query
-                .Select(a => MapToDto(a))
-                .ToListAsync();
+            var agendas = await query.ToListAsync();
+            return agendas.Select(a => AgendaMapper.ToDto(a)).ToList();
         }
 
         public async Task<AgendaDto?> GetById(int id)
         {
             var agenda = await _context.Agenda
+                .Include(a => a.Psicologo) 
                 .FirstOrDefaultAsync(a => a.AgendaId == id);
 
             if (agenda == null)
                 return null;
 
-            return MapToDto(agenda);
+            return AgendaMapper.ToDto(agenda);
         }
 
         public async Task<AgendaDto?> GetByIdWithPaciente(int id)
         {
             var agenda = await _context.Agenda
+                .Include(a => a.Psicologo) 
                 .Include(a => a.Turno)
                 .ThenInclude(t => t!.Paciente)
                 .FirstOrDefaultAsync(a => a.AgendaId == id);
@@ -55,7 +61,7 @@ namespace PsychologistsAPI.Services
             if (agenda == null)
                 return null;
 
-            return MapToDto(agenda);
+            return AgendaMapper.ToDto(agenda);
         }
 
         public async Task<AgendaDto> Create(AgendaDto dto)
@@ -67,28 +73,23 @@ namespace PsychologistsAPI.Services
                 );
             }
 
-            var agenda = new Agendum
-            {
-                ConsultorioId = dto.ConsultorioId,
-                DiaSemana = dto.DiaSemana,
-                DisponibilidadId = dto.DisponibilidadId,
-                Estado = dto.Estado,
-                HoraInicio = dto.HoraInicio,
-                HoraFin = dto.HoraFin,
-                PsicologoId = dto.PsicologoId,
-                TurnoId = dto.TurnoId
-            };
+            var agenda = AgendaMapper.ToEntity(dto);
 
             _context.Agenda.Add(agenda);
-
             await _context.SaveChangesAsync();
 
-            return MapToDto(agenda);
+            
+            agenda = await _context.Agenda
+                .Include(a => a.Psicologo)
+                .FirstAsync(a => a.AgendaId == agenda.AgendaId);
+
+            return AgendaMapper.ToDto(agenda);
         }
 
         public async Task<AgendaDto?> Update(AgendaDto dto)
         {
             var agenda = await _context.Agenda
+                .Include(a => a.Psicologo)
                 .FirstOrDefaultAsync(a => a.AgendaId == dto.AgendaId);
 
             if (agenda == null)
@@ -101,6 +102,7 @@ namespace PsychologistsAPI.Services
                 );
             }
 
+            
             agenda.ConsultorioId = dto.ConsultorioId;
             agenda.DiaSemana = dto.DiaSemana;
             agenda.DisponibilidadId = dto.DisponibilidadId;
@@ -112,7 +114,7 @@ namespace PsychologistsAPI.Services
 
             await _context.SaveChangesAsync();
 
-            return MapToDto(agenda);
+            return AgendaMapper.ToDto(agenda);
         }
 
         public async Task<bool> Delete(int id)
@@ -124,26 +126,9 @@ namespace PsychologistsAPI.Services
                 return false;
 
             _context.Agenda.Remove(agenda);
-
             await _context.SaveChangesAsync();
 
             return true;
-        }
-
-        private static AgendaDto MapToDto(Agendum agenda)
-        {
-            return new AgendaDto
-            {
-                AgendaId = agenda.AgendaId,
-                ConsultorioId = agenda.ConsultorioId,
-                DiaSemana = agenda.DiaSemana,
-                DisponibilidadId = agenda.DisponibilidadId,
-                Estado = agenda.Estado,
-                HoraInicio = agenda.HoraInicio,
-                HoraFin = agenda.HoraFin,
-                PsicologoId = agenda.PsicologoId,
-                TurnoId = agenda.TurnoId
-            };
         }
     }
 }
