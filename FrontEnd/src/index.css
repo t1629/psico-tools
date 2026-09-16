@@ -8,6 +8,7 @@
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);
+  --nav-bg: #f8f7fb;
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
@@ -41,6 +42,7 @@
     --accent-bg: rgba(192, 132, 252, 0.15);
     --accent-border: rgba(192, 132, 252, 0.5);
     --social-bg: rgba(47, 48, 58, 0.5);
+    --nav-bg: #1d1e26;
     --shadow:
       rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
   }
@@ -55,15 +57,27 @@ body {
 }
 
 #root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
+  width: 100%;
   min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+}
+
+.app-shell {
+  min-height: 100svh;
+}
+
+.app-content {
+  min-height: 100svh;
   box-sizing: border-box;
+  margin-left: 240px;
+  padding: 32px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .app-content {
+    margin-left: 190px;
+    padding: 24px 16px;
+  }
 }
 
 h1,
