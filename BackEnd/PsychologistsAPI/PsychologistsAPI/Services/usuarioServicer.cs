@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PsychologistsAPI.Entities;
+using Data.Entities;
 using PsychologistsAPI.Models;
 using System.Collections.Generic;
 using System.Linq;

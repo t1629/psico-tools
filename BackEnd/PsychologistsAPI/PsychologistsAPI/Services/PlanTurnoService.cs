@@ -1,6 +1,6 @@
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
-using PsychologistsAPI.Entities;
+using Data.Entities;
 using PsychologistsAPI.Models;
 
 namespace PsychologistsAPI.Services
@@ -35,7 +35,6 @@ namespace PsychologistsAPI.Services
         public async Task<PlanTurnoDto?> GetByIdWithPaciente(int id)
         {
             var plan = await _context.PlanTurnos
-                .Include(p => p.Paciente)
                 .FirstOrDefaultAsync(p => p.PlanTurnoId == id);
 
             if (plan == null)
@@ -59,7 +58,7 @@ namespace PsychologistsAPI.Services
                 FehcaFin = dto.FehcaFin,
                 CantidadTurno = dto.CantidadTurno,
                 PsicologoId = dto.PsicologoId,
-                PacienteId = dto.PacienteId
+               
             };
 
             _context.PlanTurnos.Add(plan);
@@ -88,7 +87,7 @@ namespace PsychologistsAPI.Services
             plan.FehcaFin = dto.FehcaFin;
             plan.CantidadTurno = dto.CantidadTurno;
             plan.PsicologoId = dto.PsicologoId;
-            plan.PacienteId = dto.PacienteId;
+           
 
             await _context.SaveChangesAsync();
 
@@ -119,7 +118,6 @@ namespace PsychologistsAPI.Services
                 FehcaFin = plan.FehcaFin,
                 CantidadTurno = plan.CantidadTurno,
                 PsicologoId = plan.PsicologoId,
-                PacienteId = plan.PacienteId
             };
         }
     }

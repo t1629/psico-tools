@@ -1,6 +1,6 @@
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
-using PsychologistsAPI.Entities;
+using Data.Entities;
 using PsychologistsAPI.Models;
 
 namespace PsychologistsAPI.Services
@@ -68,13 +68,13 @@ namespace PsychologistsAPI.Services
                 Fehca = dto.Fehca,
                 Hora = dto.Hora,
                 Estado = dto.Estado,
-                Duarcion = dto.Duarcion,
-                TipoAsistencia = dto.TipoAsistencia,
+                Minutos = dto.Minutos,
+                Asistencia = dto.Asistencia,
                 Url = dto.Url,
                 PsicologoId = dto.PsicologoId,
                 PacienteId = dto.PacienteId,
-                PlanTurnoId = dto.PlanTurnoId,
-                ConsultorioId = dto.ConsultorioId
+                CantidadTurnos = dto.CantidadTurnos,
+                ModalidadVirtual = dto.ModalidadVirtual
             };
 
             _context.Turnos.Add(turno);
@@ -94,13 +94,13 @@ namespace PsychologistsAPI.Services
             turno.Fehca = dto.Fehca;
             turno.Hora = dto.Hora;
             turno.Estado = dto.Estado;
-            turno.Duarcion = dto.Duarcion;
-            turno.TipoAsistencia = dto.TipoAsistencia;
+            turno.Minutos = dto.Minutos;
+            turno.Asistencia = dto.Asistencia;
             turno.Url = dto.Url;
             turno.PsicologoId = dto.PsicologoId;
             turno.PacienteId = dto.PacienteId;
-            turno.PlanTurnoId = dto.PlanTurnoId;
-            turno.ConsultorioId = dto.ConsultorioId;
+            turno.ModalidadVirtual = dto.ModalidadVirtual;
+            turno.CantidadTurnos = dto.CantidadTurnos;
 
             await _context.SaveChangesAsync();
 
@@ -144,13 +144,13 @@ namespace PsychologistsAPI.Services
                 Fehca = turno.Fehca,
                 Hora = turno.Hora,
                 Estado = turno.Estado,
-                Duarcion = turno.Duarcion,
-                TipoAsistencia = turno.TipoAsistencia,
+                Minutos = turno.Minutos,
+                Asistencia = turno.Asistencia,
                 Url = turno.Url,
                 PsicologoId = turno.PsicologoId,
                 PacienteId = turno.PacienteId,
-                PlanTurnoId = turno.PlanTurnoId,
-                ConsultorioId = turno.ConsultorioId
+                CantidadTurnos = turno.CantidadTurnos,
+                ModalidadVirtual = turno.ModalidadVirtual
             };
         }
     }

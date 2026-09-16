@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PsychologistsAPI.Entities;
+namespace Data.Entities;
 
 public partial class Turno
 {
@@ -13,9 +13,9 @@ public partial class Turno
 
     public string? Estado { get; set; }
 
-    public int? Duarcion { get; set; }
+    public int? Minutos { get; set; }
 
-    public string? TipoAsistencia { get; set; }
+    public bool? Asistencia { get; set; }
 
     public string? Url { get; set; }
 
@@ -25,17 +25,13 @@ public partial class Turno
 
     public int? PlanTurnoId { get; set; }
 
-    public int? ConsultorioId { get; set; }
+    public bool ModalidadVirtual { get; set; }
 
-    public virtual ICollection<Agenda> Agenda { get; set; } = new List<Agenda>();
-
-    public virtual Consultorio? Consultorio { get; set; }
+    public int? CantidadTurnos { get; set; }
 
     public virtual ICollection<Notificacion> Notificacions { get; set; } = new List<Notificacion>();
 
     public virtual Paciente? Paciente { get; set; }
-
-    public virtual PlanTurno? PlanTurno { get; set; }
 
     public virtual Psicologo? Psicologo { get; set; }
 }

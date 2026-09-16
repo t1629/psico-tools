@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PsychologistsAPI.Entities;
+namespace Data.Entities;
 
 public partial class Consultorio
 {
@@ -13,7 +13,13 @@ public partial class Consultorio
 
     public int? Nuemro { get; set; }
 
+    public bool? Presencial { get; set; }
+
+    public bool? Virtual { get; set; }
+
+    public int? TipoModalidadId { get; set; }
+
     public virtual ICollection<Agenda> Agenda { get; set; } = new List<Agenda>();
 
-    public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
+    public virtual TipoModalidad? TipoModalidad { get; set; }
 }

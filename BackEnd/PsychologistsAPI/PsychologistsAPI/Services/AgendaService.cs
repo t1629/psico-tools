@@ -1,6 +1,6 @@
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
-using PsychologistsAPI.Entities;
+using Data.Entities;
 using PsychologistsAPI.Models;
 using PsychologistsAPI.Mapper;
 
@@ -54,8 +54,6 @@ namespace PsychologistsAPI.Services
         {
             var agenda = await _context.Agenda
                 .Include(a => a.Psicologo) 
-                .Include(a => a.Turno)
-                .ThenInclude(t => t!.Paciente)
                 .FirstOrDefaultAsync(a => a.AgendaId == id);
 
             if (agenda == null)
@@ -105,12 +103,11 @@ namespace PsychologistsAPI.Services
             
             agenda.ConsultorioId = dto.ConsultorioId;
             agenda.DiaSemana = dto.DiaSemana;
-            agenda.DisponibilidadId = dto.DisponibilidadId;
             agenda.Estado = dto.Estado;
             agenda.HoraInicio = dto.HoraInicio;
             agenda.HoraFin = dto.HoraFin;
             agenda.PsicologoId = dto.PsicologoId;
-            agenda.TurnoId = dto.TurnoId;
+            
 
             await _context.SaveChangesAsync();
 

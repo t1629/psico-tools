@@ -10,9 +10,9 @@ namespace PsychologistsAPI.Models
 
         public string? Estado { get; set; }
 
-        public int? Duarcion { get; set; }
+        public int? Minutos { get; set; }
 
-        public string? TipoAsistencia { get; set; }
+        public bool? Asistencia { get; set; }
 
         public string? Url { get; set; }
 
@@ -20,8 +20,9 @@ namespace PsychologistsAPI.Models
 
         public int? PacienteId { get; set; }
 
-        public int? PlanTurnoId { get; set; }
+        public bool ModalidadVirtual { get; set; }
 
-        public int? ConsultorioId { get; set; }
+        public int? CantidadTurnos { get; set; }
+
     }
 }

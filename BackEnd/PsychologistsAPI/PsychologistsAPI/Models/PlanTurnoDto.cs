@@ -12,6 +12,6 @@ namespace PsychologistsAPI.Models
 
         public int? PsicologoId { get; set; }
 
-        public int? PacienteId { get; set; }
+        
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using PsychologistsAPI.Entities;
 
 namespace Data.Context;
 
@@ -20,8 +20,6 @@ public partial class PsychologistContext : DbContext
 
     public virtual DbSet<Consultorio> Consultorios { get; set; }
 
-    public virtual DbSet<Disponibilidad> Disponibilidads { get; set; }
-
     public virtual DbSet<MedioEnvio> MedioEnvios { get; set; }
 
     public virtual DbSet<Notificacion> Notificacions { get; set; }
@@ -34,11 +32,15 @@ public partial class PsychologistContext : DbContext
 
     public virtual DbSet<Rol> Rols { get; set; }
 
+    public virtual DbSet<TipoModalidad> TipoModalidads { get; set; }
+
     public virtual DbSet<Turno> Turnos { get; set; }
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
-  
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=.\\SQLSERVER;Database=PsyClinicDB;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -54,7 +56,6 @@ public partial class PsychologistContext : DbContext
                 .HasMaxLength(15)
                 .IsFixedLength()
                 .HasColumnName("diaSemana");
-            entity.Property(e => e.DisponibilidadId).HasColumnName("disponibilidadId");
             entity.Property(e => e.Estado)
                 .HasMaxLength(15)
                 .IsFixedLength()
@@ -62,27 +63,16 @@ public partial class PsychologistContext : DbContext
             entity.Property(e => e.HoraFin).HasColumnName("horaFin");
             entity.Property(e => e.HoraInicio).HasColumnName("horaInicio");
             entity.Property(e => e.PsicologoId).HasColumnName("psicologoId");
-            entity.Property(e => e.TurnoId).HasColumnName("turnoId");
 
             entity.HasOne(d => d.Consultorio).WithMany(p => p.Agenda)
                 .HasForeignKey(d => d.ConsultorioId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_agenda_consultorio");
 
-            entity.HasOne(d => d.Disponibilidad).WithMany(p => p.Agenda)
-                .HasForeignKey(d => d.DisponibilidadId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_agenda_disponibilidad");
-
             entity.HasOne(d => d.Psicologo).WithMany(p => p.Agenda)
                 .HasForeignKey(d => d.PsicologoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_agenda_psciologo");
-
-            entity.HasOne(d => d.Turno).WithMany(p => p.Agenda)
-                .HasForeignKey(d => d.TurnoId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_agenda_turno");
         });
 
         modelBuilder.Entity<Consultorio>(entity =>
@@ -99,26 +89,13 @@ public partial class PsychologistContext : DbContext
                 .IsFixedLength()
                 .HasColumnName("nomrbe");
             entity.Property(e => e.Nuemro).HasColumnName("nuemro");
-        });
+            entity.Property(e => e.Presencial).HasColumnName("presencial");
+            entity.Property(e => e.TipoModalidadId).HasColumnName("tipoModalidadId");
+            entity.Property(e => e.Virtual).HasColumnName("virtual");
 
-        modelBuilder.Entity<Disponibilidad>(entity =>
-        {
-            entity.ToTable("disponibilidad");
-
-            entity.Property(e => e.DisponibilidadId).HasColumnName("disponibilidadId");
-            entity.Property(e => e.Activo).HasColumnName("activo");
-            entity.Property(e => e.DiaSemana)
-                .HasMaxLength(15)
-                .IsFixedLength()
-                .HasColumnName("diaSemana");
-            entity.Property(e => e.HorarioFin).HasColumnName("horarioFin");
-            entity.Property(e => e.HorarioInicio).HasColumnName("horarioInicio");
-            entity.Property(e => e.PsicologoId).HasColumnName("psicologoId");
-
-            entity.HasOne(d => d.Psicologo).WithMany(p => p.Disponibilidads)
-                .HasForeignKey(d => d.PsicologoId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_disponibilidad_psicologo");
+            entity.HasOne(d => d.TipoModalidad).WithMany(p => p.Consultorios)
+                .HasForeignKey(d => d.TipoModalidadId)
+                .HasConstraintName("FK_Consultorio_TipoModalidad");
         });
 
         modelBuilder.Entity<MedioEnvio>(entity =>
@@ -174,10 +151,6 @@ public partial class PsychologistContext : DbContext
                 .HasMaxLength(100)
                 .IsFixedLength()
                 .HasColumnName("apellido");
-            entity.Property(e => e.Direccion)
-                .HasMaxLength(200)
-                .IsFixedLength()
-                .HasColumnName("direccion");
             entity.Property(e => e.Dni)
                 .HasMaxLength(20)
                 .IsFixedLength()
@@ -208,12 +181,7 @@ public partial class PsychologistContext : DbContext
             entity.Property(e => e.CantidadTurno).HasColumnName("cantidadTurno");
             entity.Property(e => e.FechaInicio).HasColumnName("fechaInicio");
             entity.Property(e => e.FehcaFin).HasColumnName("fehcaFin");
-            entity.Property(e => e.PacienteId).HasColumnName("pacienteId");
             entity.Property(e => e.PsicologoId).HasColumnName("psicologoId");
-
-            entity.HasOne(d => d.Paciente).WithMany(p => p.PlanTurnos)
-                .HasForeignKey(d => d.PacienteId)
-                .HasConstraintName("FK_planTurno_paciente");
 
             entity.HasOne(d => d.Psicologo).WithMany(p => p.PlanTurnos)
                 .HasForeignKey(d => d.PsicologoId)
@@ -268,39 +236,42 @@ public partial class PsychologistContext : DbContext
                 .HasColumnName("nombre");
         });
 
+        modelBuilder.Entity<TipoModalidad>(entity =>
+        {
+            entity.HasKey(e => e.TipoModalidadId).HasName("PK__tipoModa__D591EBADE322327E");
+
+            entity.ToTable("tipoModalidad");
+
+            entity.Property(e => e.TipoModalidadId)
+                .ValueGeneratedNever()
+                .HasColumnName("tipoModalidadId");
+            entity.Property(e => e.ModalidadPresencial).HasColumnName("modalidadPresencial");
+            entity.Property(e => e.ModalidadVirtual).HasColumnName("modalidadVirtual");
+        });
+
         modelBuilder.Entity<Turno>(entity =>
         {
             entity.ToTable("turno");
 
             entity.Property(e => e.TurnoId).HasColumnName("turnoId");
-            entity.Property(e => e.ConsultorioId).HasColumnName("consultorioId");
-            entity.Property(e => e.Duarcion).HasColumnName("duarcion");
+            entity.Property(e => e.Asistencia).HasColumnName("asistencia");
+            entity.Property(e => e.CantidadTurnos).HasColumnName("cantidadTurnos");
             entity.Property(e => e.Estado)
                 .HasMaxLength(50)
                 .IsFixedLength()
                 .HasColumnName("estado");
             entity.Property(e => e.Fehca).HasColumnName("fehca");
             entity.Property(e => e.Hora).HasColumnName("hora");
+            entity.Property(e => e.Minutos).HasColumnName("minutos");
+            entity.Property(e => e.ModalidadVirtual).HasColumnName("modalidadVirtual");
             entity.Property(e => e.PacienteId).HasColumnName("pacienteId");
             entity.Property(e => e.PlanTurnoId).HasColumnName("planTurnoId");
             entity.Property(e => e.PsicologoId).HasColumnName("psicologoId");
-            entity.Property(e => e.TipoAsistencia)
-                .HasMaxLength(50)
-                .IsFixedLength()
-                .HasColumnName("tipoAsistencia");
             entity.Property(e => e.Url).HasColumnName("url");
-
-            entity.HasOne(d => d.Consultorio).WithMany(p => p.Turnos)
-                .HasForeignKey(d => d.ConsultorioId)
-                .HasConstraintName("FK_turno_consultorio");
 
             entity.HasOne(d => d.Paciente).WithMany(p => p.Turnos)
                 .HasForeignKey(d => d.PacienteId)
                 .HasConstraintName("FK_turno_paciente");
-
-            entity.HasOne(d => d.PlanTurno).WithMany(p => p.Turnos)
-                .HasForeignKey(d => d.PlanTurnoId)
-                .HasConstraintName("FK_turno_planTurno");
 
             entity.HasOne(d => d.Psicologo).WithMany(p => p.Turnos)
                 .HasForeignKey(d => d.PsicologoId)
