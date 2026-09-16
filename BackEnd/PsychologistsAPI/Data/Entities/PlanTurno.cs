@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PsychologistsAPI.Entities;
+namespace Data.Entities;
 
 public partial class PlanTurno
 {
@@ -15,11 +15,5 @@ public partial class PlanTurno
 
     public int? PsicologoId { get; set; }
 
-    public int? PacienteId { get; set; }
-
-    public virtual Paciente? Paciente { get; set; }
-
     public virtual Psicologo? Psicologo { get; set; }
-
-    public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
 }

@@ -1,6 +1,6 @@
 ﻿using Data.Context;
 using Microsoft.AspNetCore.Http.HttpResults;
-using PsychologistsAPI.Entities;
+using Data.Entities;
 using PsychologistsAPI.Models;
 using System.Collections.Generic;
 using System.Linq;

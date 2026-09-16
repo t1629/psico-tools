@@ -27,7 +27,6 @@ namespace PsychologistsAPI
 
             builder.Services.AddScoped<LoginService>();
             builder.Services.AddScoped<sessionService>();
-            builder.Services.AddScoped<DisponibilidadService>();
             builder.Services.AddScoped<TurnoService>();
             builder.Services.AddScoped<AgendaService>();
             builder.Services.AddScoped<PlanTurnoService>();
@@ -57,7 +56,25 @@ namespace PsychologistsAPI
                           .AllowAnyMethod();
                 });
             });
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("ReactNativeDev", policy =>
+                {
+                    // Desarrollo: permitir todo (más cómodo). En producción, usar WithOrigins("https://tu-dominio.com")
+                    policy.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .WithExposedHeaders("Authorization");
+                });
 
+                // Política de producción (ejemplo)
+                options.AddPolicy("ProdPolicy", policy =>
+                {
+                    policy.WithOrigins("https://localhost:1801/")
+                          .AllowAnyMethod()
+                          .AllowAnyHeader();
+                });
+            });
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -111,6 +128,7 @@ namespace PsychologistsAPI
                 app.UseCors("ProdPolicy");
             }
 
+            app.UseCors("ReactNativeDev");
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();

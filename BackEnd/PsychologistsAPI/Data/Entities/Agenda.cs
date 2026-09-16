@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PsychologistsAPI.Entities;
+namespace Data.Entities;
 
 public partial class Agenda
 {
@@ -17,17 +17,9 @@ public partial class Agenda
 
     public int PsicologoId { get; set; }
 
-    public int TurnoId { get; set; }
-
     public int ConsultorioId { get; set; }
-
-    public int DisponibilidadId { get; set; }
 
     public virtual Consultorio Consultorio { get; set; } = null!;
 
-    public virtual Disponibilidad Disponibilidad { get; set; } = null!;
-
     public virtual Psicologo Psicologo { get; set; } = null!;
-
-    public virtual Turno Turno { get; set; } = null!;
 }
