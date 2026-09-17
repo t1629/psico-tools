@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Login } from "../services/authService";
+import "../styles/UI/LoginForm.css";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,21 +25,57 @@ const LoginPage = () => {
     }
   };
   return (
-    <>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Iniciar Sesión</button>
+    <div className="login-wrapper">
+      <form onSubmit={handleLogin} className="login-card">
+        <h2 className="title">Iniciar sesion</h2>
+
+        <div className="input-group">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        <div className="input-group">
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        <button type="submit" className="login-button">
+          Iniciar Sesión
+        </button>
+        {/* <a href="" className="forgot-password">
+          ¿Olvidaste tu contraseña?
+        </a>
+        <div className="social-section">
+          <div className="separator">
+            <span>or</span>
+          </div>
+
+          <button type="button" className="social-btn">
+            Iniciar sesión con Google
+          </button>
+
+          <button type="button" className="social-btn">
+            Iniciar sesión con Facebook
+          </button>
+
+          <p className="signup-text">
+            ¿No tienes una cuenta? <a href="#">Crear cuenta</a>
+          </p>
+        </div> */}
       </form>
-    </>
+    </div>
   );
 };
 

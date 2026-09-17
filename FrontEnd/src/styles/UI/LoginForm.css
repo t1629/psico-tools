@@ -1,0 +1,159 @@
+/* 1. Contenedor centrado para toda la pantalla */
+:root {
+  --bk-c: #0f172a;
+  --txt: #f8fafc;
+  --bt: #38bdf8;
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--bk-c);
+  border: none;
+}
+
+/* 1. Fondo tipo card, centrado y alineando su contenido */
+.login-card {
+  background-color: #1e293b;
+  width: 400px;
+
+  padding: 40px 0;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Contenedor para alinear el 75% */
+.input-group {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+/* 2. Labels blancos y chicos */
+.input-group label {
+  color: white;
+  font-size: 12px;
+  margin-bottom: 6px;
+  font-family: sans-serif;
+  text-align: start;
+}
+
+/* 3. Inputs (heredan el 75% de .input-group) */
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  background-color: #0f172a;
+  color: white;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #38bdf8;
+}
+
+/* 4. Botón blanco, ocupa 75% y sin bordes */
+.login-button {
+  width: 85%;
+  background-color: white;
+  color: #090e17;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: opacity 0.2s ease;
+  background-color: var(--bt);
+}
+
+.login-button:hover {
+  opacity: 0.9;
+}
+.forgot-password {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.4s ease;
+  color: white;
+  margin-top: 1rem;
+}
+.forgot-password:hover {
+  text-decoration-color: white;
+}
+
+.social-section {
+  width: 85%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.separator::before,
+.separator::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid var(--color-borde, #334155);
+}
+
+.separator span {
+  padding: 0 10px;
+}
+
+.social-btn {
+  background-color: transparent;
+  color: white;
+  border: 1px solid var(--color-borde, #334155);
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.social-btn:hover {
+  background-color: #334155;
+}
+
+.signup-text {
+  color: white;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.signup-text a {
+  color: white;
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.4s ease;
+}
+
+.signup-text a:hover {
+  text-decoration-color: white;
+}
+
+.title {
+  margin-bottom: 1rem;
+}
