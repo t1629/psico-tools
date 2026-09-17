@@ -6,22 +6,22 @@ function Nav() {
     <nav className="side-nav" aria-label="Navegación principal">
       <ul className="side-nav__list">
         <li className="side-nav__item">
-          <Link to="Inicio" className="side-nav__link">
+          <Link to="/inicio" className="side-nav__link">
             Inicio
           </Link>
         </li>
         <li className="side-nav__item">
-          <Link to="/Paciente" className="side-nav__link">
+          <Link to="/paciente" className="side-nav__link">
             Paciente
           </Link>
         </li>
         <li className="side-nav__item">
-          <Link to="Turnos" className="side-nav__link">
+          <Link to="/turnos" className="side-nav__link">
             Turnos
           </Link>
         </li>
         <li className="side-nav__item">
-          <Link to="Login" className="side-nav__link">
+          <Link to="/login" className="side-nav__link">
             Login
           </Link>
         </li>

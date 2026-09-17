@@ -5,7 +5,7 @@ import { useState } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useCalendar } from "../hooks/useCalendar";
 import { toCalendarEvents } from "../utils/calendarEvents";
-import "../styles/pages/Inicio.css";
+import "../styles/layout/Inicio.css";
 
 const locales = { es };
 const localizer = dateFnsLocalizer({

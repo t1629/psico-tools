@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Login } from "../services/authService";
 import "../styles/UI/LoginForm.css";
+import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -20,6 +21,7 @@ const LoginPage = () => {
 
       // Redirigir o actualizar estado
       console.log("Login exitoso", data);
+      navigate("/inicio");
     } catch (error) {
       alert(error.message);
     }
@@ -54,26 +56,6 @@ const LoginPage = () => {
         <button type="submit" className="login-button">
           Iniciar Sesión
         </button>
-        {/* <a href="" className="forgot-password">
-          ¿Olvidaste tu contraseña?
-        </a>
-        <div className="social-section">
-          <div className="separator">
-            <span>or</span>
-          </div>
-
-          <button type="button" className="social-btn">
-            Iniciar sesión con Google
-          </button>
-
-          <button type="button" className="social-btn">
-            Iniciar sesión con Facebook
-          </button>
-
-          <p className="signup-text">
-            ¿No tienes una cuenta? <a href="#">Crear cuenta</a>
-          </p>
-        </div> */}
       </form>
     </div>
   );
