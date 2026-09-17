@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PsychologistsAPI.Entities;
+namespace Data.Entities;
 
 public partial class Psicologo
 {
@@ -21,9 +21,7 @@ public partial class Psicologo
 
     public int? RolId { get; set; }
 
-    public virtual ICollection<Agendum> Agenda { get; set; } = new List<Agendum>();
-
-    public virtual ICollection<Disponibilidad> Disponibilidads { get; set; } = new List<Disponibilidad>();
+    public virtual ICollection<Agenda> Agenda { get; set; } = new List<Agenda>();
 
     public virtual ICollection<PlanTurno> PlanTurnos { get; set; } = new List<PlanTurno>();
 
