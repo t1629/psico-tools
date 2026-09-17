@@ -3,6 +3,7 @@ Solution/
  │    ├── Controllers/           ← Endpoints HTTP
  │    ├── Models/                ← DTOs / ViewModels
  │    ├── Services/              ← Lógica de negocio
+      ├── Mappper/               ← Conexion de Entity con DTO          
  │    ├── Program.cs             ← Configuración inicial
  │    └── appsettings.json       ← Configuración
  │
@@ -37,9 +38,11 @@ Endpoints de Disponibilidad (/api/disponibilidades)
 - GET    /api/turnos?desde=YYYY-MM-DD&hasta=YYYY-MM-DD : Listado de turnos en rango.
 -GET /api/turnos/{id}
 -GET /api/turnos/{id}/paciente
+-GET /api/turnos/{id}/paciente/{pacienteId} //esto se hara leugo para ver todos los turnos del paciente
 - POST   /api/turnos                                   : Agenda un nuevo turno.
 -PUT /api/turnos/{id}
 -PUT /api/turnos/{id}/estado
+-PUT /api/turnos/paciente/{pacienteId}
 -DELETE /api/turnos/{id}
 
 
@@ -49,10 +52,13 @@ Endpoints de Disponibilidad (/api/disponibilidades)
 1.3 Endpoints de login (/api/login)
 --------------------------------------------------------------------------------
 -POST /api/login   
+## hecho
 
 1.4 Endpoints de session (/api/session)
 --------------------------------------------------------------------------------
 -GET /api/session
+## hecho
+
 
 1.5 Endpoints de logout (/api/logout)
 --------------------------------------------------------------------------------
@@ -79,3 +85,22 @@ Endpoints de Disponibilidad (/api/disponibilidades)
 -GET /api/planTurnos
 -GET /api/planTurnos/{id}/paciente
 -POST /api/planTurnos
+-PUT /api/planTurnos/{id}
+-PUT /api/planTurnos/{id}/paciente
+-DELETE /api/planTurnos/{id}
+
+
+1.9 Endpoints de notificacion (/api/notificaciones)
+--------------------------------------------------------------------------------
+-GET  /api/notificaciones
+-GET  /api/notificaciones/{id}
+-GET  /api/notificaciones/turno/{turnoId}
+-POST /api/notificaciones
+-PUT  /api/notificaciones/{id}
+-DELETE  /api/notificaciones/{id}
+
+
+------------------------------------------------
+
+## Se empezo con el mapeo a la base de datos
+## Ver bien el gitignore que eso tare problemas

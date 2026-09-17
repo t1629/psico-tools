@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Data.Entities;
+
+public partial class Psicologo
+{
+    public int PsicologoId { get; set; }
+
+    public string Nombre { get; set; } = null!;
+
+    public string? Matricula { get; set; }
+
+    public string? Apellido { get; set; }
+
+    public string? Telefono { get; set; }
+
+    public string? Email { get; set; }
+
+    public int? UsuarioId { get; set; }
+
+    public int? RolId { get; set; }
+
+    public virtual ICollection<Agenda> Agenda { get; set; } = new List<Agenda>();
+
+    public virtual ICollection<PlanTurno> PlanTurnos { get; set; } = new List<PlanTurno>();
+
+    public virtual Rol? Rol { get; set; }
+
+    public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
+
+    public virtual Usuario? Usuario { get; set; }
+}
