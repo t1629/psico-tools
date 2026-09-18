@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Login } from "../services/authService";
 import "../styles/UI/LoginForm.css";
 import { useNavigate } from "react-router-dom";
+import { Login as AuthContext } from "../context/authContext";
+
 const LoginPage = () => {
+  const { loginPage } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -17,7 +20,7 @@ const LoginPage = () => {
       const data = await Login(email, password);
 
       // Aquí puedes guardar el token en localStorage o context
-      localStorage.setItem("token", data.token);
+      loginPage(data.token);
 
       // Redirigir o actualizar estado
       console.log("Login exitoso", data);
@@ -26,6 +29,7 @@ const LoginPage = () => {
       alert(error.message);
     }
   };
+
   return (
     <div className="login-wrapper">
       <form onSubmit={handleLogin} className="login-card">
