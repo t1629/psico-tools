@@ -1,7 +1,9 @@
 import "../styles/UI/Nav.css";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import LogoutForm from "./LogoutCard";
 function Nav() {
+  const [showLogout, setShowLogout] = useState(false);
   return (
     <nav className="side-nav" aria-label="Navegación principal">
       <ul className="side-nav__list">
@@ -25,7 +27,16 @@ function Nav() {
             Login
           </Link>
         </li>
+        <li className="side-nav__item">
+          <button
+            className="side-nav__link"
+            onClick={() => setShowLogout(true)}
+          >
+            Cerrar sesión
+          </button>
+        </li>
       </ul>
+      {showLogout && <LogoutForm onClose={() => setShowLogout(false)} />}
     </nav>
   );
 }
