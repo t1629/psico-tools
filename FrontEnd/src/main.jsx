@@ -11,12 +11,12 @@ import "@fontsource/roboto/700.css";
 import AuthProvider from "./context/authContext";
 
 createRoot(document.getElementById("root")).render(
-  <AuthProvider>
-    <HashRouter>
+  <HashRouter>
+    <AuthProvider>
       <StrictMode>
         <Nav />
         <App />
       </StrictMode>
-    </HashRouter>
-  </AuthProvider>,
+    </AuthProvider>
+  </HashRouter>,
 );

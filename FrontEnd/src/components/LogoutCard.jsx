@@ -4,7 +4,6 @@ import { Login as AuthContext } from "../context/authContext";
 const LogoutForm = ({ onClose }) => {
   const { logout } = useContext(AuthContext);
 
-  const closeCard = () => {};
   return (
     <>
       <div>
