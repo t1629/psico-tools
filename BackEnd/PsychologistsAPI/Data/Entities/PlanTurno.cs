@@ -13,7 +13,5 @@ public partial class PlanTurno
 
     public int? CantidadTurno { get; set; }
 
-    public int? PsicologoId { get; set; }
-
-    public virtual Psicologo? Psicologo { get; set; }
+    public virtual ICollection<Paciente> Pacientes { get; set; } = new List<Paciente>();
 }

@@ -7,9 +7,7 @@ public partial class TipoModalidad
 {
     public int TipoModalidadId { get; set; }
 
-    public bool ModalidadPresencial { get; set; }
-
-    public bool ModalidadVirtual { get; set; }
+    public string Nombre { get; set; } = null!;
 
     public virtual ICollection<Consultorio> Consultorios { get; set; } = new List<Consultorio>();
 }

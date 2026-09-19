@@ -21,5 +21,9 @@ public partial class Paciente
 
     public string? NumeroPaciente { get; set; }
 
+    public int? PlanTurnoId { get; set; }
+
+    public virtual PlanTurno? PlanTurno { get; set; }
+
     public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
 }

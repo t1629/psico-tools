@@ -16,7 +16,7 @@ public partial class PsychologistContext : DbContext
     {
     }
 
-    public virtual DbSet<Agenda> Agenda { get; set; }
+    public virtual DbSet<Agendum> Agenda { get; set; }
 
     public virtual DbSet<Consultorio> Consultorios { get; set; }
 
@@ -44,7 +44,7 @@ public partial class PsychologistContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Agenda>(entity =>
+        modelBuilder.Entity<Agendum>(entity =>
         {
             entity.HasKey(e => e.AgendaId);
 
@@ -95,7 +95,7 @@ public partial class PsychologistContext : DbContext
 
             entity.HasOne(d => d.TipoModalidad).WithMany(p => p.Consultorios)
                 .HasForeignKey(d => d.TipoModalidadId)
-                .HasConstraintName("FK_Consultorio_TipoModalidad");
+                .HasConstraintName("FK_consultorio_tipoModalidad");
         });
 
         modelBuilder.Entity<MedioEnvio>(entity =>
@@ -167,10 +167,15 @@ public partial class PsychologistContext : DbContext
             entity.Property(e => e.NumeroPaciente)
                 .HasMaxLength(50)
                 .HasColumnName("numeroPaciente");
+            entity.Property(e => e.PlanTurnoId).HasColumnName("planTurnoId");
             entity.Property(e => e.Telefono)
                 .HasMaxLength(20)
                 .IsFixedLength()
                 .HasColumnName("telefono");
+
+            entity.HasOne(d => d.PlanTurno).WithMany(p => p.Pacientes)
+                .HasForeignKey(d => d.PlanTurnoId)
+                .HasConstraintName("FK_paciente_planTurno");
         });
 
         modelBuilder.Entity<PlanTurno>(entity =>
@@ -181,11 +186,6 @@ public partial class PsychologistContext : DbContext
             entity.Property(e => e.CantidadTurno).HasColumnName("cantidadTurno");
             entity.Property(e => e.FechaInicio).HasColumnName("fechaInicio");
             entity.Property(e => e.FehcaFin).HasColumnName("fehcaFin");
-            entity.Property(e => e.PsicologoId).HasColumnName("psicologoId");
-
-            entity.HasOne(d => d.Psicologo).WithMany(p => p.PlanTurnos)
-                .HasForeignKey(d => d.PsicologoId)
-                .HasConstraintName("FK_planTurno_psicologo");
         });
 
         modelBuilder.Entity<Psicologo>(entity =>
@@ -238,15 +238,12 @@ public partial class PsychologistContext : DbContext
 
         modelBuilder.Entity<TipoModalidad>(entity =>
         {
-            entity.HasKey(e => e.TipoModalidadId).HasName("PK__tipoModa__D591EBADE322327E");
-
             entity.ToTable("tipoModalidad");
 
-            entity.Property(e => e.TipoModalidadId)
-                .ValueGeneratedNever()
-                .HasColumnName("tipoModalidadId");
-            entity.Property(e => e.ModalidadPresencial).HasColumnName("modalidadPresencial");
-            entity.Property(e => e.ModalidadVirtual).HasColumnName("modalidadVirtual");
+            entity.Property(e => e.TipoModalidadId).HasColumnName("tipoModalidadId");
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .HasColumnName("nombre");
         });
 
         modelBuilder.Entity<Turno>(entity =>
