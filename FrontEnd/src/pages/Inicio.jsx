@@ -1,12 +1,12 @@
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import { format, getDay, parse, startOfWeek } from "date-fns";
+import { format, getDay, parse, startOfWeek, addMinutes } from "date-fns";
 import { es } from "date-fns/locale/es";
 import { useState } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useCalendar } from "../hooks/useCalendar";
 import { toCalendarEvents } from "../utils/calendarEvents";
 import "../styles/layout/Inicio.css";
-
+import TurnoForm from "../components/TurnoForm";
 const locales = { es };
 const localizer = dateFnsLocalizer({
   format,
@@ -102,8 +102,18 @@ const Inicio = () => {
     reload();
   };
 
-  const events = toCalendarEvents(appointments);
-
+  const events = toCalendarEvents(appointments).map((t) => {
+    const start = new Date(`${t.fecha}T${t.hora}`);
+    const end = addMinutes(start, t.minutos ?? 60);
+    return {
+      id: t.turnoID,
+      title: t.descripcion || "Turno",
+      start,
+      end,
+      resource: t,
+      type: t.estado === "descanso" ? "descanso" : "turno",
+    };
+  });
   return (
     <main className="app-content calendar-page">
       <header className="calendar-page__header">
@@ -177,7 +187,9 @@ const Inicio = () => {
           </button>
         </form>
 
-        <form className="calendar-tools__editor" onSubmit={handleSave}>
+        {/* EDITAR EL FORMUALRIO DE CREACION DE TURNO A LO QUE PUDE EL TUNRO EN UN FROMULARIO */}
+
+        {/* <form className="calendar-tools__editor" onSubmit={handleSave}>
           <div className="calendar-tools__editor-heading">
             <div>
               <strong>
@@ -224,7 +236,17 @@ const Inicio = () => {
               </button>
             )}
           </div>
-        </form>
+        </form> */}
+
+        <TurnoForm
+          onSave={handleSave}
+          onRemove={handleRemove}
+          selectedTurno={selectedAppointment}
+          onReset={() => {
+            setSelectedAppointment(null);
+            setAppointmentId("");
+          }}
+        />
       </section>
 
       <section className="calendar-panel" aria-label="Calendario de turnos">
@@ -234,14 +256,25 @@ const Inicio = () => {
           <Calendar
             culture="es"
             defaultView="week"
+            views={["month", "week", "day", "agenda"]}
             events={events}
             localizer={localizer}
             messages={messages}
             onSelectEvent={handleSelectEvent}
             popup
+            showAllEvents
             startAccessor="start"
             endAccessor="end"
             titleAccessor="title"
+            eventPropGetter={(task) => {
+              const style = {
+                backgroundColor:
+                  task.type === "descanso" ? "lightgray" : "lightblue",
+                borderRadius: "4px",
+                padding: "2px",
+              };
+              return { style };
+            }}
           />
         )}
       </section>
