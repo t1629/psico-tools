@@ -1,7 +1,9 @@
 import { fetchApi } from "./apiClient";
 
 export async function Login(email, password) {
-  const data = await fetchApi("http://localhost:5008/api/login", {
+  const LOGIN_BASE_API_URL = "http://localhost:5008";
+
+  const data = await fetchApi(`${LOGIN_BASE_API_URL}/api/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +15,9 @@ export async function Login(email, password) {
 }
 
 export async function session(token) {
-  return fetchApi("http://localhost:5008/api/session", {
+  const SESSION_BASE_API_URL = "http://localhost:5008";
+
+  return fetchApi(`${SESSION_BASE_API_URL}/api/session`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
