@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Context;
 
-public partial class PsychologistContext : DbContext
+public partial class PsyClinicDbContext : DbContext
 {
-    public PsychologistContext()
+    public PsyClinicDbContext()
     {
     }
 
-    public PsychologistContext(DbContextOptions<PsychologistContext> options)
+    public PsyClinicDbContext(DbContextOptions<PsyClinicDbContext> options)
         : base(options)
     {
     }
@@ -253,6 +253,9 @@ public partial class PsychologistContext : DbContext
             entity.Property(e => e.TurnoId).HasColumnName("turnoId");
             entity.Property(e => e.Asistencia).HasColumnName("asistencia");
             entity.Property(e => e.CantidadTurnos).HasColumnName("cantidadTurnos");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(100)
+                .HasColumnName("descripcion");
             entity.Property(e => e.Estado)
                 .HasMaxLength(50)
                 .IsFixedLength()

@@ -29,6 +29,8 @@ public partial class Turno
 
     public int? CantidadTurnos { get; set; }
 
+    public string? Descripcion { get; set; }
+
     public virtual ICollection<Notificacion> Notificacions { get; set; } = new List<Notificacion>();
 
     public virtual Paciente? Paciente { get; set; }

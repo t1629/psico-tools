@@ -57,7 +57,7 @@ namespace PsychologistsAPI.Services
                 FechaInicio = dto.FechaInicio,
                 FehcaFin = dto.FehcaFin,
                 CantidadTurno = dto.CantidadTurno,
-                PsicologoId = dto.PsicologoId,
+                
                
             };
 
@@ -86,7 +86,7 @@ namespace PsychologistsAPI.Services
             plan.FechaInicio = dto.FechaInicio;
             plan.FehcaFin = dto.FehcaFin;
             plan.CantidadTurno = dto.CantidadTurno;
-            plan.PsicologoId = dto.PsicologoId;
+          
            
 
             await _context.SaveChangesAsync();
@@ -117,7 +117,7 @@ namespace PsychologistsAPI.Services
                 FechaInicio = plan.FechaInicio,
                 FehcaFin = plan.FehcaFin,
                 CantidadTurno = plan.CantidadTurno,
-                PsicologoId = plan.PsicologoId,
+               
             };
         }
     }

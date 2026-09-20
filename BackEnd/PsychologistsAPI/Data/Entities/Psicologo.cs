@@ -21,7 +21,7 @@ public partial class Psicologo
 
     public int? RolId { get; set; }
 
-    public virtual ICollection<Agendum> Agenda { get; set; } = new List<Agendum>();
+    public virtual ICollection<Agenda> Agenda { get; set; } = new List<Agenda>();
 
     public virtual Rol? Rol { get; set; }
 

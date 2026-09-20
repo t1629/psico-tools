@@ -19,7 +19,7 @@ public partial class Consultorio
 
     public int? TipoModalidadId { get; set; }
 
-    public virtual ICollection<Agendum> Agenda { get; set; } = new List<Agendum>();
+    public virtual ICollection<Agenda> Agenda { get; set; } = new List<Agenda>();
 
     public virtual TipoModalidad? TipoModalidad { get; set; }
 }
