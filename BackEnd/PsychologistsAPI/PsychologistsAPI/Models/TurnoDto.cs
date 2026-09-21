@@ -24,5 +24,7 @@ namespace PsychologistsAPI.Models
 
         public int? CantidadTurnos { get; set; }
 
+        public string? Descripcion { get; set; }
+
     }
 }

@@ -74,7 +74,8 @@ namespace PsychologistsAPI.Services
                 PsicologoId = dto.PsicologoId,
                 PacienteId = dto.PacienteId,
                 CantidadTurnos = dto.CantidadTurnos,
-                ModalidadVirtual = dto.ModalidadVirtual
+                ModalidadVirtual = dto.ModalidadVirtual,
+                Descripcion = dto.Descripcion
             };
 
             _context.Turnos.Add(turno);
@@ -101,6 +102,7 @@ namespace PsychologistsAPI.Services
             turno.PacienteId = dto.PacienteId;
             turno.ModalidadVirtual = dto.ModalidadVirtual;
             turno.CantidadTurnos = dto.CantidadTurnos;
+            turno.Descripcion = dto.Descripcion;
 
             await _context.SaveChangesAsync();
 
@@ -150,7 +152,8 @@ namespace PsychologistsAPI.Services
                 PsicologoId = turno.PsicologoId,
                 PacienteId = turno.PacienteId,
                 CantidadTurnos = turno.CantidadTurnos,
-                ModalidadVirtual = turno.ModalidadVirtual
+                ModalidadVirtual = turno.ModalidadVirtual,
+                Descripcion = turno.Descripcion
             };
         }
     }

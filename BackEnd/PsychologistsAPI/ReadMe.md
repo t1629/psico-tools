@@ -100,6 +100,9 @@ Endpoints de Disponibilidad (/api/disponibilidades)
 -DELETE  /api/notificaciones/{id}
 
 
+
+
+
 ------------------------------------------------
 
 ## Se empezo con el mapeo a la base de datos
