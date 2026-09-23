@@ -16,7 +16,7 @@ namespace PsychologistsAPI
     {
         public static void Main(string[] args)
         {
-            DotNetEnv.Env.Load();
+            DotNetEnv.Env.Load(".env.backend");
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
