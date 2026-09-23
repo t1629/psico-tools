@@ -3,24 +3,40 @@
   "WorkspaceRootPath": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\psychologistsapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|solutionrelative:psychologistsapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\psychologistsapi\\.env.backend||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|solutionrelative:psychologistsapi\\.env.backend||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\psychologistsapi\\.env.mobile||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|solutionrelative:psychologistsapi\\.env.mobile||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\psychologistsapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|solutionrelative:psychologistsapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\psychologistsapi\\.env.frontend||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|solutionrelative:psychologistsapi\\.env.frontend||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|Data\\Data.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\data\\entities\\psicologo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|Data\\Data.csproj|solutionrelative:data\\entities\\psicologo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\psychologistsapi\\.env.mobile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|solutionrelative:psychologistsapi\\.env.mobile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\psychologistsapi\\psychologistsapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|solutionrelative:psychologistsapi\\psychologistsapi.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\psychologistsapi\\psychologistsapi.csproj.user||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|solutionrelative:psychologistsapi\\psychologistsapi.csproj.user||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|Data\\Data.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\data\\entities\\consultorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|Data\\Data.csproj|solutionrelative:data\\entities\\consultorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|Data\\Data.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\data\\entities\\psicologo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|Data\\Data.csproj|solutionrelative:data\\entities\\psicologo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AE8E2E54-CA0B-F6F5-0102-F79722AD1421}|Data\\Data.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\data\\context\\psyclinicdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -55,10 +71,6 @@
       "RelativeMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|solutionrelative:psychologistsapi\\services\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|c:\\users\\tomas\\downloads\\psico-tools\\backend\\psychologistsapi\\psychologistsapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2F13EE1-2A9C-217D-6B82-7F43A788ED31}|PsychologistsAPI\\PsychologistsAPI.csproj|solutionrelative:psychologistsapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{254AFEB7-0329-AF49-FB51-15B2E337EB20}|Elementos de la soluci\u00F3n{254AFEB7-0329-AF49-FB51-15B2E337EB20}|C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\ReadMe.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{254AFEB7-0329-AF49-FB51-15B2E337EB20}|Elementos de la soluci\u00F3n{254AFEB7-0329-AF49-FB51-15B2E337EB20}|solutionrelative:ReadMe.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     }
@@ -70,7 +82,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 21,
           "Children": [
             {
               "$type": "Bookmark",
@@ -94,20 +106,59 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "PsychologistsAPI\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\Properties\\launchSettings.json",
+              "RelativeToolTip": "PsychologistsAPI\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-09-23T12:31:36.113Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PsychologistsAPI.http",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.http",
+              "RelativeDocumentMoniker": "PsychologistsAPI\\PsychologistsAPI.http",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.http",
+              "RelativeToolTip": "PsychologistsAPI\\PsychologistsAPI.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-09-23T12:16:29.707Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PsychologistsAPI.csproj.user",
+              "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj.user",
+              "RelativeDocumentMoniker": "PsychologistsAPI\\PsychologistsAPI.csproj.user",
+              "ToolTip": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\PsychologistsAPI.csproj.user",
+              "RelativeToolTip": "PsychologistsAPI\\PsychologistsAPI.csproj.user",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003464|",
+              "WhenOpened": "2026-09-23T12:16:24.791Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": ".env.mobile",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\.env.mobile",
               "RelativeDocumentMoniker": "PsychologistsAPI\\.env.mobile",
               "ToolTip": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\.env.mobile",
               "RelativeToolTip": "PsychologistsAPI\\.env.mobile",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAqAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2026-09-23T10:15:54.234Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": ".env.frontend",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\.env.frontend",
               "RelativeDocumentMoniker": "PsychologistsAPI\\.env.frontend",
@@ -115,11 +166,12 @@
               "RelativeToolTip": "PsychologistsAPI\\.env.frontend",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-09-23T10:15:18.055Z"
+              "WhenOpened": "2026-09-23T10:15:18.055Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "PsyClinicDbContext.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Context\\PsyClinicDbContext.cs",
               "RelativeDocumentMoniker": "Data\\Context\\PsyClinicDbContext.cs",
@@ -131,7 +183,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "PlanTurnoService.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\Services\\PlanTurnoService.cs",
               "RelativeDocumentMoniker": "PsychologistsAPI\\Services\\PlanTurnoService.cs",
@@ -143,7 +195,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "Turno.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Entities\\Turno.cs",
               "RelativeDocumentMoniker": "Data\\Entities\\Turno.cs",
@@ -155,7 +207,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "PsychologistContext.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Context\\PsychologistContext.cs",
               "RelativeDocumentMoniker": "Data\\Context\\PsychologistContext.cs",
@@ -167,7 +219,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "Psicologo.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Entities\\Psicologo.cs",
               "RelativeDocumentMoniker": "Data\\Entities\\Psicologo.cs",
@@ -179,32 +231,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "Consultorio.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Entities\\Consultorio.cs",
               "RelativeDocumentMoniker": "Data\\Entities\\Consultorio.cs",
               "ToolTip": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Entities\\Consultorio.cs",
               "RelativeToolTip": "Data\\Entities\\Consultorio.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAmwBUAAABNAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA6wBUAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-19T23:16:20.518Z"
+              "WhenOpened": "2026-09-19T23:16:20.518Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": ".env.backend",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\.env.backend",
               "RelativeDocumentMoniker": "PsychologistsAPI\\.env.backend",
               "ToolTip": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\.env.backend",
               "RelativeToolTip": "PsychologistsAPI\\.env.backend",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2026-09-19T23:11:29.392Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "PlanTurno.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Entities\\PlanTurno.cs",
               "RelativeDocumentMoniker": "Data\\Entities\\PlanTurno.cs",
@@ -216,7 +269,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "TipoModalidad.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Entities\\TipoModalidad.cs",
               "RelativeDocumentMoniker": "Data\\Entities\\TipoModalidad.cs",
@@ -228,7 +281,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "Agenda.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\Data\\Entities\\Agenda.cs",
               "RelativeDocumentMoniker": "Data\\Entities\\Agenda.cs",
@@ -240,7 +293,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "LoginService.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\Services\\LoginService.cs",
               "RelativeDocumentMoniker": "PsychologistsAPI\\Services\\LoginService.cs",
@@ -252,19 +305,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\Program.cs",
               "RelativeDocumentMoniker": "PsychologistsAPI\\Program.cs",
               "ToolTip": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\PsychologistsAPI\\Program.cs",
               "RelativeToolTip": "PsychologistsAPI\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAQwIgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-16T00:26:02.363Z"
+              "WhenOpened": "2026-09-16T00:26:02.363Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "ReadMe.md",
               "DocumentMoniker": "C:\\Users\\tomas\\Downloads\\psico-tools\\BackEnd\\PsychologistsAPI\\ReadMe.md",
               "RelativeDocumentMoniker": "ReadMe.md",
