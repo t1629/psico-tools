@@ -7,6 +7,7 @@ import { useCalendar } from "../hooks/useCalendar";
 import { toCalendarEvents } from "../utils/calendarEvents";
 import "../styles/layout/Inicio.css";
 import TurnoForm from "../components/TurnoForm";
+
 const locales = { es };
 const localizer = dateFnsLocalizer({
   format,
@@ -50,6 +51,8 @@ const Inicio = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [draft, setDraft] = useState("{}");
   const [actionError, setActionError] = useState(null);
+  const [currentView, setCurrentView] = useState("week");
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const runAction = async (action) => {
     setActionError(null);
@@ -187,57 +190,6 @@ const Inicio = () => {
           </button>
         </form>
 
-        {/* EDITAR EL FORMUALRIO DE CREACION DE TURNO A LO QUE PUDE EL TUNRO EN UN FROMULARIO */}
-
-        {/* <form className="calendar-tools__editor" onSubmit={handleSave}>
-          <div className="calendar-tools__editor-heading">
-            <div>
-              <strong>
-                {selectedAppointment ? "Editar turno" : "Nuevo turno"}
-              </strong>
-              <span>
-                {selectedAppointment
-                  ? "Modifica el JSON del turno seleccionado."
-                  : "Ingresa el payload que espera la API."}
-              </span>
-            </div>
-            {selectedAppointment && (
-              <button
-                type="button"
-                className="calendar-tools__danger"
-                onClick={handleRemove}
-              >
-                Eliminar
-              </button>
-            )}
-          </div>
-          <textarea
-            aria-label="Datos del turno en formato JSON"
-            value={draft}
-            onChange={(event) => setDraft(event.target.value)}
-            rows={7}
-            spellCheck="false"
-          />
-          <div className="calendar-tools__editor-actions">
-            <button type="submit">
-              {selectedAppointment ? "Guardar cambios" : "Crear turno"}
-            </button>
-            {selectedAppointment && (
-              <button
-                type="button"
-                className="calendar-tools__secondary"
-                onClick={() => {
-                  setSelectedAppointment(null);
-                  setAppointmentId("");
-                  setDraft("{}");
-                }}
-              >
-                Nuevo
-              </button>
-            )}
-          </div>
-        </form> */}
-
         <TurnoForm
           onSave={handleSave}
           onRemove={handleRemove}
@@ -248,13 +200,16 @@ const Inicio = () => {
           }}
         />
       </section>
-
       <section className="calendar-panel" aria-label="Calendario de turnos">
         {loading ? (
           <div className="calendar-panel__state">Cargando agenda...</div>
         ) : (
           <Calendar
             culture="es"
+            view={currentView}
+            onView={(view) => setCurrentView(view)}
+            date={currentDate}
+            onNavigate={(date) => setCurrentDate(date)}
             defaultView="week"
             views={["month", "week", "day", "agenda"]}
             events={events}

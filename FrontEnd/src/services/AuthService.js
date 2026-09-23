@@ -1,9 +1,9 @@
 import { fetchApi } from "./apiClient";
 
 export async function Login(email, password) {
-  const LOGIN_BASE_API_URL = "http://localhost:5008";
+  const BASE_API_URL = import.meta.env.VITE_API_URL;
 
-  const data = await fetchApi(`${LOGIN_BASE_API_URL}/api/login`, {
+  const data = await fetchApi(`${BASE_API_URL}/api/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -15,9 +15,9 @@ export async function Login(email, password) {
 }
 
 export async function session(token) {
-  const SESSION_BASE_API_URL = "http://localhost:5008";
+  const BASE_API_URL = import.meta.env.VITE_API_URL;
 
-  return fetchApi(`${SESSION_BASE_API_URL}/api/session`, {
+  return fetchApi(`${BASE_API_URL}/api/session`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
