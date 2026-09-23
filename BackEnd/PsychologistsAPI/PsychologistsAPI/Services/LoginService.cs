@@ -55,10 +55,6 @@ namespace PsychologistsAPI.Services
             };
 
 
-            var rawKey = _configuration["Jwt:Key"];
-            Console.WriteLine($"JWT Key: {rawKey}");
-            Console.WriteLine($"JWT Key length: {Encoding.UTF8.GetBytes(rawKey).Length * 8} bits");
-
 
             var key = new SymmetricSecurityKey(
                Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!)
