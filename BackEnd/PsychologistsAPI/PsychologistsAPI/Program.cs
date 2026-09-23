@@ -16,7 +16,7 @@ namespace PsychologistsAPI
     {
         public static void Main(string[] args)
         {
-            DotNetEnv.Env.Load();
+            DotNetEnv.Env.Load(".env.backend");
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllers();
@@ -129,12 +129,13 @@ namespace PsychologistsAPI
             }
 
             app.UseCors("ReactNativeDev");
-            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
             app.MapControllers();
 
             app.Run();
+
+
         }
     }
 }

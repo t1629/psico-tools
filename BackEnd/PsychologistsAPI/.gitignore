@@ -9,4 +9,4 @@ obj/
 publish/
 *.tmp
 *.bak
-.env
+.env*

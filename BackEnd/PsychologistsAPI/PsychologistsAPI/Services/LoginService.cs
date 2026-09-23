@@ -55,6 +55,7 @@ namespace PsychologistsAPI.Services
             };
 
 
+
             var key = new SymmetricSecurityKey(
                Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!)
             );
