@@ -96,7 +96,7 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         </select>
       </label>
 
-      <label>
+      <label className="checkbox-label">
         Asistencia
         <input
           type="checkbox"
@@ -116,7 +116,7 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         />
       </label>
 
-      <label>
+      <label className="checkbox-label">
         Modalidad virtual
         <input
           type="checkbox"

@@ -1,0 +1,142 @@
+:root {
+  --text: #9ca3af;
+  --text-h: #f3f4f6;
+  --bg: #16171d;
+  --border: #2e303a;
+  --code-bg: #1f2028;
+  --accent: #c084fc;
+  --accent-bg: rgba(192, 132, 252, 0.15);
+  --accent-border: rgba(192, 132, 252, 0.5);
+  --social-bg: rgba(47, 48, 58, 0.5);
+  --nav-bg: #1d1e26;
+  --shadow:
+    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+}
+
+.calendar-tools__editor {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 0.75rem;
+}
+.calendar-tools__editor-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.calendar-tools__editor-heading strong {
+  color: var(--text-h);
+  font-size: 1rem;
+}
+
+.calendar-tools__editor-heading span {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.calendar-tools__editor label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--text-h);
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-h);
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+.calendar-tools__editor input,
+.calendar-tools__editor select,
+.calendar-tools__editor textarea {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.4rem;
+  color: var(--text-h);
+  font-size: 0.85rem;
+}
+
+.calendar-tools__editor input:focus,
+.calendar-tools__editor select:focus,
+.calendar-tools__editor textarea:focus {
+  outline: none;
+  border-color: var(--accent-border);
+  box-shadow: 0 0 0 2px var(--accent-bg);
+}
+
+.calendar-tools__editor-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.calendar-tools__editor-actions button {
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.calendar-tools__editor-actions button[type="submit"] {
+  background: var(--bg);
+  color: #6608c4;
+  border: 1px solid #6608c4;
+}
+
+.calendar-tools__editor-actions button[type="submit"]:hover {
+  background: #6608c4;
+  color: #000000;
+  border: 1px solid var(--accent-bg);
+}
+
+.calendar-tools__secondary {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.calendar-tools__secondary:hover {
+  background: var(--accent-border);
+}
+
+.calendar-tools__danger {
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.calendar-tools__danger:hover {
+  background: #dc2626;
+}
+
+.turno-form__presencial {
+  font-size: 0.85rem;
+  color: var(--text);
+  font-style: italic;
+}

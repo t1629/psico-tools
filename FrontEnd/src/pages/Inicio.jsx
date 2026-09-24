@@ -6,7 +6,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useCalendar } from "../hooks/useCalendar";
 import { toCalendarEvents } from "../utils/calendarEvents";
 import "../styles/layout/Inicio.css";
-import TurnoForm from "../components/TurnoForm";
+import { useNavigate } from "react-router-dom";
+import TurnoFiltradoForm from "../components/TurnoFiltradoForm";
 
 const locales = { es };
 const localizer = dateFnsLocalizer({
@@ -41,18 +42,13 @@ const Inicio = () => {
     getByDate,
     getByPatient,
     getById,
-    create,
-    update,
-    remove,
+    getPacienteByTurno,
+    getTurnosByPaciente,
   } = useCalendar();
-  const [dateFilter, setDateFilter] = useState("");
-  const [patientFilter, setPatientFilter] = useState("");
-  const [appointmentId, setAppointmentId] = useState("");
-  const [selectedAppointment, setSelectedAppointment] = useState(null);
-  const [draft, setDraft] = useState("{}");
   const [actionError, setActionError] = useState(null);
   const [currentView, setCurrentView] = useState("week");
   const [currentDate, setCurrentDate] = useState(new Date());
+  const navigate = useNavigate();
 
   const runAction = async (action) => {
     setActionError(null);
@@ -67,41 +63,28 @@ const Inicio = () => {
 
   const handleSelectEvent = (event) => {
     const id = event.resource?.id ?? event.resource?.idTurno ?? event.id;
-    setAppointmentId(String(id));
-    runAction(async () => {
-      const response = await getById(id);
-      const appointment = response?.data ?? response;
-      setSelectedAppointment(appointment);
-      setDraft(JSON.stringify(appointment, null, 2));
-    });
+    navigate(`/turnos/${id}`);
   };
 
-  const handleSave = (event) => {
-    event.preventDefault();
-    runAction(async () => {
-      const data = JSON.parse(draft);
-      const response = selectedAppointment
-        ? await update(data)
-        : await create(data);
-      const appointment = response?.data ?? response;
-      setSelectedAppointment(appointment);
-      setDraft(JSON.stringify(appointment, null, 2));
-    });
-  };
-
-  const handleRemove = () => {
-    if (!appointmentId) return;
-    runAction(async () => {
-      await remove(appointmentId);
-      setSelectedAppointment(null);
-      setDraft("{}");
-      setAppointmentId("");
+  const handleFilter = ({
+    date,
+    patientId,
+    turnoId,
+    turnoPaciente,
+    turnoPacienteId,
+  }) => {
+    runAction(() => {
+      if (date) return getByDate(date);
+      if (patientId) return getByPatient(patientId);
+      if (turnoId) return getById(turnoId);
+      if (turnoPaciente) return getPacienteByTurno(turnoPaciente);
+      if (turnoPaciente && turnoPacienteId)
+        return getTurnosByPaciente(turnoPaciente, turnoPacienteId);
+      return reload();
     });
   };
 
   const handleReset = () => {
-    setDateFilter("");
-    setPatientFilter("");
     reload();
   };
 
@@ -152,54 +135,9 @@ const Inicio = () => {
       )}
 
       <section className="calendar-tools" aria-label="Herramientas de agenda">
-        <form
-          className="calendar-tools__filters"
-          onSubmit={(event) => {
-            event.preventDefault();
-            runAction(() => {
-              if (dateFilter) return getByDate(dateFilter);
-              if (patientFilter) return getByPatient(patientFilter);
-              return reload();
-            });
-          }}
-        >
-          <label>
-            Fecha
-            <input
-              type="date"
-              value={dateFilter}
-              onChange={(event) => setDateFilter(event.target.value)}
-            />
-          </label>
-          <label>
-            ID paciente
-            <input
-              type="text"
-              value={patientFilter}
-              onChange={(event) => setPatientFilter(event.target.value)}
-              placeholder="Ej. 42"
-            />
-          </label>
-          <button type="submit">Buscar</button>
-          <button
-            type="button"
-            className="calendar-tools__secondary"
-            onClick={handleReset}
-          >
-            Ver todos
-          </button>
-        </form>
-
-        <TurnoForm
-          onSave={handleSave}
-          onRemove={handleRemove}
-          selectedTurno={selectedAppointment}
-          onReset={() => {
-            setSelectedAppointment(null);
-            setAppointmentId("");
-          }}
-        />
+        <TurnoFiltradoForm onFilter={handleFilter} onReset={handleReset} />
       </section>
+
       <section className="calendar-panel" aria-label="Calendario de turnos">
         {loading ? (
           <div className="calendar-panel__state">Cargando agenda...</div>
