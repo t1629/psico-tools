@@ -36,17 +36,17 @@ namespace PsychologistsAPI
             builder.Services.AddDbContext<PsychologistContext>(options =>
                 options.UseSqlServer(connectionString));
 
-           
+
 
             builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("DevPolicy", policy =>
                 {
-                    policy.AllowAnyOrigin()
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
+                    options.AddPolicy("DevPolicy", policy =>
+                    {
+                        policy.AllowAnyOrigin()
+                              .AllowAnyMethod()
+                              .AllowAnyHeader();
+                    });
                 });
-            });
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("ProdPolicy", policy =>
@@ -91,27 +91,27 @@ namespace PsychologistsAPI
                         Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
                     )
                 };
-            
-            options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
-            {
-                OnAuthenticationFailed = ctx =>
+
+                options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
                 {
-                    // escribe el error en consola/log para depurar
-                    Console.WriteLine("Auth failed: " + ctx.Exception?.Message);
-                    return Task.CompletedTask;
-                },
-                OnMessageReceived = ctx =>
-                {
-                    Console.WriteLine("Token received: " + (ctx.Token?.Substring(0, Math.Min(20, ctx.Token.Length)) ?? "null"));
-                    return Task.CompletedTask;
-                },
-                OnTokenValidated = ctx =>
-                {
-                    Console.WriteLine("Token valid for: " + ctx.Principal?.Identity?.Name);
-                    return Task.CompletedTask;
-                }
-            };
-        });
+                    OnAuthenticationFailed = ctx =>
+                    {
+                        // escribe el error en consola/log para depurar
+                        Console.WriteLine("Auth failed: " + ctx.Exception?.Message);
+                        return Task.CompletedTask;
+                    },
+                    OnMessageReceived = ctx =>
+                    {
+                        Console.WriteLine("Token received: " + (ctx.Token?.Substring(0, Math.Min(20, ctx.Token.Length)) ?? "null"));
+                        return Task.CompletedTask;
+                    },
+                    OnTokenValidated = ctx =>
+                    {
+                        Console.WriteLine("Token valid for: " + ctx.Principal?.Identity?.Name);
+                        return Task.CompletedTask;
+                    }
+                };
+            });
 
 
 
@@ -134,8 +134,10 @@ namespace PsychologistsAPI
             app.MapControllers();
 
             app.Run();
-
-
         }
+        
+    
+
+      
     }
 }
