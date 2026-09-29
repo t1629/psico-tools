@@ -5,7 +5,7 @@ const BASE_API_URL = import.meta.env.VITE_API_URL;
 export async function getById(id) {
   return fetchApi(`${BASE_API_URL}/api/usuario/${id}`);
 }
-export async function crate(data) {
+export async function create(data) {
   return fetchApi(`${BASE_API_URL}/api/usuario`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -15,7 +15,7 @@ export async function crate(data) {
 
 export async function update(data, id) {
   return fetchApi(`${BASE_API_URL}/api/usuario/${id}`, {
-    method: "POST",
+    method: "PuT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });

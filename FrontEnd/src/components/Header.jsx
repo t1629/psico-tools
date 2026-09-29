@@ -5,7 +5,7 @@ import { UserContext } from "../context/UserContext";
 export default function Header() {
   const { user } = useContext(UserContext);
 
-  const initials = user?.name
+  const initials = user?.Name
     ? user.name
         .split(" ")
         .map((n) => n[0])
