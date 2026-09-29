@@ -257,7 +257,7 @@ public partial class PsychologistContext : DbContext
                 .HasMaxLength(50)
                 .IsFixedLength()
                 .HasColumnName("estado");
-            entity.Property(e => e.Fehca).HasColumnName("fehca");
+            entity.Property(e => e.Fecha).HasColumnName("fehca");
             entity.Property(e => e.Hora).HasColumnName("hora");
             entity.Property(e => e.Minutos).HasColumnName("minutos");
             entity.Property(e => e.ModalidadVirtual).HasColumnName("modalidadVirtual");
@@ -273,6 +273,12 @@ public partial class PsychologistContext : DbContext
             entity.HasOne(d => d.Psicologo).WithMany(p => p.Turnos)
                 .HasForeignKey(d => d.PsicologoId)
                 .HasConstraintName("FK_turno_psicologo");
+
+
+            modelBuilder.Entity<Turno>()
+                .HasOne(t => t.PlanTurno)
+                .WithMany(p => p.Turnos)
+                .HasForeignKey(t => t.PlanTurnoId);
         });
 
         modelBuilder.Entity<Usuario>(entity =>

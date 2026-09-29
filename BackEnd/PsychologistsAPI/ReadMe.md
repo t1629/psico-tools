@@ -19,18 +19,6 @@ Solution/
 
 ## EndPoints
 
-Endpoints de Disponibilidad (/api/disponibilidades)
---------------------------------------------------------------------------------
-
-1.1 Endpoints de dsiponibilidades (/api/disponibilidades)
---------------------------------------------------------------------------------
-
-- GET    /api/disponibilidades?fecha=YYYY-MM-DD : Consulta franjas horarias configuradas.
-- POST   /api/disponibilidades                  : Crea o habilita una franja de atención.
--PAT /api/disponibilidad/{id}
--PAT /api/disponibilidad/{id}/activo
--DELETE /api/disponibilidad/{id}
-
 
 
 1.2 Endpoints de Turnos (/api/turnos)

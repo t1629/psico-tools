@@ -35,6 +35,7 @@ namespace PsychologistsAPI.Services
         public async Task<PlanTurnoDto?> GetByIdWithPaciente(int id)
         {
             var plan = await _context.PlanTurnos
+                .Include(p => p.Pacientes)
                 .FirstOrDefaultAsync(p => p.PlanTurnoId == id);
 
             if (plan == null)

@@ -7,7 +7,7 @@ public partial class Turno
 {
     public int TurnoId { get; set; }
 
-    public DateOnly Fehca { get; set; }
+    public DateOnly Fecha { get; set; }
 
     public TimeOnly Hora { get; set; }
 
@@ -23,7 +23,8 @@ public partial class Turno
 
     public int? PacienteId { get; set; }
 
-    public int? PlanTurnoId { get; set; }
+    public int? PlanTurnoId { get; set; }  
+    public PlanTurno? PlanTurno { get; set; }
 
     public bool ModalidadVirtual { get; set; }
 

@@ -1,4 +1,5 @@
 ﻿using Data.Context;
+using Data.Entities;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using PsychologistsAPI.Services;
+using System.Reflection.Emit;
 using System.Text;
 
 namespace PsychologistsAPI
@@ -30,7 +32,14 @@ namespace PsychologistsAPI
             builder.Services.AddScoped<TurnoService>();
             builder.Services.AddScoped<AgendaService>();
             builder.Services.AddScoped<PlanTurnoService>();
-
+            builder.Services.AddScoped<usuarioService>();
+            //builder.Services.AddScoped<PacienteService>();
+            //builder.Services.AddScoped<PsicologoService>();
+            //builder.Services.AddScoped<ConsultorioService>();
+            //builder.Services.AddScoped<NotificacionService>();
+            //builder.Services.AddScoped<MedioEnvioService>();
+            //builder.Services.AddScoped<TipoModalidadService>();
+            //builder.Services.AddScoped<RolService>();
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<PsychologistContext>(options =>

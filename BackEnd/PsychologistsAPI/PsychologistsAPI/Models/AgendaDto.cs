@@ -8,7 +8,6 @@ namespace PsychologistsAPI.Models
 
         public string? DiaSemana { get; set; }
 
-        public int DisponibilidadId { get; set; }
 
         public string? Estado { get; set; }
 
@@ -19,8 +18,6 @@ namespace PsychologistsAPI.Models
         public int PsicologoId { get; set; }
         public string PsicologoNombre { get; set; }   
         public string PsicologoApellido { get; set; }
-        public int TurnoId { get; set; }
 
-        public string Fecha { get; set; }
     }
 }
