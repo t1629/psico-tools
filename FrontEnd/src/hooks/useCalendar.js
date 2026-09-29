@@ -10,7 +10,7 @@ import {
 } from "../services/CalenderService";
 
 export function useCalendar() {
-  const [appointments, setAppointments] = useState([]);
+  const [agenda, setAgenda] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -20,9 +20,7 @@ export function useCalendar() {
 
     try {
       const response = await getAll();
-      setAppointments(
-        Array.isArray(response) ? response : (response?.data ?? []),
-      );
+      setAgenda(Array.isArray(response) ? response : (response?.data ?? []));
     } catch (requestError) {
       setError(requestError);
     } finally {
@@ -37,7 +35,7 @@ export function useCalendar() {
     try {
       const response = await getAppointmentsByDate(date);
       const data = Array.isArray(response) ? response : (response?.data ?? []);
-      setAppointments(data);
+      setAgenda(data);
       return response;
     } catch (requestError) {
       setError(requestError);
@@ -54,7 +52,7 @@ export function useCalendar() {
     try {
       const response = await getAppointmentsByPatient(patientId);
       const data = Array.isArray(response) ? response : (response?.data ?? []);
-      setAppointments(data);
+      setAgenda(data);
       return response;
     } catch (requestError) {
       setError(requestError);
@@ -105,7 +103,7 @@ export function useCalendar() {
     getAll()
       .then((response) => {
         if (active)
-          setAppointments(
+          setAgenda(
             Array.isArray(response) ? response : (response?.data ?? []),
           );
       })
@@ -122,7 +120,7 @@ export function useCalendar() {
   }, []);
 
   return {
-    appointments,
+    agenda,
     error,
     loading,
     reload,

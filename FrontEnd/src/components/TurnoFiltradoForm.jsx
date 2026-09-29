@@ -4,8 +4,6 @@ const TurnoFiltradoForm = ({ onFilter, onReset }) => {
   const [dateFilter, setDateFilter] = useState("");
   const [patientFilter, setPatientFilter] = useState("");
   const [turnoIdFilter, setTurnoIdFilter] = useState("");
-  const [turnoPacienteFilter, setTurnoPacienteFilter] = useState("");
-  const [turnoPacienteIdFilter, setTurnoPacienteIdFilter] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -13,19 +11,18 @@ const TurnoFiltradoForm = ({ onFilter, onReset }) => {
       date: dateFilter,
       patientId: patientFilter,
       turnoId: turnoIdFilter,
-      turnoPaciente: turnoPacienteFilter,
-      turnoPacienteId: turnoPacienteIdFilter,
     });
   };
 
   return (
     <form className="calendar-tools__filters" onSubmit={handleSubmit}>
       <label>
-        Fecha
+        ID turno
         <input
-          type="date"
-          value={dateFilter}
-          onChange={(e) => setDateFilter(e.target.value)}
+          type="text"
+          value={turnoIdFilter}
+          onChange={(e) => setTurnoIdFilter(e.target.value)}
+          placeholder="Ej. 101"
         />
       </label>
 
@@ -40,32 +37,11 @@ const TurnoFiltradoForm = ({ onFilter, onReset }) => {
       </label>
 
       <label>
-        ID turno
+        Fecha
         <input
-          type="text"
-          value={turnoIdFilter}
-          onChange={(e) => setTurnoIdFilter(e.target.value)}
-          placeholder="Ej. 101"
-        />
-      </label>
-
-      <label>
-        Turno → Paciente
-        <input
-          type="text"
-          value={turnoPacienteFilter}
-          onChange={(e) => setTurnoPacienteFilter(e.target.value)}
-          placeholder="Ej. ID turno"
-        />
-      </label>
-
-      <label>
-        Turno → Paciente → ID
-        <input
-          type="text"
-          value={turnoPacienteIdFilter}
-          onChange={(e) => setTurnoPacienteIdFilter(e.target.value)}
-          placeholder="Ej. ID paciente"
+          type="date"
+          value={dateFilter}
+          onChange={(e) => setDateFilter(e.target.value)}
         />
       </label>
 
@@ -77,8 +53,6 @@ const TurnoFiltradoForm = ({ onFilter, onReset }) => {
           setDateFilter("");
           setPatientFilter("");
           setTurnoIdFilter("");
-          setTurnoPacienteFilter("");
-          setTurnoPacienteIdFilter("");
           onReset();
         }}
       >

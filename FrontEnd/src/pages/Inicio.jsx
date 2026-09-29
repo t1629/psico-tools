@@ -1,5 +1,5 @@
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import { format, getDay, parse, startOfWeek, addMinutes } from "date-fns";
+import { format, getDay, parse, startOfWeek } from "date-fns";
 import { es } from "date-fns/locale/es";
 import { useState } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -34,17 +34,8 @@ const messages = {
 };
 
 const Inicio = () => {
-  const {
-    appointments,
-    loading,
-    error,
-    reload,
-    getByDate,
-    getByPatient,
-    getById,
-    getPacienteByTurno,
-    getTurnosByPaciente,
-  } = useCalendar();
+  const { agendas, loading, error, reload, getByDate, getByPatient, getById } =
+    useCalendar();
   const [actionError, setActionError] = useState(null);
   const [currentView, setCurrentView] = useState("week");
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -54,52 +45,27 @@ const Inicio = () => {
     setActionError(null);
     try {
       await action();
-    } catch (requestError) {
-      setActionError(
-        requestError.message ?? "No se pudo completar la operación.",
-      );
+    } catch (err) {
+      setActionError(err.message ?? "No se pudo completar la operación.");
     }
   };
 
   const handleSelectEvent = (event) => {
-    const id = event.resource?.id ?? event.resource?.idTurno ?? event.id;
-    navigate(`/turnos/${id}`);
+    const id = event.resource?.agendaId ?? event.id;
+    navigate(`/agenda/${id}`);
   };
 
-  const handleFilter = ({
-    date,
-    patientId,
-    turnoId,
-    turnoPaciente,
-    turnoPacienteId,
-  }) => {
+  const handleFilter = ({ date, patientId, agendaId }) => {
     runAction(() => {
       if (date) return getByDate(date);
       if (patientId) return getByPatient(patientId);
-      if (turnoId) return getById(turnoId);
-      if (turnoPaciente) return getPacienteByTurno(turnoPaciente);
-      if (turnoPaciente && turnoPacienteId)
-        return getTurnosByPaciente(turnoPaciente, turnoPacienteId);
+      if (agendaId) return getById(agendaId);
       return reload();
     });
   };
 
-  const handleReset = () => {
-    reload();
-  };
+  const events = toCalendarEvents(agendas);
 
-  const events = toCalendarEvents(appointments).map((t) => {
-    const start = new Date(`${t.fecha}T${t.hora}`);
-    const end = addMinutes(start, t.minutos ?? 60);
-    return {
-      id: t.turnoID,
-      title: t.descripcion || "Turno",
-      start,
-      end,
-      resource: t,
-      type: t.estado === "descanso" ? "descanso" : "turno",
-    };
-  });
   return (
     <main className="app-content calendar-page">
       <header className="calendar-page__header">
@@ -135,7 +101,7 @@ const Inicio = () => {
       )}
 
       <section className="calendar-tools" aria-label="Herramientas de agenda">
-        <TurnoFiltradoForm onFilter={handleFilter} onReset={handleReset} />
+        <TurnoFiltradoForm onFilter={handleFilter} onReset={reload} />
       </section>
 
       <section className="calendar-panel" aria-label="Calendario de turnos">
@@ -145,9 +111,9 @@ const Inicio = () => {
           <Calendar
             culture="es"
             view={currentView}
-            onView={(view) => setCurrentView(view)}
+            onView={setCurrentView}
             date={currentDate}
-            onNavigate={(date) => setCurrentDate(date)}
+            onNavigate={setCurrentDate}
             defaultView="week"
             views={["month", "week", "day", "agenda"]}
             events={events}
@@ -159,15 +125,14 @@ const Inicio = () => {
             startAccessor="start"
             endAccessor="end"
             titleAccessor="title"
-            eventPropGetter={(task) => {
-              const style = {
+            eventPropGetter={(task) => ({
+              style: {
                 backgroundColor:
                   task.type === "descanso" ? "lightgray" : "lightblue",
                 borderRadius: "4px",
                 padding: "2px",
-              };
-              return { style };
-            }}
+              },
+            })}
           />
         )}
       </section>

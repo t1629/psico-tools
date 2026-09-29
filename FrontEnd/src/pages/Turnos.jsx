@@ -24,7 +24,7 @@ const Turnos = () => {
     try {
       setError(null);
       const response = selectedTurno
-        ? await update(selectedTurno.turnoID, turno)
+        ? await update(selectedTurno.turnoId, turno)
         : await create(turno);
       setSelectedTurno(response?.data ?? response);
     } catch (err) {

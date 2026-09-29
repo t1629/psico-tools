@@ -15,12 +15,12 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
   const [cantidadTurnos, setCantidadTurnos] = useState(
     selectedTurno?.cantidadTurnos ?? 1,
   );
-  const [psicologoID, setPsicologoID] = useState(
-    selectedTurno?.psicologoID ?? "",
+  const [psicologoId, setPsicologoID] = useState(
+    selectedTurno?.psicologoId ?? "",
   );
-  const [pacienteID, setPacienteID] = useState(selectedTurno?.pacienteID ?? "");
-  const [planTurnoID, setPlanTurnoID] = useState(
-    selectedTurno?.planTurnoID ?? "",
+  const [pacienteId, setPacienteID] = useState(selectedTurno?.pacienteID ?? "");
+  const [planTurnoId, setPlanTurnoID] = useState(
+    selectedTurno?.planTurnoId ?? "",
   );
   const [descripcion, setDescripcion] = useState(
     selectedTurno?.descripcion ?? "",
@@ -37,9 +37,9 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
       modalidadVirtual,
       url: modalidadVirtual ? url : null,
       cantidadTurnos,
-      psicologoID,
-      pacienteID,
-      planTurnoID,
+      psicologoId,
+      pacienteId,
+      planTurnoId,
       descripcion,
     };
     onSave(turno);
@@ -153,7 +153,7 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Psicólogo ID
         <input
           type="text"
-          value={psicologoID}
+          value={psicologoId}
           onChange={(e) => setPsicologoID(e.target.value)}
           placeholder="Ej. 101"
         />
@@ -163,7 +163,7 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Paciente ID
         <input
           type="text"
-          value={pacienteID}
+          value={pacienteId}
           onChange={(e) => setPacienteID(e.target.value)}
           placeholder="Ej. 42"
         />
@@ -173,7 +173,7 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Plan Turno ID
         <input
           type="text"
-          value={planTurnoID}
+          value={planTurnoId}
           onChange={(e) => setPlanTurnoID(e.target.value)}
           placeholder="Ej. 7"
         />
