@@ -18,7 +18,7 @@ namespace PsychologistsAPI.Mapper
                 DiaSemana = entity.DiaSemana,
                 HoraInicio = entity.HoraInicio,
                 HoraFin = entity.HoraFin,
-                Fecha = CalcularFechaDesdeDiaSemana(entity.DiaSemana)
+                
             };
         }
 
