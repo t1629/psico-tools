@@ -25,12 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Models\LoginDto.cs" />
+    <None Include="Dtos\LoginDto.cs" />
     <None Include="PsychologistsAPI.csproj.user" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj" />
   </ItemGroup>
 
 </Project>

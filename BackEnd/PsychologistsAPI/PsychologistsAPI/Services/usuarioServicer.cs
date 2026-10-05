@@ -1,67 +1,46 @@
-﻿using Data.Context;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Data.Entities;
+﻿using PsychologistsAPI.Repositories;
+using PsychologistsAPI.Dtos;
 using PsychologistsAPI.Models;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Text;
 
 namespace PsychologistsAPI.Services
 {
-    
-    public class usuarioService 
+    public class usuarioService
     {
-        private readonly PsychologistContext _context;
-        public usuarioService(PsychologistContext context)
+        private readonly UsuarioRepository _repo;
+
+        public usuarioService(UsuarioRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         public async Task<usuarioDto?> getUser(int id)
         {
-            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id   && u.Estado == true);
+            var user = await _repo.GetByIdAsync(id);
+            if (user == null) return null;
 
-            if (user == null)
-
-                return null;
-
-            var dto = new usuarioDto
+            return new usuarioDto
             {
                 Name = user.Nombre,
                 Email = user.Email,
                 Estado = user.Estado
-
             };
-
-            return dto;
-
         }
-
 
         public async Task<usuarioDto?> postUser(usuarioDto dto)
         {
-
-            var userValid = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == dto.Email);
-
+            var userValid = await _repo.GetByEmailAsync(dto.Email);
             if (userValid != null)
-            {
                 throw new InvalidOperationException("El email ya está registrado.");
-            }
 
             var user = new Usuario
             {
                 Nombre = dto.Name,
                 PasswordHash = dto.PasswordHash,
                 Email = dto.Email,
-                Estado = true,
+                Estado = true
             };
 
-            _context.Usuarios.Add(user);
-            await _context.SaveChangesAsync();
-
+            await _repo.AddAsync(user);
 
             return new usuarioDto
             {
@@ -70,54 +49,39 @@ namespace PsychologistsAPI.Services
                 Email = user.Email,
                 Estado = user.Estado
             };
-
         }
 
         public async Task<usuarioDto?> putUser(usuarioDto dto, int id)
         {
-            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id && u.Estado == true);
-
-            if (user == null)
-            {
-                return null;
-            }
+            var user = await _repo.GetByIdAsync(id);
+            if (user == null) return null;
 
             if (!dto.Email.Contains("@"))
                 throw new ArgumentException("El email no tiene un formato válido.");
-
 
             user.Nombre = dto.Name;
             user.Email = dto.Email;
             user.PasswordHash = dto.PasswordHash;
 
-            await _context.SaveChangesAsync();
-
+            await _repo.UpdateAsync(user);
 
             return new usuarioDto
             {
                 Name = user.Nombre,
                 Email = user.Email,
-                PasswordHash = user.PasswordHash,
+                PasswordHash = user.PasswordHash
             };
         }
-       
-
 
         public async Task<bool> softDeleteUser(int id)
         {
-            var user = await _context.Usuarios.FirstOrDefaultAsync(u => u.UsuarioId == id);
-
-            if(user == null)
-            {
-                return false;
-            }
+            var user = await _repo.GetByIdAsync(id);
+            if (user == null) return false;
 
             user.Estado = false;
-            await _context.SaveChangesAsync();
+            await _repo.SaveChangesAsync();
 
             return true;
         }
-
-        
     }
 }

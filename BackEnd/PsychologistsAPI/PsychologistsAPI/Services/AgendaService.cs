@@ -1,132 +1,80 @@
-using Data.Context;
-using Microsoft.EntityFrameworkCore;
-using Data.Entities;
-using PsychologistsAPI.Models;
+using PsychologistsAPI.Repositories;
 using PsychologistsAPI.Mapper;
+using PsychologistsAPI.Dtos;
+using PsychologistsAPI.Models;
 
 namespace PsychologistsAPI.Services
 {
     public class AgendaService
     {
-        private readonly PsychologistContext _context;
+        private readonly AgendaRepository _repo;
 
-        public AgendaService(PsychologistContext context)
+        public AgendaService(AgendaRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         public async Task<List<AgendaDto>> GetAll()
         {
-            var agendas = await _context.Agenda
-                .Include(a => a.Psicologo) 
-                .ToListAsync();
-
+            var agendas = await _repo.GetAllAsync();
             return agendas.Select(a => AgendaMapper.ToDto(a)).ToList();
         }
 
         public async Task<List<AgendaDto>> GetByDate(DateOnly? fecha)
         {
-            var query = _context.Agenda
-                .Include(a => a.Psicologo) 
-                .AsQueryable();
-
-            if (fecha.HasValue)
-            {
-                
-                var diaSemana = fecha.Value.DayOfWeek.ToString();
-                query = query.Where(a => a.DiaSemana == diaSemana);
-            }
-            var agendas = await query.ToListAsync();
+            var agendas = await _repo.GetByDateAsync(fecha);
             return agendas.Select(a => AgendaMapper.ToDto(a)).ToList();
         }
 
         public async Task<AgendaDto?> GetById(int id)
         {
-            var agenda = await _context.Agenda
-                .Include(a => a.Psicologo) 
-                .FirstOrDefaultAsync(a => a.AgendaId == id);
-
-            if (agenda == null)
-                return null;
-
-            return AgendaMapper.ToDto(agenda);
+            var agenda = await _repo.GetByIdAsync(id);
+            return agenda == null ? null : AgendaMapper.ToDto(agenda);
         }
-
         public async Task<AgendaDto?> GetByIdWithPaciente(int id)
         {
-            var agenda = await _context.Agenda
-                .Include(a => a.Psicologo) 
-                .FirstOrDefaultAsync(a => a.AgendaId == id);
-
-            if (agenda == null)
-                return null;
-
-            return AgendaMapper.ToDto(agenda);
+            var agenda = await _repo.GetByIdWithPacienteAsync(id);
+            return agenda == null ? null : AgendaMapper.ToDto(agenda);
         }
 
         public async Task<AgendaDto> Create(AgendaDto dto)
         {
             if (dto.HoraInicio >= dto.HoraFin)
-            {
-                throw new ArgumentException(
-                    "La hora de inicio debe ser anterior a la hora de fin."
-                );
-            }
+                throw new ArgumentException("La hora de inicio debe ser anterior a la hora de fin.");
 
             var agenda = AgendaMapper.ToEntity(dto);
+            await _repo.AddAsync(agenda);
 
-            _context.Agenda.Add(agenda);
-            await _context.SaveChangesAsync();
-
-            
-            agenda = await _context.Agenda
-                .Include(a => a.Psicologo)
-                .FirstAsync(a => a.AgendaId == agenda.AgendaId);
-
-            return AgendaMapper.ToDto(agenda);
+            var saved = await _repo.GetByIdAsync(agenda.AgendaId);
+            return AgendaMapper.ToDto(saved!);
         }
 
         public async Task<AgendaDto?> Update(AgendaDto dto)
         {
-            var agenda = await _context.Agenda
-                .Include(a => a.Psicologo)
-                .FirstOrDefaultAsync(a => a.AgendaId == dto.AgendaId);
-
-            if (agenda == null)
-                return null;
+            var agenda = await _repo.GetByIdAsync(dto.AgendaId);
+            if (agenda == null) return null;
 
             if (dto.HoraInicio >= dto.HoraFin)
-            {
-                throw new ArgumentException(
-                    "La hora de inicio debe ser anterior a la hora de fin."
-                );
-            }
+                throw new ArgumentException("La hora de inicio debe ser anterior a la hora de fin.");
 
-            
+            // Actualizar campos
             agenda.ConsultorioId = dto.ConsultorioId;
             agenda.DiaSemana = dto.DiaSemana;
             agenda.Estado = dto.Estado;
             agenda.HoraInicio = dto.HoraInicio;
             agenda.HoraFin = dto.HoraFin;
             agenda.PsicologoId = dto.PsicologoId;
-            
 
-            await _context.SaveChangesAsync();
-
+            await _repo.UpdateAsync(agenda);
             return AgendaMapper.ToDto(agenda);
         }
 
         public async Task<bool> Delete(int id)
         {
-            var agenda = await _context.Agenda
-                .FirstOrDefaultAsync(a => a.AgendaId == id);
+            var agenda = await _repo.GetByIdAsync(id);
+            if (agenda == null) return false;
 
-            if (agenda == null)
-                return false;
-
-            _context.Agenda.Remove(agenda);
-            await _context.SaveChangesAsync();
-
+            await _repo.DeleteAsync(agenda);
             return true;
         }
     }

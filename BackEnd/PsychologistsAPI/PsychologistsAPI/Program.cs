@@ -1,6 +1,4 @@
-﻿using Data.Context;
-using Data.Entities;
-using DotNetEnv;
+﻿using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using PsychologistsAPI.Data;
+using PsychologistsAPI.Models;
+using PsychologistsAPI.Repositories;
 using PsychologistsAPI.Services;
 using System.Reflection.Emit;
 using System.Text;
@@ -21,12 +22,13 @@ namespace PsychologistsAPI
             DotNetEnv.Env.Load(".env.backend");
             var builder = WebApplication.CreateBuilder(args);
 
+            //Controllers
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddAuthorization();
-
+            //Services
             builder.Services.AddScoped<LoginService>();
             builder.Services.AddScoped<sessionService>();
             builder.Services.AddScoped<TurnoService>();
@@ -40,6 +42,20 @@ namespace PsychologistsAPI
             //builder.Services.AddScoped<MedioEnvioService>();
             //builder.Services.AddScoped<TipoModalidadService>();
             //builder.Services.AddScoped<RolService>();
+
+
+
+            //Repositories
+            builder.Services.AddScoped<AgendaRepository>();
+            builder.Services.AddScoped<LoginRepository>();
+            builder.Services.AddScoped<PlanTurnoRepository>();
+            builder.Services.AddScoped<SessionRepository>();
+            builder.Services.AddScoped<TurnoRepository>();
+            builder.Services.AddScoped<UsuarioRepository>();
+
+
+
+
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<PsychologistContext>(options =>

@@ -1,16 +1,13 @@
-Solution/
- ├── PsychologistsAPI/           ← Proyecto principal (Web API)
- │    ├── Controllers/           ← Endpoints HTTP
- │    ├── Models/                ← DTOs / ViewModels
- │    ├── Services/              ← Lógica de negocio
-      ├── Mappper/               ← Conexion de Entity con DTO          
- │    ├── Program.cs             ← Configuración inicial
- │    └── appsettings.json       ← Configuración
- │
- ├── Data/              ← Class Library
- │    ├── Entities/              ← Entidades del dominio (tablas)
- │    └── Context/               ← DbContext de EF Core
-
+ PsychologistsAPI/
+ ├── Controllers/        ← Endpoints HTTP
+ ├── Models/             ← Entidades del dominio (tablas)
+ ├── Dtos/               ← Objetos de transferencia de datos (DTOs)
+ ├── Data/               ← Contexto de EF Core
+ ├── Repositories/       ← Acceso a datos (consultas CRUD)
+ ├── Services/           ← Lógica de negocio
+ ├── Mapper/             ← Mapeo entre entidades y DTOs
+ ├── Program.cs
+ └── appsettings.json
 
 
 
