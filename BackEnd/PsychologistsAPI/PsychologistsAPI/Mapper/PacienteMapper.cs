@@ -15,7 +15,9 @@ namespace PsychologistsAPI.Mapper
                     Nombre = paciente.Nombre,
                     Apellido = paciente.Apellido,
                     Email = paciente.Email,
-                    Telefono = paciente.Telefono
+                    Telefono = paciente.Telefono,
+                    Dni = paciente.Dni,
+                    FechaNacimineto = paciente.FechaNacimineto
                 };
             }
         

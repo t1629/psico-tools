@@ -85,6 +85,13 @@
 -DELETE  /api/notificaciones/{id}
 
 
+1.10 Endpoints de paciente (/api/paciente)
+--------------------------------------------------------------------------------
+-GET /api/paciente
+-GET /api/paciente/{id}
+-POST /api/paciente
+-PUT  /api/paciente/{id}
+-DELETE /api/paciente/{id}
 
 
 
