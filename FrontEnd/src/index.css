@@ -1,95 +1,78 @@
+/* src/index.css */
+:root {
+  /* ESCALA GLOBAL (Primitives) - Base extraída de la paleta */
+  --global-brand-500: #8ea604;
+  --global-brand-600: #748703;
+  --global-brand-400: #a6c205;
+  --global-brand-300: #bcd916;
+
+  --global-accent-500: #ec9f05;
+  --global-accent-400: #f0ad24;
+
+  --global-gray-50: #f8f9fa;
+  --global-gray-100: #edf2f7;
+  --global-gray-300: #cbd5e0;
+  --global-gray-400: #a0aec0;
+  --global-gray-600: #4a5568;
+  --global-gray-800: #2d3748;
+  --global-gray-900: #1a202c;
+  --global-dark-bg: #121418;
+  --global-dark-surface: #1e2228;
+
+  /* TOKENS SEMÁNTICOS - LIGHT MODE (Por defecto) */
+  --color-bg-base: var(--global-gray-50);
+  --color-bg-surface: #ffffff;
+
+  --color-text-primary: var(--global-gray-900);
+  --color-text-secondary: var(--global-gray-600);
+  --color-text-disabled: var(--global-gray-400);
+
+  --color-action-primary: var(--global-brand-500);
+  --color-action-hover: var(--global-brand-600);
+  --color-action-secondary: var(--global-accent-500);
+
+  --color-border-subtle: var(--global-gray-100);
+  --color-border-input: var(--global-gray-300);
+
+  --color-feedback-success: var(--global-brand-500);
+  --color-feedback-error: #bf3100;
+  --color-feedback-warning: #f5bb00;
+  --color-feedback-info: #2b6cb0;
+}
+
+/* TOKENS SEMÁNTICOS - DARK MODE */
+[data-theme="dark"] {
+  --color-bg-base: var(--global-dark-bg);
+  --color-bg-surface: var(--global-dark-surface);
+
+  --color-text-primary: #f7fafc;
+  --color-text-secondary: var(--global-gray-400);
+  --color-text-disabled: var(--global-gray-600);
+
+  --color-action-primary: var(--global-brand-400);
+  --color-action-hover: var(--global-brand-300);
+  --color-action-secondary: var(--global-accent-400);
+
+  --color-border-subtle: var(--global-gray-800);
+  --color-border-input: var(--global-gray-600);
+
+  --color-feedback-success: var(--global-brand-400);
+  --color-feedback-error: #e04814;
+  --color-feedback-warning: #fcd34d;
+  --color-feedback-info: #63b3ed;
+}
+
+/* Aplicación base para toda la App */
 * {
   margin: 0;
   padding: 0;
-}
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --nav-bg: #f8f7fb;
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
-  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --nav-bg: #1d1e26;
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-body {
-  margin: 0;
-}
-
-#root {
-  width: 100%;
-  min-height: 100svh;
-}
-
-.app-shell {
-  min-height: 100svh;
-}
-
-.app-content {
-  min-height: 100svh;
   box-sizing: border-box;
-  margin-left: 240px;
-  padding: 32px;
-  text-align: center;
+  font-family:
+    "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans",
+    Arial, sans-serif;
 }
 
-@media (max-width: 600px) {
-  .app-content {
-    margin-left: 190px;
-    padding: 24px 16px;
-  }
-}
 body {
-  font-family: "Roboto", sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  color: white;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
 }

@@ -2,11 +2,23 @@ import "../styles/UI/Nav.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import LogoutForm from "./LogoutCard";
-function Nav() {
+import { ThemeContext } from "../context/ThemeContext";
+import { useContext } from "react";
+function Nav({ isOpen, toggleNav }) {
+  const { toggleTheme } = useContext(ThemeContext);
   const [showLogout, setShowLogout] = useState(false);
   return (
-    <nav className="side-nav" aria-label="Navegación principal">
+    <nav
+      className={`side-nav ${isOpen ? "side-nav--open" : "side-nav--collapsed"}`}
+    >
       <ul className="side-nav__list">
+        <button
+          type="button"
+          className="side-nav__toggle-btn"
+          onClick={toggleNav}
+        >
+          {isOpen ? "◀" : "▶"}
+        </button>
         <li className="side-nav__item">
           <Link to="/inicio" className="side-nav__link">
             Inicio
@@ -34,6 +46,9 @@ function Nav() {
           >
             Cerrar sesión
           </button>
+        </li>
+        <li className="side-nav__item">
+          <button onClick={toggleTheme}>Cambiar Tema</button>
         </li>
       </ul>
       {showLogout && <LogoutForm onClose={() => setShowLogout(false)} />}
