@@ -40,7 +40,7 @@ namespace PsychologistsAPI.Controllers
             }
         }
 
-        [HttpGet("${id}")]
+        [HttpGet("{id}")]
 
         public async Task<IActionResult> GetById(int id)
         {
@@ -101,7 +101,7 @@ namespace PsychologistsAPI.Controllers
         }
 
 
-        [HttpPut ("${id}")]
+        [HttpPut ("{id}")]
 
         public async Task<IActionResult> Put([FromBody] PacienteDto dto, int id)
         {
@@ -132,7 +132,7 @@ namespace PsychologistsAPI.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
 
         public async Task<IActionResult> Remove(int id)
         {
