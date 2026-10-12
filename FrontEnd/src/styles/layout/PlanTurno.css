@@ -1,0 +1,308 @@
+/* ================================================================= *
+ * CONTENEDOR PRINCIPAL Y TIPOGRAFÍA
+ * ================================================================= */
+.planturno-container {
+  padding: 1.5rem;
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: #f1f5f9; /* text-slate-100 */
+}
+
+@media (min-width: 1024px) {
+  .planturno-container {
+    padding: 2.5rem;
+  }
+}
+
+.planturno-header {
+  margin-bottom: 2rem;
+}
+
+.planturno-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+.planturno-subtitle {
+  font-size: 0.875rem;
+  color: #94a3b8; /* text-slate-400 */
+  margin-top: 0.25rem;
+}
+
+/* ================================================================= *
+ * FORMULARIO Y SECCIONES
+ * ================================================================= */
+.planturno-card-box {
+  background-color: #1a1625;
+  border: 1px solid rgba(88, 28, 135, 0.3); /* border-purple-900/30 */
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .planturno-card-box {
+    padding: 2rem;
+  }
+}
+
+.planturno-section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #e9d5ff; /* text-purple-200 */
+  margin-bottom: 1.5rem;
+}
+
+/* Alertas */
+.planturno-alert-error {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: rgba(76, 5, 25, 0.5);
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: #fca5a5;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+}
+
+.planturno-alert-success {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background-color: rgba(2, 44, 34, 0.5);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #a7f3d0;
+  font-size: 0.875rem;
+  border-radius: 0.5rem;
+}
+
+/* Grilla del formulario */
+.planturno-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .planturno-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.planturno-field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.planturno-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #cbd5e1; /* text-slate-300 */
+  margin-bottom: 0.25rem;
+}
+
+.planturno-input,
+.planturno-select {
+  width: 100%;
+  background-color: #120f1a;
+  border: 1px solid rgba(88, 28, 135, 0.4);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  color: #ffffff;
+  font-size: 0.875rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.planturno-input::placeholder {
+  color: #64748b;
+}
+
+.planturno-input:focus,
+.planturno-select:focus {
+  border-color: #a855f7; /* focus:border-purple-500 */
+  box-shadow: 0 0 0 1px #a855f7;
+}
+
+.planturno-select option {
+  background-color: #1a1625;
+}
+
+.planturno-submit-wrapper {
+  grid-column: span 1 / span 1;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .planturno-submit-wrapper {
+    grid-column: span 2 / span 2;
+  }
+}
+
+.planturno-btn-submit {
+  background-color: #9333ea; /* bg-purple-600 */
+  color: #ffffff;
+  font-weight: 500;
+  padding: 0.625rem 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(147, 51, 234, 0.2);
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  border: none;
+  cursor: pointer;
+}
+
+.planturno-btn-submit:hover {
+  background-color: #7e22ce; /* hover:bg-purple-700 */
+}
+
+/* ================================================================= *
+ * LISTADO Y CARDS
+ * ================================================================= */
+.planturno-list-section h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #e9d5ff;
+  margin-bottom: 1rem;
+}
+
+.planturno-msg-loading,
+.planturno-msg-error {
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.planturno-msg-error {
+  color: #f87171;
+}
+
+.planturno-empty-state {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-style: italic;
+  background-color: rgba(26, 22, 37, 0.5);
+  border: 1px dashed rgba(88, 28, 135, 0.3);
+  padding: 2rem;
+  border-radius: 0.75rem;
+  text-align: center;
+}
+
+.planturno-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .planturno-cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .planturno-cards-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.planturno-card {
+  background-color: #1a1625;
+  border: 1px solid rgba(88, 28, 135, 0.3);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.planturno-card:hover {
+  border-color: rgba(168, 85, 247, 0.4);
+}
+
+.planturno-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+
+.planturno-badge-id {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: #3b0764; /* purple-950 */
+  color: #d8b4fe; /* purple-300 */
+  border: 1px solid rgba(107, 33, 168, 0.4);
+}
+
+/* Badges de estado dinámicos */
+.planturno-badge-estado {
+  padding: 0.25rem 0.625rem;
+  border-radius: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.planturno-badge-confirmado {
+  background-color: #022c22;
+  color: #6ee7b7;
+  border: 1px solid rgba(6, 95, 70, 0.4);
+}
+
+.planturno-badge-cancelado {
+  background-color: #4c0519;
+  color: #fca5a5;
+  border: 1px solid rgba(159, 18, 57, 0.4);
+}
+
+.planturno-badge-pendiente {
+  background-color: #451a03;
+  color: #fde047;
+  border: 1px solid rgba(146, 64, 14, 0.4);
+}
+
+.planturno-card-body {
+  font-size: 0.875rem;
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.planturno-card-body strong {
+  color: #94a3b8;
+}
+
+.planturno-card-footer {
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(88, 28, 135, 0.2);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.planturno-btn-delete {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #f87171;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.planturno-btn-delete:hover {
+  color: #fca5a5;
+}

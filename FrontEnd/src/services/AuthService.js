@@ -14,14 +14,16 @@ export async function Login(email, password) {
   return data;
 }
 
-export async function session(token) {
+export async function session() {
   const BASE_API_URL = import.meta.env.VITE_API_URL;
 
+  // No enviar Authorization explícito aquí: fetchApi lee el token desde localStorage
+  // y añade el header si existe. Evita enviar "Bearer undefined" cuando no
+  // se pasa token explícitamente.
   return fetchApi(`${BASE_API_URL}/api/session`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
     },
   });
 }

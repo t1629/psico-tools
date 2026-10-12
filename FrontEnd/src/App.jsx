@@ -7,6 +7,7 @@ import Nav from "./components/Nav";
 import { UserProvider } from "./hooks/UseProvider";
 import Header from "./components/Header";
 import "./App.css";
+import PlanTurnoForm from "./pages/PlanTurnoForm";
 
 function ProtectedRoute({ children }) {
   return localStorage.getItem("token") ? (
@@ -57,6 +58,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Turnos />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/planTurno"
+            element={
+              <ProtectedRoute>
+                <PlanTurnoForm />
               </ProtectedRoute>
             }
           />

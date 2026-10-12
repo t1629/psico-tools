@@ -27,6 +27,13 @@ function Nav() {
             Login
           </Link>
         </li>
+
+        <li className="side-nav__item">
+          <Link to="/planTurno" className="side-nav__link">
+            Plan Turno
+          </Link>
+        </li>
+
         <li className="side-nav__item">
           <button
             className="side-nav__link"

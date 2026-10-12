@@ -9,7 +9,13 @@ export async function fetchApi(url, options = {}) {
   };
 
   try {
+    console.log("🌐 URL que se está consultando:", url);
+    console.log("🔑 Token:", token ? "Existe" : "NO EXISTE");
+
     const response = await fetch(url, { ...options, headers });
+    console.log("📡 Status:", response.status);
+    console.log("📡 Response URL:", response.url);
+
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       console.error("Detalle del backend:", errorData);
