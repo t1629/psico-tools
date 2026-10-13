@@ -19,7 +19,12 @@ namespace PsychologistsAPI
     {
         public static void Main(string[] args)
         {
-            DotNetEnv.Env.Load(".env.backend");
+            foreach (var line in File.ReadAllLines(".env.backend"))
+            {
+                var parts = line.Split('=', 2);
+                if (parts.Length == 2)
+                    Environment.SetEnvironmentVariable(parts[0], parts[1]);
+            }
             var builder = WebApplication.CreateBuilder(args);
 
             //Controllers
@@ -55,9 +60,15 @@ namespace PsychologistsAPI
 
 
 
-
-
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            var jwtKey = Environment.GetEnvironmentVariable("Jwt__Key"); 
+            var jwtIssuer = Environment.GetEnvironmentVariable("Jwt__Issuer");
+            var jwtAudience = Environment.GetEnvironmentVariable("Jwt__Audience");
+
+
+
+
+           
             builder.Services.AddDbContext<PsychologistContext>(options =>
                 options.UseSqlServer(connectionString));
 
@@ -109,15 +120,15 @@ namespace PsychologistsAPI
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
 
-                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                    ValidAudience = builder.Configuration["Jwt:Audience"],
-
+                    ValidIssuer = jwtIssuer,
+                    ValidAudience = jwtAudience,
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+                        Encoding.UTF8.GetBytes(jwtKey!)
                     )
                 };
+           
 
-                options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
+            options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
                 {
                     OnAuthenticationFailed = ctx =>
                     {
