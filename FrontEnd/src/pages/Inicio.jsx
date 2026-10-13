@@ -125,14 +125,21 @@ const Inicio = () => {
             startAccessor="start"
             endAccessor="end"
             titleAccessor="title"
-            eventPropGetter={(task) => ({
-              style: {
-                backgroundColor:
-                  task.type === "descanso" ? "lightgray" : "lightblue",
-                borderRadius: "4px",
-                padding: "2px",
-              },
-            })}
+            eventPropGetter={(task) => {
+              const text = `${task?.title ?? ""} ${task?.resource?.descripcion ?? ""} ${task?.resource?.type ?? ""}`.toLowerCase();
+              const isRest = text.includes("descanso");
+              return {
+                style: {
+                  backgroundColor: isRest
+                    ? "var(--color-action-secondary)"
+                    : "var(--color-action-primary)",
+                  border: "1px solid var(--color-action-hover)",
+                  borderRadius: "4px",
+                  padding: "2px 6px",
+                  color: "var(--global-dark-bg)",
+                },
+              };
+            }}
           />
         )}
       </section>

@@ -1,16 +1,158 @@
 .side-nav {
   background: var(--color-bg-surface);
-  border: solid 1px var(--color-border-subtle);
+  border-right: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+  padding: 16px 12px;
+  position: sticky;
+  top: 72px;
+  height: calc(100vh - 72px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition:
+    padding 0.25s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
+.side-nav__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.side-nav__item {
+  display: flex;
+}
+
+/* Fila del botón colapso alineada al borde (el botón vive en <li> válido) */
+.side-nav__list > .side-nav__item:first-child {
+  justify-content: flex-end;
+}
+
+/* Enlaces y botones del nav comparten geometría táctil 44px */
 .side-nav__link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  border-left: 3px solid transparent;
   text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
   color: var(--color-text-secondary);
-  padding: 1rem;
+  background: transparent;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    padding 0.25s ease,
+    opacity 0.2s ease;
 }
-.side-nav__link:focus {
-  color: var(--color-text-primary);
+
+/* button.side-nav__link resetea estilos nativos */
+button.side-nav__link {
+  width: 100%;
+  text-align: left;
+  font: inherit;
 }
+
+/* Hover: texto primario (15:1) + tinta de marca, no texto lima (falla 2.6:1) */
 .side-nav__link:hover {
-  color: var(--color-action-hover);
+  color: var(--color-text-primary);
+  background: var(--tint-primary);
+  border-left-color: var(--color-action-hover);
+}
+
+.side-nav__link:focus-visible {
+  outline: 3px solid var(--color-action-secondary);
+  outline-offset: 2px;
+}
+
+/* Estado activo / foco teclado: barra lima + tinta, texto primario */
+.side-nav__link:focus,
+.side-nav__link[aria-current="page"] {
+  color: var(--color-text-primary);
+  background: var(--tint-primary-strong);
+  border-left-color: var(--color-action-primary);
+}
+
+/* Botón colapsar */
+.side-nav__toggle-btn {
+  align-self: flex-end;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-input);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-size: 16px;
+  margin-bottom: 8px;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.25s ease;
+}
+
+.side-nav__toggle-btn:hover {
+  background: var(--tint-primary);
+  border-color: var(--color-action-hover);
+}
+
+.side-nav__toggle-btn:active {
+  transform: scale(0.94);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-nav,
+  .side-nav__link,
+  .side-nav__toggle-btn {
+    transition: none;
+  }
+}
+/* Colapsado: oculta todos los items y deja solo el botón flotante */
+.side-nav--collapsed {
+  padding: 16px 8px;
+}
+
+.side-nav--collapsed .side-nav__list > .side-nav__item:not(:first-child) {
+  display: none;
+}
+
+.side-nav--collapsed .side-nav__toggle-btn {
+  border-color: var(--color-action-hover);
+  box-shadow: var(--shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-nav,
+  .side-nav__link,
+  .side-nav__toggle-btn {
+    transition: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .side-nav {
+    position: static;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
 }

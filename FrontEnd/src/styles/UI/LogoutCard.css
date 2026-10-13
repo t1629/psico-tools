@@ -1,0 +1,95 @@
+/* Tarjeta flotante de confirmación — tokens del sistema, sin hex externos. */
+
+.logout-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: color-mix(in srgb, var(--global-dark-bg) 55%, transparent);
+}
+
+.logout-card {
+  width: 100%;
+  max-width: 360px;
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-top: 4px solid var(--color-action-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  color: var(--color-text-primary);
+  animation: logout-rise 0.25s ease;
+}
+
+@keyframes logout-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.logout-card p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.logout-card__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.logout-card__actions button {
+  flex: 1;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* Sí: primario lima + texto oscuro (AA ambos modos) */
+.logout-card__confirm {
+  background: var(--color-action-primary);
+  border: 1px solid var(--color-action-hover);
+  color: var(--global-dark-bg);
+}
+
+.logout-card__confirm:hover {
+  background: var(--color-action-secondary);
+  border-color: var(--color-action-secondary);
+  color: var(--global-dark-bg);
+}
+
+/* No: tinta + texto primario (AA ambos modos) */
+.logout-card__cancel {
+  background: var(--tint-primary);
+  border: 1px solid var(--color-action-hover);
+  color: var(--color-text-primary);
+}
+
+.logout-card__cancel:hover {
+  background: var(--tint-primary-strong);
+}
+
+.logout-card__confirm:focus-visible,
+.logout-card__cancel:focus-visible {
+  outline: 3px solid var(--color-action-secondary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logout-card {
+    animation: none;
+  }
+}

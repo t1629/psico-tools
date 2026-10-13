@@ -30,3 +30,7 @@ obj/
 
 
 .env
+
+# Agentes IA (instalados con `npx autoskills`, regenerables: no versionar)
+.agents/skills/
+skills-lock.json

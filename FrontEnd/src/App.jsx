@@ -1,18 +1,33 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { useContext } from "react";
 import LoginForm from "./components/LoginForm";
 import Inicio from "./pages/Inicio";
 import Turnos from "./pages/Turnos";
 import Paciente from "./pages/Paciente";
-import Nav from "./components/Nav";
 import { UserProvider } from "./hooks/UseProvider";
-import Header from "./components/Header";
+import { Login as AuthContext } from "./context/authContext";
 import MainLayout from "./components/MainLayout";
 import "./App.css";
 
-//localStorage.getItem("token") Remplase temporalmente la linea 14 con el true para poder entrar al las interfazes sin necesidad de inicia la API
-
+// Motivo: ProtectedRoute leía `true` fijo (bypass). Ahora lee `token` real:
+// sin token expulsa a /login, con token renderiza la vista.
 function ProtectedRoute({ children }) {
-  return true ? children : <Navigate to="/login" replace />;
+  const { token } = useContext(AuthContext);
+  if (!token) return <Navigate to="/login" replace />;
+  return children;
+}
+
+// Motivo: /login debe vivir fuera del layout y no mostrarse autenticado.
+function PublicRoute({ children }) {
+  const { token } = useContext(AuthContext);
+  if (token) return <Navigate to="/inicio" replace />;
+  return children;
+}
+
+// Motivo: "/" decide destino según auth en vez de forzar /inicio siempre.
+function RootRedirect() {
+  const { token } = useContext(AuthContext);
+  return <Navigate to={token ? "/inicio" : "/login"} replace />;
 }
 
 function App() {
@@ -20,8 +35,15 @@ function App() {
     <div className="app-shell">
       <UserProvider>
         <Routes>
-          <Route path="/" element={<Navigate to="/inicio" replace />} />
-          <Route path="/login" element={<Navigate to="/inicio" replace />} />
+          <Route path="/" element={<RootRedirect />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute>
+                <LoginForm />
+              </PublicRoute>
+            }
+          />
           <Route element={<MainLayout />}>
             <Route
               path="/inicio"
