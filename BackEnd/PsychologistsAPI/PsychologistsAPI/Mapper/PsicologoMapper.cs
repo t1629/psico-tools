@@ -13,7 +13,8 @@ namespace PsychologistsAPI.Mapper
                 Nombre = psicologo.Nombre,
                 Apellido = psicologo.Apellido,
                 Telefono = psicologo.Telefono,               
-                Email = psicologo.Email
+                Email = psicologo.Email,
+                RolNombre = psicologo.Rol != null ? psicologo.Rol.Nombre : null
             };
         }
     }
