@@ -44,32 +44,42 @@ const AgendaForm = ({ onCreated }) => {
 
   return (
     <form className="agenda-form" onSubmit={handleSubmit}>
+      <label htmlFor="agenda-fecha">Fecha</label>
       <input
+        id="agenda-fecha"
         type="date"
         value={fecha}
         onChange={(e) => setFecha(e.target.value)}
         className="agenda-input"
       />
+      <label htmlFor="agenda-hora-inicio">Hora de inicio</label>
       <input
+        id="agenda-hora-inicio"
         type="time"
         value={horaInicio}
         onChange={(e) => setHoraInicio(e.target.value)}
         className="agenda-input"
       />
+      <label htmlFor="agenda-hora-fin">Hora de fin</label>
       <input
+        id="agenda-hora-fin"
         type="time"
         value={horaFin}
         onChange={(e) => setHoraFin(e.target.value)}
         className="agenda-input"
       />
+      <label htmlFor="agenda-descripcion">Descripción</label>
       <input
+        id="agenda-descripcion"
         type="text"
         placeholder="Descripción"
         value={descripcion}
         onChange={(e) => setDescripcion(e.target.value)}
         className="agenda-input"
       />
+      <label htmlFor="agenda-psicologo">ID Psicólogo</label>
       <input
+        id="agenda-psicologo"
         type="number"
         placeholder="ID Psicólogo"
         value={psicologoId}

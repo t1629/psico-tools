@@ -2,50 +2,209 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
   padding: 16px 24px;
-  background: var(--code-bg);
-  border-bottom: 1px solid var(--border);
-  color: var(--text-h);
+  background: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border-subtle);
+  border-left: 4px solid var(--color-action-primary);
+  color: var(--color-text-primary);
   box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
 .app-header__title {
   font-size: 18px;
   font-weight: 700;
-  color: var(--text-h);
+  letter-spacing: -0.2px;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.app-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-header__profile-wrap {
+  position: relative;
 }
 
 .app-header__profile {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-height: 44px;
+  position: relative;
+  border-radius: var(--radius-md);
+  padding: 4px 6px;
+  transition: background-color 0.2s ease;
+}
+
+/* Preparación dropdown: cuando el perfil sea <button>, se comporta como popup */
+button.app-header__profile,
+.app-header__profile[role="button"] {
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--color-text-primary);
+  font: inherit;
+  text-align: left;
+}
+
+button.app-header__profile:hover,
+.app-header__profile[role="button"]:hover {
+  background: var(--tint-primary);
+  border-color: var(--color-border-subtle);
 }
 
 .profile-avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: var(--accent-bg);
-  color: var(--accent);
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   font-size: 14px;
+  /* Lima + texto oscuro: 5.91:1 light / 9.08:1 dark (AA) */
+  background: var(--color-action-primary);
+  color: var(--global-dark-bg);
+  border: 2px solid var(--color-action-hover);
 }
 
 .profile-info {
   display: flex;
   flex-direction: column;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .profile-info strong {
-  color: var(--text-h);
+  color: var(--color-text-primary);
   font-size: 14px;
 }
 
 .profile-info span {
-  color: var(--text);
+  color: var(--color-text-secondary);
   font-size: 12px;
+}
+
+/* Interruptor de tema único, solo-icono, a la izquierda del usuario */
+.app-header__theme-toggle {
+  width: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-input);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.app-header__theme-toggle:hover {
+  background: var(--color-action-secondary);
+  border-color: var(--color-action-secondary);
+  color: var(--global-dark-bg);
+}
+
+.app-header__theme-toggle:focus-visible {
+  outline: 3px solid var(--color-action-secondary);
+  outline-offset: 2px;
+}
+
+/* Transición sol↔luna: iconos apilados, fundido + rotación suave */
+.theme-icon-stack {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-icon-stack .theme-icon {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.app-header__theme-toggle[aria-pressed="false"] .theme-icon--sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+.app-header__theme-toggle[aria-pressed="false"] .theme-icon--moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.app-header__theme-toggle[aria-pressed="true"] .theme-icon--sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.app-header__theme-toggle[aria-pressed="true"] .theme-icon--moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.5);
+}
+
+/* Menú popup del perfil (estilo listo; requiere JSX con estado + role=menu autorizado) */
+.profile-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  padding: 6px;
+  display: grid;
+  gap: 2px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  z-index: 30;
+}
+
+.profile-menu[hidden] {
+  display: none;
+}
+
+.profile-menu button,
+.profile-menu a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: var(--radius-sm);
+  border: 0;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.profile-menu button:hover,
+.profile-menu a:hover {
+  background: var(--tint-primary);
+}
+
+@media (max-width: 700px) {
+  .app-header {
+    padding: 12px 16px;
+  }
+
+  .profile-info span {
+    display: none;
+  }
 }

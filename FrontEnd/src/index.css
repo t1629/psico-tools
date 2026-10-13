@@ -1,95 +1,188 @@
+/* src/index.css */
+:root {
+  /* ESCALA GLOBAL (Primitives) - Base extraída de la paleta */
+  --global-brand-500: #8ea604;
+  --global-brand-600: #748703;
+  --global-brand-400: #a6c205;
+  --global-brand-300: #bcd916;
+
+  --global-accent-500: #ec9f05;
+  --global-accent-400: #f0ad24;
+
+  --global-gray-50: #f8f9fa;
+  --global-gray-100: #edf2f7;
+  --global-gray-300: #cbd5e0;
+  --global-gray-400: #a0aec0;
+  --global-gray-600: #4a5568;
+  --global-gray-800: #2d3748;
+  --global-gray-900: #1a202c;
+  --global-dark-bg: #121418;
+  --global-dark-surface: #1e2228;
+
+  /* TOKENS SEMÁNTICOS - LIGHT MODE (Por defecto) */
+  --color-bg-base: var(--global-gray-50);
+  --color-bg-surface: #ffffff;
+
+  --color-text-primary: var(--global-gray-900);
+  --color-text-secondary: var(--global-gray-600);
+  --color-text-disabled: var(--global-gray-400);
+
+  --color-action-primary: var(--global-brand-500);
+  --color-action-hover: var(--global-brand-600);
+  --color-action-secondary: var(--global-accent-500);
+
+  --color-border-subtle: var(--global-gray-100);
+  --color-border-input: var(--global-gray-300);
+
+  --color-feedback-success: var(--global-brand-500);
+  --color-feedback-error: #bf3100;
+  --color-feedback-warning: #f5bb00;
+  --color-feedback-info: #2b6cb0;
+
+  color-scheme: light;
+
+  /* Sombras y acentos translúcidos derivados SOLO de la paleta (color-mix, sin hex nuevos) */
+  --shadow:
+    0 10px 15px -3px color-mix(in srgb, var(--global-gray-900) 12%, transparent),
+    0 4px 6px -2px color-mix(in srgb, var(--global-gray-900) 8%, transparent);
+  --tint-primary: color-mix(in srgb, var(--global-brand-500) 12%, transparent);
+  --tint-primary-strong: color-mix(in srgb, var(--global-brand-500) 22%, transparent);
+  --tint-accent: color-mix(in srgb, var(--global-accent-500) 12%, transparent);
+  --tint-error: color-mix(in srgb, #bf3100 10%, transparent);
+  --tint-warning: color-mix(in srgb, #f5bb00 16%, transparent);
+  --tint-info: color-mix(in srgb, #2b6cb0 10%, transparent);
+
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+}
+
+/* TOKENS SEMÁNTICOS - DARK MODE */
+[data-theme="dark"] {
+  --color-bg-base: var(--global-dark-bg);
+  --color-bg-surface: var(--global-dark-surface);
+
+  --color-text-primary: #f7fafc;
+  --color-text-secondary: var(--global-gray-400);
+  --color-text-disabled: var(--global-gray-600);
+
+  --color-action-primary: var(--global-brand-400);
+  --color-action-hover: var(--global-brand-300);
+  --color-action-secondary: var(--global-accent-400);
+
+  --color-border-subtle: var(--global-gray-800);
+  --color-border-input: var(--global-gray-600);
+
+  --color-feedback-success: var(--global-brand-400);
+  --color-feedback-error: #e04814;
+  --color-feedback-warning: #fcd34d;
+  --color-feedback-info: #63b3ed;
+
+  color-scheme: dark;
+
+  --shadow:
+    0 10px 15px -3px color-mix(in srgb, var(--global-gray-900) 65%, transparent),
+    0 4px 6px -2px color-mix(in srgb, var(--global-gray-900) 55%, transparent);
+  --tint-primary: color-mix(in srgb, var(--global-brand-400) 14%, transparent);
+  --tint-primary-strong: color-mix(in srgb, var(--global-brand-400) 26%, transparent);
+  --tint-accent: color-mix(in srgb, var(--global-accent-400) 14%, transparent);
+  --tint-error: color-mix(in srgb, #e04814 16%, transparent);
+  --tint-warning: color-mix(in srgb, #fcd34d 14%, transparent);
+  --tint-info: color-mix(in srgb, #63b3ed 14%, transparent);
+}
+
+/* Aplicación base para toda la App */
 * {
   margin: 0;
   padding: 0;
-}
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --nav-bg: #f8f7fb;
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
-  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --nav-bg: #1d1e26;
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-body {
-  margin: 0;
-}
-
-#root {
-  width: 100%;
-  min-height: 100svh;
-}
-
-.app-shell {
-  min-height: 100svh;
-}
-
-.app-content {
-  min-height: 100svh;
   box-sizing: border-box;
-  margin-left: 240px;
-  padding: 32px;
-  text-align: center;
 }
 
-@media (max-width: 600px) {
-  .app-content {
-    margin-left: 190px;
-    padding: 24px 16px;
-  }
+html {
+  scroll-behavior: smooth;
 }
+
 body {
-  font-family: "Roboto", sans-serif;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family:
+    "Roboto", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  line-height: 1.5;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  color: white;
+/* Enlaces: contraste AA en ambos modos (info 5.42:1 light / 7.0:1 dark) */
+a {
+  color: var(--color-feedback-info);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Foco visible AA: 2px + offset, nunca suprimido */
+:focus {
+  scroll-margin-top: 80px;
+  scroll-margin-bottom: 60px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-action-secondary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Selección con identidad de marca (tinta derivada, texto conserva contraste) */
+::selection {
+  background: var(--tint-primary-strong);
+  color: var(--color-text-primary);
+}
+
+/* Controles base heredan tokens; altura mínima 36px, táctil cómodo */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  min-height: 36px;
+}
+
+/* Placeholders usan secondary (7.14:1 light / 7.08:1 dark), no disabled */
+::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 1;
+}
+
+/* Utilidad accesible para textos solo-lector */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Movimiento reducido: respeta preferencia del usuario */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
