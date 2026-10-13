@@ -37,6 +37,24 @@ function Nav({ isOpen, toggleNav }) {
             Turnos
           </Link>
         </li>
+        <li className="side-nav__item">
+          <Link to="/turno/todos" className="side-nav__link">
+            Todos los Turnos
+          </Link>
+        </li>
+        <li className="side-nav__item">
+          <Link to="/login" className="side-nav__link">
+            Login
+          </Link>
+        </li>
+        <li className="side-nav__item">
+          <button
+            className="side-nav__link"
+            onClick={() => setShowLogout(true)}
+          >
+            Cerrar sesión
+          </button>
+        </li>
       </ul>
     </nav>
   );

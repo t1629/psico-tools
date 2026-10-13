@@ -1,6 +1,4 @@
-﻿using Data.Context;
-using Data.Entities;
-using DotNetEnv;
+﻿using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using PsychologistsAPI.Data;
+using PsychologistsAPI.Models;
+using PsychologistsAPI.Repositories;
 using PsychologistsAPI.Services;
 using System.Reflection.Emit;
 using System.Text;
@@ -18,15 +19,21 @@ namespace PsychologistsAPI
     {
         public static void Main(string[] args)
         {
-            DotNetEnv.Env.Load(".env.backend");
+            foreach (var line in File.ReadAllLines(".env.backend"))
+            {
+                var parts = line.Split('=', 2);
+                if (parts.Length == 2)
+                    Environment.SetEnvironmentVariable(parts[0], parts[1]);
+            }
             var builder = WebApplication.CreateBuilder(args);
 
+            //Controllers
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddAuthorization();
-
+            //Services
             builder.Services.AddScoped<LoginService>();
             builder.Services.AddScoped<sessionService>();
             builder.Services.AddScoped<TurnoService>();
@@ -41,7 +48,27 @@ namespace PsychologistsAPI
             //builder.Services.AddScoped<TipoModalidadService>();
             //builder.Services.AddScoped<RolService>();
 
+
+
+            //Repositories
+            builder.Services.AddScoped<AgendaRepository>();
+            builder.Services.AddScoped<LoginRepository>();
+            builder.Services.AddScoped<PlanTurnoRepository>();
+            builder.Services.AddScoped<SessionRepository>();
+            builder.Services.AddScoped<TurnoRepository>();
+            builder.Services.AddScoped<UsuarioRepository>();
+
+
+
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            var jwtKey = Environment.GetEnvironmentVariable("Jwt__Key"); 
+            var jwtIssuer = Environment.GetEnvironmentVariable("Jwt__Issuer");
+            var jwtAudience = Environment.GetEnvironmentVariable("Jwt__Audience");
+
+
+
+
+           
             builder.Services.AddDbContext<PsychologistContext>(options =>
                 options.UseSqlServer(connectionString));
 
@@ -93,15 +120,15 @@ namespace PsychologistsAPI
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
 
-                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                    ValidAudience = builder.Configuration["Jwt:Audience"],
-
+                    ValidIssuer = jwtIssuer,
+                    ValidAudience = jwtAudience,
                     IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+                        Encoding.UTF8.GetBytes(jwtKey!)
                     )
                 };
+           
 
-                options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
+            options.Events = new Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents
                 {
                     OnAuthenticationFailed = ctx =>
                     {

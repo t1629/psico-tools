@@ -2,10 +2,13 @@ import { fetchApi } from "./apiClient";
 
 const BASE_API_URL = import.meta.env.VITE_API_URL;
 
-export async function getByRange(desde, hasta) {
-  return fetchApi(`${BASE_API_URL}/api/turno?desde=${desde}&hasta=${hasta}`);
+export async function getAll() {
+  return fetchApi(`${BASE_API_URL}/api/turno/todos`);
 }
 
+export async function getByRange(desde, hasta) {
+  return fetchApi(`${BASE_API_URL}/api/turno?range=${desde}&hasta=${hasta}`);
+}
 export async function getById(id) {
   return fetchApi(`${BASE_API_URL}/api/turno/${id}`);
 }

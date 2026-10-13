@@ -1,15 +1,15 @@
-﻿using Data.Context;
+﻿using PsychologistsAPI.Data;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Data.Entities;
+using PsychologistsAPI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using PsychologistsAPI.Services;
 using Microsoft.Identity.Client.NativeInterop;
-using PsychologistsAPI.Models;
+using PsychologistsAPI.Dtos;
 
 namespace PsychologistsAPI.Controllers
 {

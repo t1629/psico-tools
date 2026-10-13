@@ -1,4 +1,4 @@
-﻿namespace PsychologistsAPI.Models
+﻿namespace PsychologistsAPI.Dtos
 {
     public class PsicologoDto
     {
@@ -11,5 +11,6 @@
 
         public string? Email { get; set; }
 
+        public string? RolNombre { get; set; }
     }
 }

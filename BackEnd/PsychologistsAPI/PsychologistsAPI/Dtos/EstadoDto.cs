@@ -1,4 +1,4 @@
-﻿namespace PsychologistsAPI.Models
+﻿namespace PsychologistsAPI.Dtos
 {
     public class EstadoDto
     {

@@ -1,4 +1,4 @@
-﻿namespace PsychologistsAPI.Models
+﻿namespace PsychologistsAPI.Dtos
 {
     public class PacienteDto
     {
@@ -10,6 +10,10 @@
         public string? Telefono { get; set; }
 
         public string? Email { get; set; }
+
+        public string? Dni { get; set; }
+
+        public DateOnly? FechaNacimineto { get; set; }
 
     }
 }

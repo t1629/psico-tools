@@ -1,5 +1,5 @@
-﻿using Data.Entities;
-using PsychologistsAPI.Models;
+﻿using PsychologistsAPI.Models;
+using PsychologistsAPI.Dtos;
 
 namespace PsychologistsAPI.Mapper
 {
@@ -13,7 +13,8 @@ namespace PsychologistsAPI.Mapper
                 Nombre = psicologo.Nombre,
                 Apellido = psicologo.Apellido,
                 Telefono = psicologo.Telefono,               
-                Email = psicologo.Email
+                Email = psicologo.Email,
+                RolNombre = psicologo.Rol != null ? psicologo.Rol.Nombre : null
             };
         }
     }

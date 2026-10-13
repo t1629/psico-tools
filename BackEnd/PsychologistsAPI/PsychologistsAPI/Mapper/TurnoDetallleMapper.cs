@@ -1,5 +1,5 @@
-﻿using Data.Entities;
-using PsychologistsAPI.Models;
+﻿using PsychologistsAPI.Models;
+using PsychologistsAPI.Dtos;
 
 namespace PsychologistsAPI.Mapper
 {

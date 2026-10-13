@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace PsychologistsAPI.Models
+namespace PsychologistsAPI.Dtos
 {
     public class usuarioDto
     {

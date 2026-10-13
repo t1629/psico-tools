@@ -1,48 +1,32 @@
 import { useState } from "react";
+import { useTurno } from "../hooks/useTurno";
 
-const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
-  const [fecha, setFecha] = useState(selectedTurno?.fecha ?? "");
-  const [hora, setHora] = useState(selectedTurno?.hora ?? "");
-  const [estado, setEstado] = useState(selectedTurno?.estado ?? "pendiente");
-  const [asistencia, setAsistencia] = useState(
-    selectedTurno?.asistencia ?? false,
-  );
-  const [minutos, setMinutos] = useState(selectedTurno?.minutos ?? 60);
-  const [modalidadVirtual, setModalidadVirtual] = useState(
-    selectedTurno?.modalidadVirtual ?? false,
-  );
-  const [url, setUrl] = useState(selectedTurno?.url ?? "");
-  const [cantidadTurnos, setCantidadTurnos] = useState(
-    selectedTurno?.cantidadTurnos ?? 1,
-  );
-  const [psicologoId, setPsicologoID] = useState(
-    selectedTurno?.psicologoId ?? "",
-  );
-  const [pacienteId, setPacienteID] = useState(selectedTurno?.pacienteID ?? "");
-  const [planTurnoId, setPlanTurnoID] = useState(
-    selectedTurno?.planTurnoId ?? "",
-  );
-  const [descripcion, setDescripcion] = useState(
-    selectedTurno?.descripcion ?? "",
-  );
+export default function TurnoForm({ selectedTurno, onReset, onSave }) {
+  const { saveTurno } = useTurno();
 
-  const handleSubmit = (e) => {
+  const [turno, setTurno] = useState({
+    fecha: "",
+    hora: "",
+    estado: "pendiente",
+    asistencia: false,
+    minutos: 30,
+    modalidadVirtual: false,
+    cantidadTurnos: 1,
+    psicologoId: "",
+    pacienteId: "",
+    planTurnoId: "",
+    descripcion: "",
+  });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const turno = {
-      fecha,
-      hora,
-      estado,
-      asistencia,
-      minutos,
-      modalidadVirtual,
-      url: modalidadVirtual ? url : null,
-      cantidadTurnos,
-      psicologoId,
-      pacienteId,
-      planTurnoId,
-      descripcion,
-    };
-    onSave(turno);
+    try {
+      await saveTurno(turno);
+      onSave(turno);
+      onReset?.();
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -56,23 +40,14 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
               : "Completa los datos para crear un turno."}
           </span>
         </div>
-        {selectedTurno && (
-          <button
-            type="button"
-            className="calendar-tools__danger"
-            onClick={() => onRemove(selectedTurno.turnoID)}
-          >
-            Eliminar
-          </button>
-        )}
       </div>
 
       <label>
         Fecha
         <input
           type="date"
-          value={fecha}
-          onChange={(e) => setFecha(e.target.value)}
+          value={turno.fecha}
+          onChange={(e) => setTurno({ ...turno, fecha: e.target.value })}
           required
         />
       </label>
@@ -81,15 +56,18 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Hora
         <input
           type="time"
-          value={hora}
-          onChange={(e) => setHora(e.target.value)}
+          value={turno.hora}
+          onChange={(e) => setTurno({ ...turno, hora: e.target.value })}
           required
         />
       </label>
 
       <label>
         Estado
-        <select value={estado} onChange={(e) => setEstado(e.target.value)}>
+        <select
+          value={turno.estado}
+          onChange={(e) => setTurno({ ...turno, estado: e.target.value })}
+        >
           <option value="pendiente">Pendiente</option>
           <option value="confirmado">Confirmado</option>
           <option value="cancelado">Cancelado</option>
@@ -100,8 +78,8 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Asistencia
         <input
           type="checkbox"
-          checked={asistencia}
-          onChange={(e) => setAsistencia(e.target.checked)}
+          checked={turno.asistencia}
+          onChange={(e) => setTurno({ ...turno, asistencia: e.target.checked })}
         />
       </label>
 
@@ -109,8 +87,10 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Duración (minutos)
         <input
           type="number"
-          value={minutos}
-          onChange={(e) => setMinutos(Number(e.target.value))}
+          value={turno.minutos}
+          onChange={(e) =>
+            setTurno({ ...turno, minutos: Number(e.target.value) || 0 })
+          }
           min="15"
           step="15"
         />
@@ -120,18 +100,20 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Modalidad virtual
         <input
           type="checkbox"
-          checked={modalidadVirtual}
-          onChange={(e) => setModalidadVirtual(e.target.checked)}
+          checked={turno.modalidadVirtual}
+          onChange={(e) =>
+            setTurno({ ...turno, modalidadVirtual: e.target.checked })
+          }
         />
       </label>
 
-      {modalidadVirtual ? (
+      {turno.modalidadVirtual ? (
         <label>
           URL de sesión
           <input
             type="text"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            value={turno.url ?? ""}
+            onChange={(e) => setTurno({ ...turno, url: e.target.value })}
             placeholder="https://meet.google.com/..."
           />
         </label>
@@ -143,8 +125,10 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Cantidad de turnos
         <input
           type="number"
-          value={cantidadTurnos}
-          onChange={(e) => setCantidadTurnos(Number(e.target.value))}
+          value={turno.cantidadTurnos}
+          onChange={(e) =>
+            setTurno({ ...turno, cantidadTurnos: Number(e.target.value) || 1 })
+          }
           min="1"
         />
       </label>
@@ -153,8 +137,8 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Psicólogo ID
         <input
           type="text"
-          value={psicologoId}
-          onChange={(e) => setPsicologoID(e.target.value)}
+          value={turno.psicologoId}
+          onChange={(e) => setTurno({ ...turno, psicologoId: e.target.value })}
           placeholder="Ej. 101"
         />
       </label>
@@ -163,8 +147,8 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Paciente ID
         <input
           type="text"
-          value={pacienteId}
-          onChange={(e) => setPacienteID(e.target.value)}
+          value={turno.pacienteId}
+          onChange={(e) => setTurno({ ...turno, pacienteId: e.target.value })}
           placeholder="Ej. 42"
         />
       </label>
@@ -173,8 +157,8 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
         Plan Turno ID
         <input
           type="text"
-          value={planTurnoId}
-          onChange={(e) => setPlanTurnoID(e.target.value)}
+          value={turno.planTurnoId}
+          onChange={(e) => setTurno({ ...turno, planTurnoId: e.target.value })}
           placeholder="Ej. 7"
         />
       </label>
@@ -182,8 +166,8 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
       <label>
         Descripción
         <textarea
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
+          value={turno.descripcion}
+          onChange={(e) => setTurno({ ...turno, descripcion: e.target.value })}
           placeholder="Ej: Consulta con Felipe o Descanso"
         />
       </label>
@@ -204,6 +188,4 @@ const TurnoForm = ({ onSave, onRemove, selectedTurno, onReset }) => {
       </div>
     </form>
   );
-};
-
-export default TurnoForm;
+}
