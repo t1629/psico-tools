@@ -1,6 +1,7 @@
-using PsychologistsAPI.Repositories;
 using PsychologistsAPI.Dtos;
+using PsychologistsAPI.Mapper;
 using PsychologistsAPI.Models;
+using PsychologistsAPI.Repositories;
 
 namespace PsychologistsAPI.Services
 {
@@ -13,10 +14,10 @@ namespace PsychologistsAPI.Services
             _repo = repo;
         }
 
-        public async Task<List<TurnoDto>> GetAll()
+        public async Task<List<TurnoDetalleDto>> GetAll()
         {
             var turnos = await _repo.GetAllAsync();
-            return turnos.Select(MapToDto).ToList();
+            return turnos.Select(TurnoDetallleMapper.ToDetalleDto).ToList();
         }
 
         public async Task<List<TurnoDto>> GetByDateRange(DateOnly? desde, DateOnly? hasta)

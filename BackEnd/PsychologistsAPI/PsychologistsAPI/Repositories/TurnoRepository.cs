@@ -15,7 +15,11 @@ namespace PsychologistsAPI.Repositories
 
         public async Task<List<Turno>> GetAllAsync()
         {
-            return await _context.Turnos.ToListAsync();
+            return await _context.Turnos
+                .Include(t => t.Paciente)   
+                .Include(t => t.Psicologo)  
+                .ToListAsync();
+
         }
 
         public async Task<List<Turno>> GetByDateRangeAsync(DateOnly? desde, DateOnly? hasta)
