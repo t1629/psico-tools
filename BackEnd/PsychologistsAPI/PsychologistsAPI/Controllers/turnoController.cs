@@ -18,6 +18,34 @@ namespace PsychologistsAPI.Controllers
         }
 
         // GET: api/turno
+        [HttpGet]
+
+        public async Task<IActionResult> GetAll()
+        {
+            try 
+            {
+                var turnos = await _service.GetAll();
+                if (turnos == null)
+                {
+                    return NotFound(new
+                    {
+                        message = $"No se pudieron cargar los turnos"
+                    });
+                }
+                return Ok(turnos);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "Error al obtener los turnos.",
+                    error = ex.Message
+                });
+            }
+        }
+
+
+
         // GET: api/turno?desde=2026-09-01&hasta=2026-09-30
         [HttpGet]
         public async Task<IActionResult> Get(
