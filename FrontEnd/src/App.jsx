@@ -6,6 +6,7 @@ import Paciente from "./pages/Paciente";
 import Nav from "./components/Nav";
 import { UserProvider } from "./hooks/UseProvider";
 import Header from "./components/Header";
+import TurnoAll from "./pages/TurnoAll";
 import "./App.css";
 
 function ProtectedRoute({ children }) {
@@ -57,6 +58,15 @@ function App() {
             element={
               <ProtectedRoute>
                 <Turnos />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/turno/todos"
+            element={
+              <ProtectedRoute>
+                <TurnoAll />
               </ProtectedRoute>
             }
           />
