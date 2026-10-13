@@ -18,7 +18,7 @@ namespace PsychologistsAPI.Controllers
         }
 
         // GET: api/turno
-        [HttpGet]
+        [HttpGet("todos")]
 
         public async Task<IActionResult> GetAll()
         {
@@ -47,7 +47,7 @@ namespace PsychologistsAPI.Controllers
 
 
         // GET: api/turno?desde=2026-09-01&hasta=2026-09-30
-        [HttpGet]
+        [HttpGet("range")]
         public async Task<IActionResult> Get(
             [FromQuery] DateOnly? desde,
             [FromQuery] DateOnly? hasta)
