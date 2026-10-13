@@ -28,10 +28,10 @@ namespace PsychologistsAPI.Services
             var query = _context.Turnos.AsQueryable();
 
             if (desde.HasValue)
-                query = query.Where(t => t.Fehca >= desde.Value);
+                query = query.Where(t => t.Fecha >= desde.Value);
 
             if (hasta.HasValue)
-                query = query.Where(t => t.Fehca <= hasta.Value);
+                query = query.Where(t => t.Fecha <= hasta.Value);
 
             return await query
                 .Select(t => MapToDto(t))
@@ -41,6 +41,9 @@ namespace PsychologistsAPI.Services
         public async Task<TurnoDto?> GetById(int id)
         {
             var turno = await _context.Turnos
+                .Include(t => t.Paciente)
+                .Include(t => t.Psicologo)
+                .Include(t => t.PlanTurno)
                 .FirstOrDefaultAsync(t => t.TurnoId == id);
 
             if (turno == null)
@@ -65,7 +68,7 @@ namespace PsychologistsAPI.Services
         {
             var turno = new Turno
             {
-                Fehca = dto.Fehca,
+                Fecha = dto.Fecha,
                 Hora = dto.Hora,
                 Estado = dto.Estado,
                 Minutos = dto.Minutos,
@@ -75,7 +78,8 @@ namespace PsychologistsAPI.Services
                 PacienteId = dto.PacienteId,
                 CantidadTurnos = dto.CantidadTurnos,
                 ModalidadVirtual = dto.ModalidadVirtual,
-                Descripcion = dto.Descripcion
+                Descripcion = dto.Descripcion,
+                PlanTurnoId = dto.PlanTurnoId
             };
 
             _context.Turnos.Add(turno);
@@ -92,7 +96,7 @@ namespace PsychologistsAPI.Services
             if (turno == null)
                 return null;
 
-            turno.Fehca = dto.Fehca;
+            turno.Fecha = dto.Fecha;
             turno.Hora = dto.Hora;
             turno.Estado = dto.Estado;
             turno.Minutos = dto.Minutos;
@@ -103,6 +107,7 @@ namespace PsychologistsAPI.Services
             turno.ModalidadVirtual = dto.ModalidadVirtual;
             turno.CantidadTurnos = dto.CantidadTurnos;
             turno.Descripcion = dto.Descripcion;
+            turno.PlanTurnoId = dto.PlanTurnoId;
 
             await _context.SaveChangesAsync();
 
@@ -143,7 +148,7 @@ namespace PsychologistsAPI.Services
             return new TurnoDto
             {
                 TurnoId = turno.TurnoId,
-                Fehca = turno.Fehca,
+                Fecha = turno.Fecha,
                 Hora = turno.Hora,
                 Estado = turno.Estado,
                 Minutos = turno.Minutos,

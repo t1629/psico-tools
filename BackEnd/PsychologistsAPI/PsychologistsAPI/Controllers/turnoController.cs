@@ -168,9 +168,9 @@ namespace PsychologistsAPI.Controllers
         [HttpPut("{id}/estado")]
         public async Task<IActionResult> ChangeStatus(
             int id,
-            [FromBody] string estado)
+            [FromBody] EstadoDto dto)
         {
-            if (string.IsNullOrWhiteSpace(estado))
+            if (string.IsNullOrWhiteSpace(dto.Estado))
             {
                 return BadRequest(new
                 {
@@ -180,7 +180,7 @@ namespace PsychologistsAPI.Controllers
 
             try
             {
-                var result = await _service.ChangeStatus(id, estado);
+                var result = await _service.ChangeStatus(id, dto.Estado);
 
                 if (!result)
                 {

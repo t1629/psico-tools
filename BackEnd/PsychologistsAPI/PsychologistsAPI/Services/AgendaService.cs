@@ -30,10 +30,12 @@ namespace PsychologistsAPI.Services
                 .Include(a => a.Psicologo) 
                 .AsQueryable();
 
-            // Por ahora la entidad Agenda trabaja con DiaSemana.
-            // El filtro por fecha se podrá ajustar cuando se defina
-            // la lógica completa de agenda/disponibilidad.
-
+            if (fecha.HasValue)
+            {
+                
+                var diaSemana = fecha.Value.DayOfWeek.ToString();
+                query = query.Where(a => a.DiaSemana == diaSemana);
+            }
             var agendas = await query.ToListAsync();
             return agendas.Select(a => AgendaMapper.ToDto(a)).ToList();
         }

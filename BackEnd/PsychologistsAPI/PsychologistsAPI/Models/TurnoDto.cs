@@ -4,7 +4,7 @@ namespace PsychologistsAPI.Models
     {
         public int TurnoId { get; set; }
 
-        public DateOnly Fehca { get; set; }
+        public DateOnly Fecha { get; set; }
 
         public TimeOnly Hora { get; set; }
 
@@ -26,5 +26,6 @@ namespace PsychologistsAPI.Models
 
         public string? Descripcion { get; set; }
 
+        public int? PlanTurnoId { get; set; }
     }
 }

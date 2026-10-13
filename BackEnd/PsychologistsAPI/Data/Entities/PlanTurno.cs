@@ -14,4 +14,6 @@ public partial class PlanTurno
     public int? CantidadTurno { get; set; }
 
     public virtual ICollection<Paciente> Pacientes { get; set; } = new List<Paciente>();
+    public ICollection<Turno> Turnos { get; set; }
+
 }

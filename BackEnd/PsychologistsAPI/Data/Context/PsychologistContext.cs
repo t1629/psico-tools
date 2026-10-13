@@ -38,9 +38,9 @@ public partial class PsychologistContext : DbContext
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=TOMAS\\SQLSERVER;Database=PsyClinicDB;Trusted_Connection=True;TrustServerCertificate=True;");
+  //  protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+      //  => optionsBuilder.UseSqlServer("Server=DESKTOP-L6KDDPJ\\SQLSERVER;Database=PsyClinicDB;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -257,7 +257,7 @@ public partial class PsychologistContext : DbContext
                 .HasMaxLength(50)
                 .IsFixedLength()
                 .HasColumnName("estado");
-            entity.Property(e => e.Fehca).HasColumnName("fehca");
+            entity.Property(e => e.Fecha).HasColumnName("fehca");
             entity.Property(e => e.Hora).HasColumnName("hora");
             entity.Property(e => e.Minutos).HasColumnName("minutos");
             entity.Property(e => e.ModalidadVirtual).HasColumnName("modalidadVirtual");
@@ -273,6 +273,12 @@ public partial class PsychologistContext : DbContext
             entity.HasOne(d => d.Psicologo).WithMany(p => p.Turnos)
                 .HasForeignKey(d => d.PsicologoId)
                 .HasConstraintName("FK_turno_psicologo");
+
+
+            modelBuilder.Entity<Turno>()
+                .HasOne(t => t.PlanTurno)
+                .WithMany(p => p.Turnos)
+                .HasForeignKey(t => t.PlanTurnoId);
         });
 
         modelBuilder.Entity<Usuario>(entity =>
