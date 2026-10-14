@@ -1,0 +1,83 @@
+.psicologo-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.psicologo-form h2 {
+  margin-bottom: 15px;
+  font-size: 1.4rem;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+}
+
+.psicologo-form label {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.psicologo-form input {
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  margin-top: 5px;
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  transition: border-color 0.2s ease;
+}
+
+.psicologo-form input:focus-visible {
+  border-color: var(--color-action-secondary);
+}
+
+.psicologo-form button {
+  margin-top: 15px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  background: var(--color-action-primary);
+  color: var(--global-dark-bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.psicologo-form button:hover:not(:disabled) {
+  background: var(--color-action-hover);
+}
+
+.psicologo-form button:disabled {
+  background: var(--color-bg-base);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.form-error {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-feedback-error);
+  border-radius: var(--radius-sm);
+  background: var(--tint-error);
+  color: var(--color-text-primary);
+}
+
+.form-success {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-feedback-success);
+  border-radius: var(--radius-sm);
+  background: var(--tint-primary);
+  color: var(--color-text-primary);
+}

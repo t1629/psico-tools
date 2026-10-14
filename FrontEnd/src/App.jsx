@@ -3,13 +3,14 @@ import { useContext } from "react";
 import LoginForm from "./components/LoginForm";
 import Inicio from "./pages/Inicio";
 import Turnos from "./pages/Turnos";
-import Paciente from "./pages/Paciente";
+// import Paciente from "./pages/Paciente";
 import { UserProvider } from "./hooks/UseProvider";
 import { Login as AuthContext } from "./context/authContext";
 import MainLayout from "./components/MainLayout";
 import AgendaForm from "./components/AgendaForm";
+import PsicologoPage from "./pages/Psicologo";
 import Header from "./components/Header";
-
+import PlanTurnoForm from "./pages/PlanTurnoForm";
 import TurnoAll from "./pages/TurnoAll";
 import "./App.css";
 
@@ -57,14 +58,14 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
+            {/* <Route
               path="/paciente"
               element={
                 <ProtectedRoute>
                   <Paciente />
                 </ProtectedRoute>
               }
-            />
+            /> */}
             <Route
               path="/turnos"
               element={
@@ -96,6 +97,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <AgendaForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/planTurno"
+              element={
+                <ProtectedRoute>
+                  <PlanTurnoForm />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/psicologo"
+              element={
+                <ProtectedRoute>
+                  <PsicologoPage />
                 </ProtectedRoute>
               }
             />

@@ -47,6 +47,16 @@ function Nav({ isOpen, toggleNav }) {
             Crear Agenda
           </Link>
         </li>
+        <li className="side-nav__item">
+          <Link to="/planTurno" className="side-nav__link">
+            Crear Plan Turno
+          </Link>
+        </li>
+        <li className="side-nav__item">
+          <Link to="/psicologo" className="side-nav__link">
+            Psicologo
+          </Link>
+        </li>
       </ul>
     </nav>
   );
