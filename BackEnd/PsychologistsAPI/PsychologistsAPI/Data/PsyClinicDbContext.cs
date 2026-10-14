@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using PsychologistsAPI.Models;
 using Microsoft.EntityFrameworkCore;
+using PsychologistsAPI.Models;
 
 namespace PsychologistsAPI.Data;
 
@@ -52,6 +52,10 @@ public partial class PsyClinicDbContext : DbContext
 
             entity.Property(e => e.AgendaId).HasColumnName("agendaId");
             entity.Property(e => e.ConsultorioId).HasColumnName("consultorioId");
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(100)
+                .IsFixedLength()
+                .HasColumnName("descripcion");
             entity.Property(e => e.DiaSemana)
                 .HasMaxLength(15)
                 .IsFixedLength()
@@ -62,12 +66,21 @@ public partial class PsyClinicDbContext : DbContext
                 .HasColumnName("estado");
             entity.Property(e => e.HoraFin).HasColumnName("horaFin");
             entity.Property(e => e.HoraInicio).HasColumnName("horaInicio");
+            entity.Property(e => e.PacienteId).HasColumnName("pacienteId");
             entity.Property(e => e.PsicologoId).HasColumnName("psicologoId");
+            entity.Property(e => e.Titulo)
+                .HasMaxLength(50)
+                .IsFixedLength()
+                .HasColumnName("titulo");
 
             entity.HasOne(d => d.Consultorio).WithMany(p => p.Agenda)
                 .HasForeignKey(d => d.ConsultorioId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_agenda_consultorio");
+
+            entity.HasOne(d => d.Paciente).WithMany(p => p.Agenda)
+                .HasForeignKey(d => d.PacienteId)
+                .HasConstraintName("FK_agenda_paciente");
 
             entity.HasOne(d => d.Psicologo).WithMany(p => p.Agenda)
                 .HasForeignKey(d => d.PsicologoId)
@@ -276,12 +289,6 @@ public partial class PsyClinicDbContext : DbContext
             entity.HasOne(d => d.Psicologo).WithMany(p => p.Turnos)
                 .HasForeignKey(d => d.PsicologoId)
                 .HasConstraintName("FK_turno_psicologo");
-
-
-            modelBuilder.Entity<Turno>()
-                .HasOne(t => t.PlanTurno)
-                .WithMany(p => p.Turnos)
-                .HasForeignKey(t => t.PlanTurnoId);
         });
 
         modelBuilder.Entity<Usuario>(entity =>

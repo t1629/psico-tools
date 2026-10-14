@@ -23,8 +23,7 @@ public partial class Turno
 
     public int? PacienteId { get; set; }
 
-    public int? PlanTurnoId { get; set; }  
-    public PlanTurno? PlanTurno { get; set; }
+    public int? PlanTurnoId { get; set; }
 
     public bool ModalidadVirtual { get; set; }
 
@@ -37,4 +36,5 @@ public partial class Turno
     public virtual Paciente? Paciente { get; set; }
 
     public virtual Psicologo? Psicologo { get; set; }
+    public virtual PlanTurno? PlanTurno { get; set; }
 }

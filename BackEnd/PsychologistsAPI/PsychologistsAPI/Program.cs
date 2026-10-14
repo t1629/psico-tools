@@ -42,7 +42,7 @@ namespace PsychologistsAPI
             builder.Services.AddScoped<usuarioService>();
             //builder.Services.AddScoped<PacienteService>();
             //builder.Services.AddScoped<PsicologoService>();
-            //builder.Services.AddScoped<ConsultorioService>();
+            builder.Services.AddScoped<ConsultorioService>();
             //builder.Services.AddScoped<NotificacionService>();
             //builder.Services.AddScoped<MedioEnvioService>();
             //builder.Services.AddScoped<TipoModalidadService>();
@@ -57,6 +57,7 @@ namespace PsychologistsAPI
             builder.Services.AddScoped<SessionRepository>();
             builder.Services.AddScoped<TurnoRepository>();
             builder.Services.AddScoped<UsuarioRepository>();
+            builder.Services.AddScoped<ConsultorioRepository>();
 
 
 
@@ -69,7 +70,7 @@ namespace PsychologistsAPI
 
 
            
-            builder.Services.AddDbContext<PsychologistContext>(options =>
+            builder.Services.AddDbContext<PsyClinicDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
 

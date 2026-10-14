@@ -8,9 +8,9 @@ namespace PsychologistsAPI.Repositories
 {
     public class PacienteRepository
     {
-        private readonly PsychologistContext _context;
+        private readonly PsyClinicDbContext _context;
 
-        public PacienteRepository(PsychologistContext context)
+        public PacienteRepository(PsyClinicDbContext context)
         {
             context = _context;
         }

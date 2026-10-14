@@ -23,6 +23,8 @@ public partial class Paciente
 
     public int? PlanTurnoId { get; set; }
 
+    public virtual ICollection<Agenda> Agenda { get; set; } = new List<Agenda>();
+
     public virtual PlanTurno? PlanTurno { get; set; }
 
     public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();

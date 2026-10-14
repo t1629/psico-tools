@@ -11,12 +11,18 @@ namespace PsychologistsAPI.Mapper
             {
                 AgendaId = entity.AgendaId,
                 PsicologoId = entity.PsicologoId,
-                PsicologoNombre = entity.Psicologo?.Nombre,
-                PsicologoApellido = entity.Psicologo?.Apellido,
+
                 ConsultorioId = entity.ConsultorioId,
+                ConsultorioNombre = entity.Consultorio?.Nomrbe,
                 DiaSemana = entity.DiaSemana,
                 HoraInicio = entity.HoraInicio,
                 HoraFin = entity.HoraFin,
+                PacienteId = entity.PacienteId,
+                PacienteNombre = entity.Paciente?.Nombre,
+                PacienteApellido = entity.Paciente?.Apellido,
+                Descripcion = entity.Descripcion,
+                Titulo  =  entity.Titulo
+
 
             };
         }
@@ -30,8 +36,10 @@ namespace PsychologistsAPI.Mapper
                 ConsultorioId = dto.ConsultorioId,
                 DiaSemana = dto.DiaSemana,
                 HoraInicio = dto.HoraInicio,
-                HoraFin = dto.HoraFin
-                
+                HoraFin = dto.HoraFin,
+                PacienteId = dto.PacienteId,
+                Descripcion = dto.Descripcion,
+                Titulo = dto.Titulo
             };
         }
 

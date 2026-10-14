@@ -6,9 +6,9 @@ namespace PsychologistsAPI.Repositories
 {
     public class AgendaRepository
     {
-        private readonly PsychologistContext _context;
+        private readonly  PsyClinicDbContext _context;
 
-        public AgendaRepository(PsychologistContext context)
+        public AgendaRepository(PsyClinicDbContext context)
         {
             _context = context;
         }

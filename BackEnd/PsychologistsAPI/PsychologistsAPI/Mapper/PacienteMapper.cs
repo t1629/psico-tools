@@ -17,9 +17,12 @@ namespace PsychologistsAPI.Mapper
                     Email = paciente.Email,
                     Telefono = paciente.Telefono,
                     Dni = paciente.Dni,
-                    FechaNacimineto = paciente.FechaNacimineto
+                    FechaNacimineto = paciente.FechaNacimineto,
+               
                 };
             }
         
+
+
     }
 }

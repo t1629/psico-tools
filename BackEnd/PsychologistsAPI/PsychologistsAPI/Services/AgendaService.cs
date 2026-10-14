@@ -1,7 +1,7 @@
-using PsychologistsAPI.Repositories;
-using PsychologistsAPI.Mapper;
 using PsychologistsAPI.Dtos;
+using PsychologistsAPI.Mapper;
 using PsychologistsAPI.Models;
+using PsychologistsAPI.Repositories;
 
 namespace PsychologistsAPI.Services
 {

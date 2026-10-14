@@ -19,7 +19,15 @@ public partial class Agenda
 
     public int ConsultorioId { get; set; }
 
+    public int? PacienteId { get; set; }
+
+    public string? Descripcion { get; set; }
+
+    public string? Titulo { get; set; }
+
     public virtual Consultorio Consultorio { get; set; } = null!;
+
+    public virtual Paciente? Paciente { get; set; }
 
     public virtual Psicologo Psicologo { get; set; } = null!;
 }
