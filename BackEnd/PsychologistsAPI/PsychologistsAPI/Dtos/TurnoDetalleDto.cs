@@ -18,5 +18,7 @@
         public PacienteDto Paciente { get; set; }
         public PsicologoDto Psicologo { get; set; }
         public PlanTurnoDto PlanTurno { get; set; }
+
+       
     }
 }
