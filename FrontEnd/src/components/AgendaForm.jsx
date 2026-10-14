@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { create } from "../services/agendaService";
+import { useCalendar } from "../hooks/useCalendar";
 import "../styles/layout/AgendaForm.css";
 
 const AgendaForm = ({ onCreated }) => {
+  const { create, loading, error } = useCalendar();
+
   const [fecha, setFecha] = useState("");
   const [horaInicio, setHoraInicio] = useState("");
   const [horaFin, setHoraFin] = useState("");
@@ -21,7 +23,7 @@ const AgendaForm = ({ onCreated }) => {
       psicologoId,
       psicologoNombre: "",
       psicologoApellido: "",
-      //   consultorioId: 1,
+      consultorioId: 1,
       diaSemana: "",
       horaInicio: horaInicioFormatted,
       horaFin: horaFinFormatted,
@@ -37,8 +39,8 @@ const AgendaForm = ({ onCreated }) => {
       setHoraFin("");
       setPsicologoId(0);
       setDescripcion("");
-    } catch (error) {
-      console.error("Error creando agenda:", error);
+    } catch (err) {
+      console.error("Error creando agenda:", err);
     }
   };
 
@@ -52,6 +54,7 @@ const AgendaForm = ({ onCreated }) => {
         onChange={(e) => setFecha(e.target.value)}
         className="agenda-input"
       />
+
       <label htmlFor="agenda-hora-inicio">Hora de inicio</label>
       <input
         id="agenda-hora-inicio"
@@ -60,6 +63,7 @@ const AgendaForm = ({ onCreated }) => {
         onChange={(e) => setHoraInicio(e.target.value)}
         className="agenda-input"
       />
+
       <label htmlFor="agenda-hora-fin">Hora de fin</label>
       <input
         id="agenda-hora-fin"
@@ -68,6 +72,7 @@ const AgendaForm = ({ onCreated }) => {
         onChange={(e) => setHoraFin(e.target.value)}
         className="agenda-input"
       />
+
       <label htmlFor="agenda-descripcion">Descripción</label>
       <input
         id="agenda-descripcion"
@@ -77,6 +82,7 @@ const AgendaForm = ({ onCreated }) => {
         onChange={(e) => setDescripcion(e.target.value)}
         className="agenda-input"
       />
+
       <label htmlFor="agenda-psicologo">ID Psicólogo</label>
       <input
         id="agenda-psicologo"
@@ -86,9 +92,12 @@ const AgendaForm = ({ onCreated }) => {
         onChange={(e) => setPsicologoId(Number(e.target.value))}
         className="agenda-input"
       />
-      <button type="submit" className="agenda-button">
-        Crear Agenda
+
+      <button type="submit" className="agenda-button" disabled={loading}>
+        {loading ? "Guardando..." : "Crear Agenda"}
       </button>
+
+      {error && <p className="agenda-error">Error: {error.message}</p>}
     </form>
   );
 };

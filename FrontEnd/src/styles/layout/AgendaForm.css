@@ -1,6 +1,3 @@
-/* AgendaForm — migrado a tokens (elimina gris-previo/azul-previo/azul-oscuro-previo externos).
-   Inputs base + primario lima/oscuro AA. */
-
 .agenda-form {
   display: flex;
   flex-direction: column;

@@ -1,6 +1,6 @@
 .turnos-all-page {
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: var(--color-bg-base);
   min-height: 100vh;
 }
 
@@ -9,15 +9,15 @@
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .calendar-page__notice {
-  background-color: #ffe0e0;
-  border: 1px solid #e74c3c;
-  color: #c0392b;
+  background-color: var(--tint-error);
+  border: 1px solid var(--color-feedback-error);
+  color: var(--color-text-primary);
   padding: 12px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   margin-bottom: 16px;
   display: flex;
   justify-content: space-between;
@@ -27,7 +27,7 @@
 .calendar-page__notice button {
   background: none;
   border: none;
-  color: #c0392b;
+  color: var(--color-text-primary);
   font-weight: bold;
   cursor: pointer;
 }
@@ -40,31 +40,31 @@
 }
 
 .turnos-list__item {
-  background-color: #fff;
-  border-radius: 6px;
+  background-color: var(--color-bg-surface);
+  border-radius: var(--radius-sm);
   padding: 12px;
   cursor: pointer;
   transition: background-color 0.15s ease;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow);
 }
 
 .turnos-list__item:hover {
-  background-color: #f0f0f0;
+  background-color: var(--tint-primary);
 }
 
 .calendar-tools__primary {
   display: block;
   margin: 0 auto;
   padding: 10px 18px;
-  background-color: #3498db;
-  color: #fff;
+  background-color: var(--color-action-primary);
+  color: var(--global-dark-bg);
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-size: 15px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .calendar-tools__primary:hover {
-  background-color: #2980b9;
+  background-color: var(--color-action-hover);
 }

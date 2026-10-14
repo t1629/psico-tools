@@ -7,7 +7,9 @@ import Paciente from "./pages/Paciente";
 import { UserProvider } from "./hooks/UseProvider";
 import { Login as AuthContext } from "./context/authContext";
 import MainLayout from "./components/MainLayout";
+import AgendaForm from "./components/AgendaForm";
 import Header from "./components/Header";
+
 import TurnoAll from "./pages/TurnoAll";
 import "./App.css";
 
@@ -71,30 +73,34 @@ function App() {
                 </ProtectedRoute>
               }
             />
-              
-          <Route
-            path="/turnos/:id"
-            element={
-              <ProtectedRoute>
-                <Turnos />
-              </ProtectedRoute>
-            }
-          />
 
-          <Route
-            path="/turno/todos"
-            element={
-              <ProtectedRoute>
-                <TurnoAll />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="/turnos/:id"
+              element={
+                <ProtectedRoute>
+                  <Turnos />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/turno/todos"
+              element={
+                <ProtectedRoute>
+                  <TurnoAll />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/crearAgenda"
+              element={
+                <ProtectedRoute>
+                  <AgendaForm />
+                </ProtectedRoute>
+              }
+            />
           </Route>
 
-
-         
-
- main
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </UserProvider>

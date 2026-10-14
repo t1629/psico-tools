@@ -43,17 +43,9 @@ function Nav({ isOpen, toggleNav }) {
           </Link>
         </li>
         <li className="side-nav__item">
-          <Link to="/login" className="side-nav__link">
-            Login
+          <Link to="/crearAgenda" className="side-nav__link">
+            Crear Agenda
           </Link>
-        </li>
-        <li className="side-nav__item">
-          <button
-            className="side-nav__link"
-            onClick={() => setShowLogout(true)}
-          >
-            Cerrar sesión
-          </button>
         </li>
       </ul>
     </nav>
