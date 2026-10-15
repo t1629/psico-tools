@@ -26,9 +26,9 @@ namespace PsychologistsAPI.Repositories
 
         public async Task AddAsync(Psicologo psicologo)
         {
-             _context.Psicologos.Add(psicologo);
+            _context.Psicologos.Add(psicologo);
 
-             await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Psicologo psicologo)

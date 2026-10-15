@@ -10,12 +10,12 @@ namespace PsychologistsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] 
+    [Authorize]
     public class psicologoController : ControllerBase
     {
         private readonly PsicologoService _service;
 
-        public psicologoController (PsicologoService service)
+        public psicologoController(PsicologoService service)
         {
             _service = service;
         }
@@ -46,7 +46,7 @@ namespace PsychologistsAPI.Controllers
             try
             {
                 var psicologo = _service.GetById(id);
-                if(psicologo == null)
+                if (psicologo == null)
                 {
                     return NotFound(new
                     {
@@ -68,7 +68,7 @@ namespace PsychologistsAPI.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> Post([FromBody]PsicologoDto dto)
+        public async Task<IActionResult> Post([FromBody] PsicologoDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace PsychologistsAPI.Controllers
 
         [HttpPut("{id}")]
 
-        public async Task<IActionResult> Put(int id, [FromBody]  PsicologoDto dto)
+        public async Task<IActionResult> Put(int id, [FromBody] PsicologoDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -131,7 +131,7 @@ namespace PsychologistsAPI.Controllers
 
         [HttpDelete("{id}")]
 
-        public async Task<IActionResult> Remove( int id)
+        public async Task<IActionResult> Remove(int id)
         {
             try
             {

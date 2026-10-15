@@ -6,7 +6,7 @@ using PsychologistsAPI.Mapper;
 
 namespace PsychologistsAPI.Services
 {
-    public class PsicologoService 
+    public class PsicologoService
     {
         private readonly PsicologoRepository _repo;
 
@@ -27,7 +27,7 @@ namespace PsychologistsAPI.Services
         public async Task<PsicologoDto> GetById(int id)
         {
             var psicologo = await _repo.GetByIdAsync(id);
-            
+
             return psicologo == null ? null : PsicologoMapper.ToDto(psicologo);
         }
 
@@ -42,7 +42,7 @@ namespace PsychologistsAPI.Services
                 Apellido = dto.Apellido,
                 Email = dto.Email,
                 Telefono = dto.Telefono,
-                
+
             };
 
             await _repo.AddAsync(psicologo);

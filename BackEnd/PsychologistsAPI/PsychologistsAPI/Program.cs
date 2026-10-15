@@ -19,12 +19,7 @@ namespace PsychologistsAPI
     {
         public static void Main(string[] args)
         {
-            foreach (var line in File.ReadAllLines(".env.backend"))
-            {
-                var parts = line.Split('=', 2);
-                if (parts.Length == 2)
-                    Environment.SetEnvironmentVariable(parts[0], parts[1]);
-            }
+            DotNetEnv.Env.Load(".env.backend");
             var builder = WebApplication.CreateBuilder(args);
 
             //Controllers
@@ -59,9 +54,17 @@ namespace PsychologistsAPI
             builder.Services.AddScoped<UsuarioRepository>();
             builder.Services.AddScoped<ConsultorioRepository>();
 
+            //Cambios que aplicamos
+            var envPath = Path.Combine(builder.Environment.ContentRootPath, ".env.backend");
+            DotNetEnv.Env.Load(envPath);
 
+            var connectionString = DotNetEnv.Env.GetString("DB_CONNECTION_STRING");
 
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new Exception($"No se encontró la cadena. Ruta buscada: {envPath}");
+            }
+
             var jwtKey = Environment.GetEnvironmentVariable("Jwt__Key"); 
             var jwtIssuer = Environment.GetEnvironmentVariable("Jwt__Issuer");
             var jwtAudience = Environment.GetEnvironmentVariable("Jwt__Audience");
