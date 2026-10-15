@@ -17,6 +17,10 @@ namespace PsychologistsAPI.Repositories
         {
             return await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == password);
+           
+
         }
+
+
     }
 }

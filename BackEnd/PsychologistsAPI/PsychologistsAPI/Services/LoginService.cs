@@ -43,6 +43,7 @@ namespace PsychologistsAPI.Services
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+            ;
         }
     }
 }
