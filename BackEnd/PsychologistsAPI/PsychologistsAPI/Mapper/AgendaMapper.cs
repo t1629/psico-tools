@@ -13,7 +13,7 @@ namespace PsychologistsAPI.Mapper
                 PsicologoId = entity.PsicologoId,
 
                 ConsultorioId = entity.ConsultorioId,
-                ConsultorioNombre = entity.Consultorio?.Nomrbe,
+                ConsultorioNombre = entity.Consultorio?.Nombre,
                 DiaSemana = entity.DiaSemana,
                 HoraInicio = entity.HoraInicio,
                 HoraFin = entity.HoraFin,

@@ -9,10 +9,9 @@ public partial class PlanTurno
 
     public DateOnly FechaInicio { get; set; }
 
-    public DateOnly FehcaFin { get; set; }
+    public DateOnly FechaFin { get; set; }
 
     public int? CantidadTurno { get; set; }
 
-    public virtual ICollection<Turno> Turnos { get; set; } = new List<Turno>();
     public virtual ICollection<Paciente> Pacientes { get; set; } = new List<Paciente>();
 }

@@ -35,14 +35,12 @@ namespace PsychologistsAPI
             builder.Services.AddScoped<AgendaService>();
             builder.Services.AddScoped<PlanTurnoService>();
             builder.Services.AddScoped<usuarioService>();
-            //builder.Services.AddScoped<PacienteService>();
-            //builder.Services.AddScoped<PsicologoService>();
+            builder.Services.AddScoped<PacienteService>();
+            builder.Services.AddScoped<PsicologoService>();
             builder.Services.AddScoped<ConsultorioService>();
             //builder.Services.AddScoped<NotificacionService>();
             //builder.Services.AddScoped<MedioEnvioService>();
-            //builder.Services.AddScoped<TipoModalidadService>();
             //builder.Services.AddScoped<RolService>();
-
 
 
             //Repositories
@@ -53,6 +51,10 @@ namespace PsychologistsAPI
             builder.Services.AddScoped<TurnoRepository>();
             builder.Services.AddScoped<UsuarioRepository>();
             builder.Services.AddScoped<ConsultorioRepository>();
+            builder.Services.AddScoped<PsicologoRepository>();
+            builder.Services.AddScoped<PacienteRepository>();
+          
+
 
             //Cambios que aplicamos
             var envPath = Path.Combine(builder.Environment.ContentRootPath, ".env.backend");

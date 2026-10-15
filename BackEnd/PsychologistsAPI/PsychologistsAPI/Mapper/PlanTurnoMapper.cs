@@ -12,7 +12,7 @@ namespace PsychologistsAPI.Mapper
             {
                 PlanTurnoId = planTurno.PlanTurnoId,
                 FechaInicio = planTurno.FechaInicio,
-                FehcaFin = planTurno.FehcaFin,
+                FehcaFin = planTurno.FechaFin,
                 CantidadTurno = planTurno.CantidadTurno,
                 Pacientes = planTurno.Pacientes?.Select(p => new PacienteDto
                 {

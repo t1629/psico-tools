@@ -36,5 +36,6 @@ public partial class Turno
     public virtual Paciente? Paciente { get; set; }
 
     public virtual Psicologo? Psicologo { get; set; }
+
     public virtual PlanTurno? PlanTurno { get; set; }
 }

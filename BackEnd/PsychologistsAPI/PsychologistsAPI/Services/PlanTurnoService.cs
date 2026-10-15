@@ -39,7 +39,7 @@ namespace PsychologistsAPI.Services
             var plan = new PlanTurno
             {
                 FechaInicio = dto.FechaInicio,
-                FehcaFin = dto.FehcaFin,
+                FechaFin = dto.FehcaFin,
                 CantidadTurno = dto.CantidadTurno
             };
 
@@ -53,7 +53,7 @@ namespace PsychologistsAPI.Services
             if (plan == null) return null;
 
             plan.FechaInicio = dto.FechaInicio;
-            plan.FehcaFin = dto.FehcaFin;
+            plan.FechaFin = dto.FehcaFin;
             plan.CantidadTurno = dto.CantidadTurno;
 
             await _repo.UpdateAsync(plan);
@@ -75,7 +75,7 @@ namespace PsychologistsAPI.Services
             {
                 PlanTurnoId = plan.PlanTurnoId,
                 FechaInicio = plan.FechaInicio,
-                FehcaFin = plan.FehcaFin,
+                FehcaFin = plan.FechaFin,
                 CantidadTurno = plan.CantidadTurno
             };
         }

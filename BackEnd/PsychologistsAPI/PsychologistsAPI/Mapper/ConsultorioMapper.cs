@@ -12,11 +12,11 @@ namespace PsychologistsAPI.Mapper
             return new ConsultorioDto
             {
               ConsultorioId = entity.ConsultorioId,
-              Nomrbe = entity.Nomrbe,
-              Nuemro = entity.Nuemro,
+              Nombre = entity.Nombre,
+              Numero = entity.Numero,
               Calle = entity.Calle,
               TipoModalidadId = entity.TipoModalidadId,
-
+              TipoModalidadNombre = entity.TipoModalidad?.Nombre
             };
         }
 
@@ -26,10 +26,11 @@ namespace PsychologistsAPI.Mapper
             return new Consultorio
             {
                 ConsultorioId = dto.ConsultorioId,
-                Nomrbe = dto.Nomrbe,
-                Nuemro = dto.Nuemro,
+                Nombre = dto.Nombre,
+                Numero = dto.Numero,
                 Calle = dto.Calle,
                 TipoModalidadId = dto.TipoModalidadId,
+                
 
             };
         }

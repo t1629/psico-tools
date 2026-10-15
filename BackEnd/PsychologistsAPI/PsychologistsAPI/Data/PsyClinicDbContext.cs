@@ -5,6 +5,8 @@ using PsychologistsAPI.Models;
 
 namespace PsychologistsAPI.Data;
 
+//este es el que context que se usa
+
 public partial class PsyClinicDbContext : DbContext
 {
     public PsyClinicDbContext()
@@ -97,14 +99,12 @@ public partial class PsyClinicDbContext : DbContext
                 .HasMaxLength(200)
                 .IsFixedLength()
                 .HasColumnName("calle");
-            entity.Property(e => e.Nomrbe)
+            entity.Property(e => e.Nombre)
                 .HasMaxLength(100)
                 .IsFixedLength()
-                .HasColumnName("nomrbe");
-            entity.Property(e => e.Nuemro).HasColumnName("nuemro");
-            entity.Property(e => e.Presencial).HasColumnName("presencial");
+                .HasColumnName("nombre");
+            entity.Property(e => e.Numero).HasColumnName("numero");
             entity.Property(e => e.TipoModalidadId).HasColumnName("tipoModalidadId");
-            entity.Property(e => e.Virtual).HasColumnName("virtual");
 
             entity.HasOne(d => d.TipoModalidad).WithMany(p => p.Consultorios)
                 .HasForeignKey(d => d.TipoModalidadId)
@@ -197,8 +197,8 @@ public partial class PsyClinicDbContext : DbContext
 
             entity.Property(e => e.PlanTurnoId).HasColumnName("planTurnoId");
             entity.Property(e => e.CantidadTurno).HasColumnName("cantidadTurno");
+            entity.Property(e => e.FechaFin).HasColumnName("fechaFin");
             entity.Property(e => e.FechaInicio).HasColumnName("fechaInicio");
-            entity.Property(e => e.FehcaFin).HasColumnName("fehcaFin");
         });
 
         modelBuilder.Entity<Psicologo>(entity =>
@@ -273,7 +273,7 @@ public partial class PsyClinicDbContext : DbContext
                 .HasMaxLength(50)
                 .IsFixedLength()
                 .HasColumnName("estado");
-            entity.Property(e => e.Fecha).HasColumnName("fehca");
+            entity.Property(e => e.Fecha).HasColumnName("fecha");
             entity.Property(e => e.Hora).HasColumnName("hora");
             entity.Property(e => e.Minutos).HasColumnName("minutos");
             entity.Property(e => e.ModalidadVirtual).HasColumnName("modalidadVirtual");
