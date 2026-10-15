@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useCalendar } from "../hooks/useCalendar";
 import * as psicologosService from "../services/PsicologoService";
 import * as pacientesService from "../services/PacienteService";
-// import * as consultoriosService from "../services/ConsultorioService";
+import * as consultoriosService from "../services/ConsultorioService";
 import "../styles/layout/AgendaForm.css";
 
 const AgendaForm = ({ onCreated }) => {
@@ -10,7 +10,7 @@ const AgendaForm = ({ onCreated }) => {
 
   const [psicologos, setPsicologos] = useState([]);
   const [pacientes, setPacientes] = useState([]);
-  // const [consultorios, setConsultorios] = useState([]);
+  const [consultorios, setConsultorios] = useState([]);
 
   const [agenda, setAgenda] = useState({
     fecha: "",
@@ -23,12 +23,11 @@ const AgendaForm = ({ onCreated }) => {
     titulo: "",
   });
 
-  // cargar listas desde backend
   useEffect(() => {
     const fetchData = async () => {
       setPsicologos(await psicologosService.getAll());
       setPacientes(await pacientesService.getAll());
-      // setConsultorios(await consultoriosService.getAll());   hay que agregaro primero al back aprqa mostarlo
+      setConsultorios(await consultoriosService.getAll());
     };
     fetchData();
   }, []);
@@ -172,8 +171,8 @@ const AgendaForm = ({ onCreated }) => {
         ))}
       </select>
 
-      {/* Select de consultorios */}
-      {/* <label htmlFor="agenda-consultorio">Consultorio</label>
+     
+      <label htmlFor="agenda-consultorio">Consultorio</label>
       <select
         id="agenda-consultorio"
         value={agenda.consultorio?.consultorioId || ""}
@@ -193,7 +192,7 @@ const AgendaForm = ({ onCreated }) => {
             {c.nomrbe}
           </option>
         ))}
-      </select> */}
+      </select>
 
       <button type="submit" className="agenda-button" disabled={loading}>
         {loading ? "Guardando..." : "Crear Agenda"}
