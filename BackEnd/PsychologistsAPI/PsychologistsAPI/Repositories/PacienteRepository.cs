@@ -12,7 +12,7 @@ namespace PsychologistsAPI.Repositories
 
         public PacienteRepository(PsyClinicDbContext context)
         {
-            context = _context;
+             _context = context;
         }
 
 
