@@ -5,6 +5,7 @@ import { UserContext } from "../context/UserContext";
 import { ThemeContext } from "../context/ThemeContext";
 import { Moon, Sun } from "lucide-react";
 import LogoutForm from "./LogoutCard";
+import logo from "../assets/logos.jpg/logo_con_nombre.png";
 
 // Motivo 1: el interruptor de tema se mueve del menú a la izquierda del
 // usuario (petición del usuario). Sigue siendo único en toda la app.
@@ -55,7 +56,14 @@ export default function Header() {
 
   return (
     <header className="app-header">
-      <h1 className="app-header__title">Psicólogos UI</h1>
+      <Link
+        to="/inicio"
+        className="app-header__brand"
+        aria-label="Midori - Ir a inicio"
+      >
+        <img src={logo} alt="Logo de Midori" className="app-header__logo" />
+        
+      </Link>
 
       <div className="app-header__actions">
         <button
@@ -63,8 +71,8 @@ export default function Header() {
           className="app-header__theme-toggle"
           onClick={toggleTheme}
           aria-pressed={isDark}
-// Motivo: botón solo-icono (se elimina el texto) con ambos iconos apilados:
-// el fundido/rotación sol↔luna se anima por CSS según aria-pressed.
+          // Motivo: botón solo-icono (se elimina el texto) con ambos iconos apilados:
+          // el fundido/rotación sol↔luna se anima por CSS según aria-pressed.
           aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
         >
           <span className="theme-icon-stack" aria-hidden="true">

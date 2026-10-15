@@ -57,6 +57,11 @@ function Nav({ isOpen, toggleNav }) {
             Psicologo
           </Link>
         </li>
+        <li className="side-nav__item">
+          <Link to="/Consultorio" className="side-nav__link">
+            Crear Consultorio
+          </Link>
+        </li>
       </ul>
     </nav>
   );
