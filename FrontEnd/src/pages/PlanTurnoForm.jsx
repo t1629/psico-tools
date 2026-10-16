@@ -1,203 +1,304 @@
-import { useState } from "react";
 import { usePlanTurno } from "../hooks/usePlanTurno";
-import "../styles/layout/PlanTurno.css";
 import * as pacientesService from "../services/PacienteService";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import "../styles/layout/PlanTurno.css";
 
 export default function PlanTurnoForm() {
-  const { turnos, loading, error, createTurno, deleteTurno } = usePlanTurno();
+  const { planes, loading, error, createPlan, deletePlan } = usePlanTurno();
 
-  const [paciente, setPaciente] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setPaciente(await pacientesService.getAll());
-    };
-    fetchData();
-  }, []);
+  const [pacientes, setPacientes] = useState([]);
 
   const [form, setForm] = useState({
     paciente: null,
-    fecha: "",
-    observaciones: "",
+    fechaInicio: "",
+    fechaFin: "",
   });
 
   const [formError, setFormError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await pacientesService.getAll();
+        setPacientes(Array.isArray(data) ? data : []);
+      } catch (err) {
+        setFormError("No se pudieron cargar los pacientes.");
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    if (name === "pacienteId") {
+      const pacienteSeleccionado =
+        pacientes.find((p) => p.Id === Number(value)) || null;
+
+      setForm((prev) => ({
+        ...prev,
+        paciente: pacienteSeleccionado,
+      }));
+
+      return;
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     setFormError(null);
     setSuccessMsg(null);
 
-    if (!form.pacienteId) {
-      setFormError("Agregar al paciente es obligatorio");
+    if (!form.paciente) {
+      setFormError("Seleccionar un paciente es obligatorio.");
+      return;
+    }
+
+    if (!form.fechaInicio || !form.fechaFin) {
+      setFormError("Las fechas de inicio y fin son obligatorias.");
+      return;
+    }
+
+    const fechaInicio = new Date(form.fechaInicio);
+    const fechaFin = new Date(form.fechaFin);
+
+    if (
+      Number.isNaN(fechaInicio.getTime()) ||
+      Number.isNaN(fechaFin.getTime())
+    ) {
+      setFormError("Las fechas ingresadas no son válidas.");
+      return;
+    }
+
+    if (fechaFin <= fechaInicio) {
+      setFormError("La fecha de fin debe ser posterior a la fecha de inicio.");
       return;
     }
 
     const payload = {
-      pacienteId: form.paciente.pacienteId,
-      pacienteNombre: form.paciente.nombre,
-      pacienteApellido: form.paciente.apellido,
-      fecha: form.fecha ? new Date(form.fecha).toISOString() : null,
+      pacienteId: form.paciente.Id,
+      pacienteNombre: form.paciente.Nombre,
+      pacienteApellido: form.paciente.Apellido,
+      fechaInicio: form.fechaInicio,
+      fechaFin: form.fechaFin,
     };
 
-    const result = await createTurno(payload);
+    try {
+      const result = await createPlan(payload);
 
-    if (result.success) {
-      setSuccessMsg("¡Plan Turno creado con éxito!");
-      setForm({
-        fecha: "",
-        observaciones: "",
-      });
-    } else {
-      setFormError(result.error);
+      if (result.success) {
+        setSuccessMsg("¡Plan de turno creado con éxito!");
+
+        setForm({
+          paciente: null,
+          fechaInicio: "",
+          fechaFin: "",
+        });
+      } else {
+        setFormError(result.error || "Error al crear el plan de turno.");
+      }
+    } catch (err) {
+      setFormError("Ocurrió un error al crear el plan de turno.");
     }
   };
 
-  const getEstadoBadgeClass = (estado) => {
-    if (estado === "Confirmado")
-      return "planturno-badge-estado planturno-badge-confirmado";
-    if (estado === "Cancelado")
-      return "planturno-badge-estado planturno-badge-cancelado";
-    return "planturno-badge-estado planturno-badge-pendiente";
+  const handleDelete = async (id) => {
+    const result = await deletePlan(String(id));
+
+    if (!result.success) {
+      setFormError(result.error || "No se pudo eliminar el plan.");
+      return;
+    }
+
+    setSuccessMsg("Plan de turno eliminado correctamente.");
+    setFormError(null);
   };
 
   return (
     <div className="planturno-container">
       <div className="planturno-header">
-        <h1 className="planturno-title">Gestión de Plan Turnos</h1>
+        <h2 className="planturno-title">Gestión de Planes de Turnos</h2>
         <p className="planturno-subtitle">
-          Crea nuevos turnos y visualiza el listado en tiempo real.
+          Crea nuevos planes de turnos y visualiza los registrados.
         </p>
       </div>
 
-      <div className="planturno-card-box">
-        <h2 className="planturno-section-title">Registrar Nuevo Turno</h2>
+      {formError && (
+        <div className="planturno-alert-error" role="alert">
+          {formError}
+        </div>
+      )}
 
-        {formError && <div className="planturno-alert-error">{formError}</div>}
+      {successMsg && (
+        <div className="planturno-alert-success" role="status">
+          {successMsg}
+        </div>
+      )}
 
-        {successMsg && (
-          <div className="planturno-alert-success">{successMsg}</div>
-        )}
+      <section className="planturno-card-box">
+        <h2 className="planturno-section-title">Crear Plan de Turno</h2>
 
-        <form onSubmit={handleSubmit} className="planturno-form-grid">
+        <form className="planturno-form-grid" onSubmit={handleSubmit}>
           <div className="planturno-field-group">
-            <label className="planturno-label"></label>
-            Paciente
+            <label className="planturno-label" htmlFor="pacienteId">
+              Paciente
+            </label>
+
             <select
-              value={form.paciente?.pacienteId || ""}
-              onChange={(e) =>
-                setForm({
-                  ...form,
-                  paciente: paciente.find(
-                    (p) => p.pacienteId === Number(e.target.value),
-                  ),
-                })
-              }
+              className="planturno-select"
+              id="pacienteId"
+              name="pacienteId"
+              value={form.paciente?.Id ?? ""}
+              onChange={handleChange}
+              required
             >
-              <option value="">Seleccione...</option>
-              {paciente.map((p) => (
-                <option key={p.pacienteId} value={p.pacienteId}>
-                  {p.nombre} {p.apellido}
+              <option value="">Seleccione un paciente...</option>
+
+              {pacientes.map((p) => (
+                <option key={p.Id} value={p.Id}>
+                  {p.Nombre} {p.Apellido}
                 </option>
               ))}
             </select>
           </div>
 
           <div className="planturno-field-group">
-            <label className="planturno-label">Fecha y Hora</label>
+            <label className="planturno-label" htmlFor="fechaInicio">
+              Fecha y hora de inicio
+            </label>
+
             <input
-              type="datetime-local"
-              name="fecha"
-              value={form.fecha}
-              onChange={handleChange}
               className="planturno-input"
+              id="fechaInicio"
+              name="fechaInicio"
+              type="datetime-local"
+              value={form.fechaInicio}
+              onChange={handleChange}
+              required
             />
           </div>
 
           <div className="planturno-field-group">
-            <label className="planturno-label">Observaciones</label>
+            <label className="planturno-label" htmlFor="fechaFin">
+              Fecha y hora de fin
+            </label>
+
             <input
-              type="text"
-              name="observaciones"
-              value={form.observaciones}
-              onChange={handleChange}
-              placeholder="Detalles adicionales..."
               className="planturno-input"
+              id="fechaFin"
+              name="fechaFin"
+              type="datetime-local"
+              value={form.fechaFin}
+              onChange={handleChange}
+              required
             />
           </div>
 
           <div className="planturno-submit-wrapper">
-            <button type="submit" className="planturno-btn-submit">
-              Crear Turno
+            <button
+              type="submit"
+              className="planturno-btn-submit"
+              disabled={loading}
+            >
+              Crear Plan
             </button>
           </div>
         </form>
-      </div>
+      </section>
 
-      <div className="planturno-list-section">
-        <h2>Turnos Registrados</h2>
+      <section className="planturno-list-section">
+        <h2>Planes de Turnos Registrados</h2>
 
-        {loading && <p className="planturno-msg-loading">Cargando turnos...</p>}
-        {error && <p className="planturno-msg-error">{error}</p>}
+        {loading && (
+          <p className="planturno-msg-loading">Cargando planes de turnos...</p>
+        )}
 
-        {!loading && turnos.length === 0 && (
+        {error && (
+          <div className="planturno-msg-error" role="alert">
+            Error: {error}
+          </div>
+        )}
+
+        {!loading && planes.length === 0 && (
           <p className="planturno-empty-state">
-            No hay turnos registrados todavía.
+            No hay ningún plan de turnos registrado todavía.
           </p>
         )}
 
         <div className="planturno-cards-grid">
-          {turnos.map((turno) => {
-            const turnoId = turno.id || turno._id;
-            return (
-              <div key={turnoId} className="planturno-card">
-                <div>
-                  <div className="planturno-card-top">
-                    <span className="planturno-badge-id">ID: {turnoId}</span>
-                    <span className={getEstadoBadgeClass(turno.estado)}>
-                      {turno.estado || "Pendiente"}
-                    </span>
-                  </div>
+          {planes.map((item, index) => {
+            const id = item.planTurnoId ?? item.id ?? item._id;
 
-                  <div className="planturno-card-body">
-                    <p>
-                      <strong>Paciente ID:</strong>{" "}
-                      {turno.pacienteId || turno.paciente?.id || "N/A"}
-                    </p>
-                    <p>
-                      <strong>Fecha:</strong>{" "}
-                      {turno.fecha
-                        ? new Date(turno.fecha).toLocaleString()
-                        : "No especificada"}
-                    </p>
-                    {turno.observaciones && (
-                      <p>
-                        <strong>Obs:</strong> {turno.observaciones}
-                      </p>
-                    )}
-                  </div>
+            const finalizado =
+              item.fechaFin && new Date(item.fechaFin) < new Date();
+
+            return (
+              <article className="planturno-card" key={id ?? index}>
+                <div className="planturno-card-top">
+                  <span className="planturno-badge-id">
+                    Plan #{id ?? "N/A"}
+                  </span>
+
+                  <span
+                    className={`planturno-badge-estado ${
+                      finalizado
+                        ? "planturno-badge-cancelado"
+                        : "planturno-badge-pendiente"
+                    }`}
+                  >
+                    {finalizado ? "Finalizado" : "Pendiente"}
+                  </span>
+                </div>
+
+                <div className="planturno-card-body">
+                  <p>
+                    <strong>Nombre:</strong>{" "}
+                    {item.paciente?.Nombre ?? item.pacienteNombre ?? "N/A"}
+                  </p>
+
+                  <p>
+                    <strong>Apellido:</strong>{" "}
+                    {item.paciente?.Apellido ?? item.pacienteApellido ?? "N/A"}
+                  </p>
+
+                  <p>
+                    <strong>Fecha de inicio:</strong>{" "}
+                    {item.fechaInicio
+                      ? new Date(item.fechaInicio).toLocaleString()
+                      : "No especificada"}
+                  </p>
+
+                  <p>
+                    <strong>Fecha de fin:</strong>{" "}
+                    {item.fechaFin
+                      ? new Date(item.fechaFin).toLocaleString()
+                      : "No especificada"}
+                  </p>
                 </div>
 
                 <div className="planturno-card-footer">
                   <button
-                    onClick={() => deleteTurno(turnoId)}
+                    type="button"
                     className="planturno-btn-delete"
+                    onClick={() => handleDelete(id)}
+                    disabled={id == null}
                   >
                     Eliminar
                   </button>
                 </div>
-              </div>
+              </article>
             );
           })}
         </div>
-      </div>
+      </section>
     </div>
   );
 }

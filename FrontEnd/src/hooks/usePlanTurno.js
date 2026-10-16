@@ -1,65 +1,70 @@
-import { useState, useEffect, useCallback } from "react";
-import { getAll, create, remove } from "../services/PlanTurnoService";
+import { create, getAll, remove } from "../services/PlanTurnoService";
+import { useCallback, useEffect, useState } from "react";
 
 export function usePlanTurno() {
-  const [turnos, setTurnos] = useState([]);
+  const [planes, setPlanes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Cargar todos los turnos / planes
-  const fetchTurnos = useCallback(async () => {
+  const fetchPlanes = useCallback(async () => {
     setLoading(true);
     setError(null);
+
     try {
       const data = await getAll();
-      setTurnos(Array.isArray(data) ? data : []);
+      setPlanes(Array.isArray(data) ? data : []);
     } catch (err) {
-      setError(err.message || "Error al obtener los turnos");
+      setError(err?.message || "Error al obtener los planes de turno");
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    fetchTurnos();
-  }, [fetchTurnos]);
+    fetchPlanes();
+  }, [fetchPlanes]);
 
-  // Crear un nuevo turno
-  const createTurno = async (formData) => {
+  const createPlan = async (formData) => {
     try {
-      const nuevoTurno = await create(formData);
-      setTurnos((prev) => [...prev, nuevoTurno]);
-      return { success: true, data: nuevoTurno };
+      const nuevoPlan = await create(formData);
+
+      setPlanes((prev) => [...prev, nuevoPlan]);
+
+      return {
+        success: true,
+        data: nuevoPlan,
+      };
     } catch (err) {
       return {
         success: false,
-        error: err.message || "Error al crear el turno",
+        error: err?.message || "Error al crear el plan",
       };
     }
   };
 
-  // Eliminar un turno
-  const deleteTurno = async (id) => {
+  const deletePlan = async (id) => {
     try {
       await remove(id);
-      setTurnos((prev) =>
-        prev.filter((turno) => (turno.id || turno._id) !== id),
+
+      setPlanes((prev) =>
+        prev.filter((pl) => (pl.planTurnoId ?? pl.id ?? pl._id) !== id),
       );
+
       return { success: true };
     } catch (err) {
       return {
         success: false,
-        error: err.message || "Error al eliminar el turno",
+        error: err?.message || "Error al eliminar el plan",
       };
     }
   };
 
   return {
-    turnos,
+    planes,
     loading,
     error,
-    fetchTurnos,
-    createTurno,
-    deleteTurno,
+    fetchPlanes,
+    createPlan,
+    deletePlan,
   };
 }
