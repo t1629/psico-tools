@@ -1,4 +1,5 @@
 import "../styles/UI/TurnoCard.css";
+import AsistenciComponent from "./AsistenciaComponent";
 
 export function TurnoCard({ turno, onEdit, onRemove }) {
   return (
@@ -16,6 +17,7 @@ export function TurnoCard({ turno, onEdit, onRemove }) {
       {turno.modalidadVirtual && (
         <p className="turno-card__detail">Sesión virtual: {turno.url}</p>
       )}
+      <AsistenciComponent turno={turno} />
 
       <div className="turno-card__actions">
         <button onClick={() => onEdit(turno)}>Editar</button>
