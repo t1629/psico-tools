@@ -15,7 +15,6 @@ export default function TurnoForm({ selectedTurno, onReset, onSave }) {
     fecha: "",
     hora: "",
     estado: "pendiente",
-    asistencia: false,
     minutos: 30,
     modalidadVirtual: false,
     cantidadTurnos: 1,

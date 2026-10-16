@@ -98,6 +98,32 @@ export function useTurno() {
     }
   };
 
+  const markAsistio = async (id) => {
+    try {
+      const updated = await turnosService.update(id, { asistencia: true });
+      setTurnos((prev) => prev.map((t) => (t.turnoId === id ? updated : t)));
+      return { success: true };
+    } catch (err) {
+      return {
+        success: false,
+        error: err.message || "Error al marcar asistencia",
+      };
+    }
+  };
+
+  const markAusente = async (id) => {
+    try {
+      const updated = await turnosService.update(id, { asistencia: false });
+      setTurnos((prev) => prev.map((t) => (t.turnoId === id ? updated : t)));
+      return { success: true };
+    } catch (err) {
+      return {
+        success: false,
+        error: err.message || "Error al marcar ausencia",
+      };
+    }
+  };
+
   return {
     turnos,
     loading,
@@ -111,5 +137,7 @@ export function useTurno() {
     filterTurnos,
     saveTurno,
     removeTurno,
+    markAsistio,
+    markAusente,
   };
 }
