@@ -1,21 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useConsultorio } from "../hooks/useConsultorio";
-import "../styles/layout/Psicologo.css";
+import "../styles/UI/Consultorio.css";
 
 export default function ConsultorioForm() {
-  const { create, loading, error } = useConsultorio();
+  const { consultorios, fetchAll, create, update, remove, loading, error } =
+    useConsultorio();
 
   const [form, setForm] = useState({
-    nomrbe: "",
+    Id: "",
+    nombre: "",
     calle: "",
-    nuemro: "",
+    numero: "",
     presencial: false,
     virtual: false,
-   // tipoModalidadId: "",
+    tipoModalidadNombre: "",
   });
 
   const [formError, setFormError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
+
+  useEffect(() => {
+    fetchAll();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,138 +36,172 @@ export default function ConsultorioForm() {
     setFormError(null);
     setSuccessMsg(null);
 
-    if (!form.nomrbe.trim()) {
-      setFormError("El nombre del consultorio es obligatorio");
-      return;
-    }
-    if (!form.calle.trim()) {
-      setFormError("La calle es obligatoria");
+    if (!form.nombre.trim()) {
+      setFormError(
+        "El nombre del consultorio es obligatorio, si no tiene puede poner 'Consultorio de {su nombre}' ",
+      );
       return;
     }
     if (
-      form.nuemro !== "" &&
-      (!Number.isInteger(Number(form.nuemro)) || Number(form.nuemro) <= 0)
+      form.numero !== "" &&
+      (!Number.isInteger(Number(form.numero)) || Number(form.numero) <= 0)
     ) {
       setFormError("Ingresá un número de calle válido");
       return;
     }
-    if (!form.presencial && !form.virtual) {
-      setFormError("Seleccioná al menos una modalidad: presencial o virtual");
+    if (!form.tipoModalidadNombre.trim()) {
+      setFormError(
+        "El nombre de la modalidad es obligatorio, tiene que agregar si es prescencial o vitrual",
+      );
       return;
     }
 
     const payload = {
-      nomrbe: form.nomrbe.trim(),
-      calle: form.calle.trim(),
-      nuemro: form.nuemro === "" ? null : Number(form.nuemro),
-      presencial: form.presencial,
-      virtual: form.virtual,
-      //tipoModalidadId:
-      // form.tipoModalidadId === "" ? null : Number(form.tipoModalidadId),
+      Id: form.Id,
+      Nombre: form.nombre.trim(),
+      Calle: form.calle.trim() === "" ? null : form.calle.trim(),
+      Numero: form.numero === "" ? null : Number(form.numero),
+      TipoModalidadNombre: form.tipoModalidadNombre.trim(),
     };
 
     const result = await create(payload);
     if (result?.success) {
       setSuccessMsg("¡Consultorio creado con éxito!");
       setForm({
-        nomrbe: "",
+        Id: "",
+        nombre: "",
         calle: "",
-        nuemro: "",
+        numero: "",
         presencial: false,
         virtual: false,
-        // tipoModalidadId: "",
+        tipoModalidadNombre: "",
       });
     } else {
       setFormError(result?.error || "No se pudo crear el consultorio");
     }
   };
 
+  const handleEdit = (item) => {
+    setForm({
+      Id: item.Id,
+      nombre: item.Nombre,
+      calle: item.Calle || "",
+      numero: item.Numero || "",
+      presencial: false,
+      virtual: false,
+      tipoModalidadNombre: item.TipoModalidadNombre,
+    });
+  };
+
+  const handleUpdate = async () => {
+    const result = await update(form.Id, {
+      Id: form.Id,
+      Nombre: form.nombre.trim(),
+      Calle: form.calle.trim() === "" ? null : form.calle.trim(),
+      Numero: form.numero === "" ? null : Number(form.numero),
+      TipoModalidadNombre: form.tipoModalidadNombre.trim(),
+    });
+    if (result?.success) {
+      setSuccessMsg("¡Consultorio actualizado con éxito!");
+      setForm({
+        Id: "",
+        nombre: "",
+        calle: "",
+        numero: "",
+        presencial: false,
+        virtual: false,
+        tipoModalidadNombre: "",
+      });
+    } else {
+      setFormError(result?.error || "No se pudo actualizar el consultorio");
+    }
+  };
+
   return (
-    <form className="psicologo-form" onSubmit={handleSubmit}>
+    <div className="psicologo-form">
       <h2>Nuevo Consultorio</h2>
-
-      <label htmlFor="nomrbe">Nombre del consultorio</label>
-      <input
-        id="nomrbe"
-        type="text"
-        name="nomrbe"
-        value={form.nomrbe}
-        onChange={handleChange}
-        placeholder="Ej.: Consultorio Centro"
-        required
-      />
-
-      <label htmlFor="calle">Calle</label>
-      <input
-        id="calle"
-        type="text"
-        name="calle"
-        value={form.calle}
-        onChange={handleChange}
-        placeholder="Ej.: Avenida Colón"
-        required
-      />
-
-      <label htmlFor="nuemro">Número</label>
-      <input
-        id="nuemro"
-        type="number"
-        name="nuemro"
-        value={form.nuemro}
-        onChange={handleChange}
-        placeholder="Ej.: 123"
-        min="1"
-      />
-
-      <fieldset>
-        <legend>Modalidad de atención</legend>
-        <label>
-          <input
-            type="checkbox"
-            name="presencial"
-            checked={form.presencial}
-            onChange={handleChange}
-          />
-          Presencial
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="virtual"
-            checked={form.virtual}
-            onChange={handleChange}
-          />
-          Virtual
-        </label>
-      </fieldset>
-
-       <label htmlFor="tipoModalidadId">ID del tipo de modalidad</label>
-      <input
-        id="tipoModalidadId"
-        type="number"
-        name="tipoModalidadId"
-        value={form.tipoModalidadId}
-        onChange={handleChange}
-        placeholder="Ingresá el ID de modalidad"
-        min="1"
-      />
-
-      <button type="submit" disabled={loading}>
-        {loading ? "Guardando..." : "Crear Consultorio"}
-      </button>
-
-      {formError && (
-        <p className="form-error">{formError}</p>
-      )}
-
-      {successMsg && (
-        <p className="form-success">{successMsg}</p>
-      )}
-
-      {error && (
-        <p className="form-error">
-          Error: {error.message || String(error)}
+      <form className="consultorios-form" onSubmit={handleSubmit}>
+        <label>Nombre</label>
+        <p>
+          Ingrese el nombre del consultorio o puede poenr 'Consultorio de (su
+          nombre)'
         </p>
-      )}
-    </form>
-  );}
+        <input
+          type="text"
+          name="nombre"
+          value={form.nombre}
+          onChange={handleChange}
+        />
+
+        <label>Calle</label>
+        <p>Solo si su cosnultorio tiene dreccion prescencial</p>
+        <input
+          type="text"
+          name="calle"
+          value={form.calle}
+          onChange={handleChange}
+        />
+
+        <label>Número</label>
+        <p>Solo si su cosnultorio tiene dreccion prescencial</p>
+        <input
+          type="number"
+          name="numero"
+          value={form.numero}
+          onChange={handleChange}
+        />
+
+        <section>
+          <h4>Tipo de modalidad</h4>
+          <label>
+            <input
+              type="radio"
+              name="tipoModalidadNombre"
+              value="Presencial"
+              checked={form.tipoModalidadNombre === "Presencial"}
+              onChange={handleChange}
+            />
+            Presencial
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="tipoModalidadNombre"
+              value="Virtual"
+              checked={form.tipoModalidadNombre === "Virtual"}
+              onChange={handleChange}
+            />
+            Virtual
+          </label>
+        </section>
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Guardando..." : "Crear Consultorio"}
+        </button>
+        <button
+          type="button"
+          onClick={handleUpdate}
+          disabled={loading || !form.Id}
+        >
+          {loading ? "Actualizando..." : "Actualizar Consultorio"}
+        </button>
+      </form>
+
+      {formError && <p className="form-error">{formError}</p>}
+      {successMsg && <p className="form-success">{successMsg}</p>}
+      {error && <p className="form-error">Error: {String(error)}</p>}
+
+      <h2>Consultorios Registrados</h2>
+      <ul>
+        {consultorios.map((c) => (
+          <li key={c.Id}>
+            <strong>{c.Nombre}</strong> — {c.Calle} {c.Numero} (
+            {c.TipoModalidadNombre})
+            <button onClick={() => handleEdit(c)}>Editar</button>
+            <button onClick={() => remove(c.Id)}>Eliminar</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

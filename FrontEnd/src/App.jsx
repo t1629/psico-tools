@@ -7,6 +7,7 @@ import Turnos from "./pages/Turnos";
 import { UserProvider } from "./hooks/UseProvider";
 import { Login as AuthContext } from "./context/authContext";
 import MainLayout from "./components/MainLayout";
+import Consultorio from "./pages/Consultorio";
 import AgendaForm from "./components/AgendaForm";
 import PsicologoPage from "./pages/Psicologo";
 import Header from "./components/Header";
@@ -113,6 +114,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <PsicologoPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Consultorio"
+              element={
+                <ProtectedRoute>
+                  <Consultorio />
                 </ProtectedRoute>
               }
             />
