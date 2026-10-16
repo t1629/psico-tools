@@ -33,13 +33,13 @@ namespace PsychologistsAPI.Services
 
         public async Task<PlanTurnoDto> Create(PlanTurnoDto dto)
         {
-            if (dto.FechaInicio > dto.FehcaFin)
+            if (dto.FechaInicio > dto.FechaFin)
                 throw new ArgumentException("La fecha de inicio debe ser anterior o igual a la fecha de fin.");
 
             var plan = new PlanTurno
             {
                 FechaInicio = dto.FechaInicio,
-                FechaFin = dto.FehcaFin,
+                FechaFin = dto.FechaFin,
                 CantidadTurno = dto.CantidadTurno
             };
 
@@ -53,7 +53,7 @@ namespace PsychologistsAPI.Services
             if (plan == null) return null;
 
             plan.FechaInicio = dto.FechaInicio;
-            plan.FechaFin = dto.FehcaFin;
+            plan.FechaFin = dto.FechaFin;
             plan.CantidadTurno = dto.CantidadTurno;
 
             await _repo.UpdateAsync(plan);
@@ -75,7 +75,7 @@ namespace PsychologistsAPI.Services
             {
                 PlanTurnoId = plan.PlanTurnoId,
                 FechaInicio = plan.FechaInicio,
-                FehcaFin = plan.FechaFin,
+                FechaFin = plan.FechaFin,
                 CantidadTurno = plan.CantidadTurno
             };
         }

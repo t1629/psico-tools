@@ -6,7 +6,7 @@ namespace PsychologistsAPI.Dtos
 
         public DateOnly FechaInicio { get; set; }
 
-        public DateOnly FehcaFin { get; set; }
+        public DateOnly FechaFin { get; set; }
 
         public int? CantidadTurno { get; set; }
 
