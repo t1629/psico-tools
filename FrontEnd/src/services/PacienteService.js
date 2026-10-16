@@ -1,4 +1,5 @@
 import { fetchApi } from "./apiClient";
+
 const BASE_API_URL = import.meta.env.VITE_API_URL;
 
 export async function getAll() {
@@ -6,7 +7,7 @@ export async function getAll() {
 }
 
 export async function getById(id) {
-  return await fetchApi(`${BASE_API_URL}/paciente/${id}`);
+  return await fetchApi(`${BASE_API_URL}/api/paciente/${id}`);
 }
 
 export async function create(data) {
