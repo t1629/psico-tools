@@ -37,6 +37,12 @@ namespace PsychologistsAPI.Services
             return turno == null ? null : MapToDto(turno);
         }
 
+
+        public async Task<AttendanceStatsDto> GetAttendance(int anio, int mes)
+        {
+            return await _repo.GetAttendanceAsync(anio, mes);
+        }
+
         public async Task<bool> ChangeStatus(int id, string estado)
         {
             var turno = await _repo.GetByIdAsync(id);

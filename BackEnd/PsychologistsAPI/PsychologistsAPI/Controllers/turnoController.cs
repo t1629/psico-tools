@@ -132,6 +132,29 @@ namespace PsychologistsAPI.Controllers
             }
         }
 
+        // GET: api/turno/asistencia?anio=2026&mes=9
+
+        [HttpGet("asistencia")]
+        public async Task<IActionResult> GetAttendance([FromQuery] int anio, [FromQuery] int mes)
+        {
+            try
+            {
+                var stats = await _service.GetAttendance(anio, mes);
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "Error al obtener estadísticas de asistencia.",
+                    error = ex.Message
+                });
+            }
+        }
+
+
+
+
         // POST: api/turno
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TurnoDto dto)

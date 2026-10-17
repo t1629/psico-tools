@@ -1,6 +1,7 @@
-﻿using PsychologistsAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PsychologistsAPI.Data;
+using PsychologistsAPI.Dtos;
 using PsychologistsAPI.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace PsychologistsAPI.Repositories
 {
@@ -51,6 +52,32 @@ namespace PsychologistsAPI.Repositories
                 .Include(t => t.Paciente)
                 .FirstOrDefaultAsync(t => t.TurnoId == id);
         }
+
+
+        public async Task<AttendanceStatsDto> GetAttendanceAsync(int anio, int mes)
+        {
+            var turnos = await _context.Turnos
+                .Where(t => t.Fecha.Year == anio && t.Fecha.Month == mes)
+                .ToListAsync();
+
+            int total = turnos.Count;
+            int presentes = turnos.Count(t => t.Asistencia == true);
+            int ausentes = turnos.Count(t => t.Asistencia == false);
+
+            double porcentaje = total > 0 ? (presentes * 100.0 / total) : 0;
+
+            return new AttendanceStatsDto
+            {
+                TotalTurnos = total,
+                Presentes = presentes,
+                Ausentes = ausentes,
+                PorcentajeAsistencia = porcentaje
+            };
+        }
+
+
+
+
 
         public async Task AddAsync(Turno turno)
         {
