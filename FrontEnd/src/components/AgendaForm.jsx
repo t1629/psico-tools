@@ -171,7 +171,6 @@ const AgendaForm = ({ onCreated }) => {
         ))}
       </select>
 
-     
       <label htmlFor="agenda-consultorio">Consultorio</label>
       <select
         id="agenda-consultorio"
@@ -189,7 +188,7 @@ const AgendaForm = ({ onCreated }) => {
         <option value="">Seleccione...</option>
         {consultorios.map((c) => (
           <option key={c.consultorioId} value={c.consultorioId}>
-            {c.nomrbe}
+            {c.nombre}
           </option>
         ))}
       </select>

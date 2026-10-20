@@ -34,7 +34,7 @@ const messages = {
 };
 
 const Inicio = () => {
-  const { agendas, loading, error, reload, getByDate, getByPatient, getById } =
+  const { agenda, loading, error, reload, getByDate, getByPatient, getById } =
     useCalendar();
   const [actionError, setActionError] = useState(null);
   const [currentView, setCurrentView] = useState("week");
@@ -64,7 +64,7 @@ const Inicio = () => {
     });
   };
 
-  const events = toCalendarEvents(agendas);
+  const events = toCalendarEvents(agenda);
 
   return (
     <main className="app-content calendar-page">
@@ -126,7 +126,8 @@ const Inicio = () => {
             endAccessor="end"
             titleAccessor="title"
             eventPropGetter={(task) => {
-              const text = `${task?.title ?? ""} ${task?.resource?.descripcion ?? ""} ${task?.resource?.type ?? ""}`.toLowerCase();
+              const text =
+                `${task?.title ?? ""} ${task?.resource?.descripcion ?? ""} ${task?.resource?.type ?? ""}`.toLowerCase();
               const isRest = text.includes("descanso");
               return {
                 style: {

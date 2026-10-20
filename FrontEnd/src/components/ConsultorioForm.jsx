@@ -57,11 +57,11 @@ export default function ConsultorioForm() {
     }
 
     const payload = {
-      Id: form.Id,
-      Nombre: form.nombre.trim(),
-      Calle: form.calle.trim() === "" ? null : form.calle.trim(),
-      Numero: form.numero === "" ? null : Number(form.numero),
-      TipoModalidadNombre: form.tipoModalidadNombre.trim(),
+      id: form.Id,
+      nombre: form.nombre.trim(),
+      calle: form.calle.trim() === "" ? null : form.calle.trim(),
+      numero: form.numero === "" ? null : Number(form.numero),
+      tipoModalidadNombre: form.tipoModalidadNombre.trim(),
     };
 
     const result = await create(payload);
@@ -194,9 +194,9 @@ export default function ConsultorioForm() {
       <h2>Consultorios Registrados</h2>
       <ul>
         {consultorios.map((c) => (
-          <li key={c.Id}>
-            <strong>{c.Nombre}</strong> — {c.Calle} {c.Numero} (
-            {c.TipoModalidadNombre})
+          <li key={c.id}>
+            <strong>{c.nombre}</strong> — {c.calle} {c.numero} (
+            {c.tipoModalidadNombre})
             <button onClick={() => handleEdit(c)}>Editar</button>
             <button onClick={() => remove(c.Id)}>Eliminar</button>
           </li>

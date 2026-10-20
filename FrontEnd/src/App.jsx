@@ -11,6 +11,7 @@ import Consultorio from "./pages/Consultorio";
 import AgendaForm from "./components/AgendaForm";
 import PsicologoPage from "./pages/Psicologo";
 import Header from "./components/Header";
+import PacientePage from "./pages/Paciente";
 import PlanTurnoForm from "./pages/PlanTurnoForm";
 import TurnoAll from "./pages/TurnoAll";
 import "./App.css";
@@ -59,14 +60,14 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            {/* <Route
+            <Route
               path="/paciente"
               element={
                 <ProtectedRoute>
-                  <Paciente />
+                  <PacientePage />
                 </ProtectedRoute>
               }
-            /> */}
+            />
             <Route
               path="/turnos"
               element={
