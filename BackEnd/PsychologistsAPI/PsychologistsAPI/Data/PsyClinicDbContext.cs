@@ -5,8 +5,6 @@ using PsychologistsAPI.Models;
 
 namespace PsychologistsAPI.Data;
 
-//este es el que context que se usa
-
 public partial class PsyClinicDbContext : DbContext
 {
     public PsyClinicDbContext()
@@ -42,7 +40,7 @@ public partial class PsyClinicDbContext : DbContext
 
 //    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer("Server=TOMAS\\SQLSERVER;Database=PsyClinicDB;Trusted_Connection=True;TrustServerCertificate=True;");
+//        => optionsBuilder.UseSqlServer("Server=Tomas,1433;Database=PsyClinicDB;Trusted_Connection=True;Encrypt=True;TrustServerCertificate=True;MultipleActiveResultSets=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -58,14 +56,11 @@ public partial class PsyClinicDbContext : DbContext
                 .HasMaxLength(100)
                 .IsFixedLength()
                 .HasColumnName("descripcion");
-            entity.Property(e => e.DiaSemana)
-                .HasMaxLength(15)
-                .IsFixedLength()
-                .HasColumnName("diaSemana");
             entity.Property(e => e.Estado)
                 .HasMaxLength(15)
                 .IsFixedLength()
                 .HasColumnName("estado");
+            entity.Property(e => e.Fecha).HasColumnName("fecha");
             entity.Property(e => e.HoraFin).HasColumnName("horaFin");
             entity.Property(e => e.HoraInicio).HasColumnName("horaInicio");
             entity.Property(e => e.PacienteId).HasColumnName("pacienteId");
@@ -87,7 +82,7 @@ public partial class PsyClinicDbContext : DbContext
             entity.HasOne(d => d.Psicologo).WithMany(p => p.Agenda)
                 .HasForeignKey(d => d.PsicologoId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_agenda_psciologo");
+                .HasConstraintName("FK_agenda_psicologo");
         });
 
         modelBuilder.Entity<Consultorio>(entity =>

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PsychologistsAPI.Models;
 
-[Table("usuario")]
 public partial class Usuario
 {
     public int UsuarioId { get; set; }
@@ -15,7 +13,6 @@ public partial class Usuario
 
     public string Email { get; set; } = null!;
 
-    [Column("password")]
     public string PasswordHash { get; set; } = null!;
 
     public DateOnly FechaIngreso { get; set; }

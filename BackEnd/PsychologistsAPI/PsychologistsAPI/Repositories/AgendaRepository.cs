@@ -20,20 +20,6 @@ namespace PsychologistsAPI.Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Agenda>> GetByDateAsync(DateOnly? fecha)
-        {
-            var query = _context.Agenda
-                .Include(a => a.Psicologo)
-                .AsQueryable();
-
-            if (fecha.HasValue)
-            {
-                var diaSemana = fecha.Value.DayOfWeek.ToString();
-                query = query.Where(a => a.DiaSemana == diaSemana);
-            }
-
-            return await query.ToListAsync();
-        }
 
         public async Task<Agenda?> GetByIdAsync(int id)
         {

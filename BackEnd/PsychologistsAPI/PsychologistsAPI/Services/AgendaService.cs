@@ -20,11 +20,11 @@ namespace PsychologistsAPI.Services
             return agendas.Select(a => AgendaMapper.ToDto(a)).ToList();
         }
 
-        public async Task<List<AgendaDto>> GetByDate(DateOnly? fecha)
-        {
-            var agendas = await _repo.GetByDateAsync(fecha);
-            return agendas.Select(a => AgendaMapper.ToDto(a)).ToList();
-        }
+        //public async Task<List<AgendaDto>> GetByDate(DateOnly? fecha)
+        //{
+        //    var agendas = await _repo.GetByDateAsync(fecha);
+        //    return agendas.Select(a => AgendaMapper.ToDto(a)).ToList();
+        //}
 
         public async Task<AgendaDto?> GetById(int id)
         {
@@ -59,7 +59,7 @@ namespace PsychologistsAPI.Services
 
             // Actualizar campos
             agenda.ConsultorioId = dto.ConsultorioId;
-            agenda.DiaSemana = dto.DiaSemana;
+            agenda.Fecha = dto.Fecha;
             agenda.Estado = dto.Estado;
             agenda.HoraInicio = dto.HoraInicio;
             agenda.HoraFin = dto.HoraFin;

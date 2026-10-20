@@ -11,8 +11,6 @@ public partial class Agenda
 
     public TimeOnly HoraFin { get; set; }
 
-    public string? DiaSemana { get; set; }
-
     public string? Estado { get; set; }
 
     public int PsicologoId { get; set; }
@@ -24,6 +22,8 @@ public partial class Agenda
     public string? Descripcion { get; set; }
 
     public string? Titulo { get; set; }
+
+    public DateOnly? Fecha { get; set; }
 
     public virtual Consultorio Consultorio { get; set; } = null!;
 
