@@ -17,6 +17,26 @@ namespace PsychologistsAPI.Controllers
             _service = service;
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var agendas = await _service.GetAll();
+                return Ok(agendas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "Error al obtener las agendas",
+                    error = ex.Message
+                });
+            }
+        }
+
+
         // GET: api/agenda
         // GET: api/agenda?fecha=2026-09-13
         //[HttpGet]
