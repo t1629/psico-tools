@@ -34,37 +34,44 @@ const messages = {
 };
 
 const Inicio = () => {
-  const { agenda, loading, error, reload, getByDate, getByPatient, getById } =
-    useCalendar();
+  const { agenda, loading, error, reload, getByDate } = useCalendar();
   const [actionError, setActionError] = useState(null);
   const [currentView, setCurrentView] = useState("week");
   const [currentDate, setCurrentDate] = useState(new Date());
-  const navigate = useNavigate();
 
-  const runAction = async (action) => {
-    setActionError(null);
-    try {
-      await action();
-    } catch (err) {
-      setActionError(err.message ?? "No se pudo completar la operación.");
-    }
-  };
+  const navigate = useNavigate();
 
   const handleSelectEvent = (event) => {
     const id = event.resource?.agendaId ?? event.id;
     navigate(`/agenda/${id}`);
   };
 
-  const handleFilter = ({ date, patientId, agendaId }) => {
-    runAction(() => {
-      if (date) return getByDate(date);
-      if (patientId) return getByPatient(patientId);
-      if (agendaId) return getById(agendaId);
-      return reload();
-    });
+  const handleFilter = ({ titulo, date }) => {
+    if (titulo?.trim()) {
+      const agendaEncontrada = agenda.find((a) =>
+        a.titulo?.trim().toLowerCase().includes(titulo.trim().toLowerCase()),
+      );
+
+      if (agendaEncontrada) {
+        navigate(`/agenda/${agendaEncontrada.agendaId}`);
+        return;
+      }
+
+      setActionError("No se encontró la agenda.");
+      return;
+    }
+
+    if (date) {
+      getByDate(date);
+      return;
+    }
+
+    reload();
   };
 
   const events = toCalendarEvents(agenda);
+
+  console.log(agenda);
 
   return (
     <main className="app-content calendar-page">
@@ -100,9 +107,9 @@ const Inicio = () => {
         </div>
       )}
 
-      <section className="calendar-tools" aria-label="Herramientas de agenda">
+      {/* <section className="calendar-tools" aria-label="Herramientas de agenda">
         <TurnoFiltradoForm onFilter={handleFilter} onReset={reload} />
-      </section>
+      </section> */}
 
       <section className="calendar-panel" aria-label="Calendario de turnos">
         {loading ? (
