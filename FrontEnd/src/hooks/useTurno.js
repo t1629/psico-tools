@@ -55,7 +55,7 @@ export function useTurno() {
     let filtrados = turnos;
     if (apellido) {
       filtrados = filtrados.filter((t) =>
-        (t.paciente?.apellido ?? "")
+        (t.pacienteApellido ?? t.paciente?.apellido ?? "")
           .toUpperCase()
           .startsWith(apellido.toUpperCase()),
       );

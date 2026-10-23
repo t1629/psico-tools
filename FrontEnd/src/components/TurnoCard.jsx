@@ -8,10 +8,12 @@ export function TurnoCard({ turno, onEdit, onRemove }) {
         {turno.fecha} {turno.hora} - {turno.estado?.toUpperCase()}
       </h3>
       <p className="turno-card__subtitle">
-        Paciente: {turno.paciente?.nombre} {turno.paciente?.apellido}
+        Paciente: {turno.pacienteNombre ?? turno.paciente?.nombre}{" "}
+        {turno.pacienteApellido ?? turno.paciente?.apellido}
       </p>
       <p className="turno-card__subtitle">
-        Psicólogo: {turno.psicologo?.nombre} {turno.psicologo?.apellido}
+        Psicólogo: {turno.psicologoNombre ?? turno.psicologo?.nombre}{" "}
+        {turno.psicologoApellido ?? turno.psicologo?.apellido}
       </p>
       <p className="turno-card__detail">Duración: {turno.minutos} min</p>
       {turno.modalidadVirtual && (
