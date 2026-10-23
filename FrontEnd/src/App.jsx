@@ -14,7 +14,9 @@ import Header from "./components/Header";
 import PacientePage from "./pages/Paciente";
 import PlanTurnoForm from "./pages/PlanTurnoForm";
 import TurnoAll from "./pages/TurnoAll";
+import DetalleAgenda from "./components/DetalleAgenda";
 import "./App.css";
+import TurnoFiltradoForm from "./components/TurnoFiltradoForm";
 
 // Motivo: ProtectedRoute leía `true` fijo (bypass). Ahora lee `token` real:
 // sin token expulsa a /login, con token renderiza la vista.
@@ -57,6 +59,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Inicio />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/agenda/:id"
+              element={
+                <ProtectedRoute>
+                  <DetalleAgenda />
                 </ProtectedRoute>
               }
             />

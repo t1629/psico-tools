@@ -1,38 +1,27 @@
 import { useState } from "react";
 
 const TurnoFiltradoForm = ({ onFilter, onReset }) => {
+  const [tituloFilter, setTituloFilter] = useState("");
   const [dateFilter, setDateFilter] = useState("");
-  const [patientFilter, setPatientFilter] = useState("");
-  const [patientNametFilter, setPatientNameFilter] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     onFilter({
+      titulo: tituloFilter,
       date: dateFilter,
-      pacienteApellido: patientFilter,
-      pacienteNombre: patientNametFilter,
     });
   };
 
   return (
     <form className="calendar-tools__filters" onSubmit={handleSubmit}>
       <label>
-        Paciente (apellido)
+        Título
         <input
           type="text"
-          value={patientFilter}
-          onChange={(e) => setPatientFilter(e.target.value)}
-          placeholder="Ej. González"
-        />
-      </label>
-
-      <label>
-        Paciente (nombre)
-        <input
-          type="text"
-          value={patientNametFilter}
-          onChange={(e) => setPatientNameFilter(e.target.value)}
-          placeholder="Ej. Laura"
+          value={tituloFilter}
+          onChange={(e) => setTituloFilter(e.target.value)}
+          placeholder="Ej. Prueba"
         />
       </label>
 
@@ -46,13 +35,13 @@ const TurnoFiltradoForm = ({ onFilter, onReset }) => {
       </label>
 
       <button type="submit">Buscar</button>
+
       <button
         type="button"
         className="calendar-tools__secondary"
         onClick={() => {
+          setTituloFilter("");
           setDateFilter("");
-          setPatientFilter("");
-          setPatientFilter("");
           onReset();
         }}
       >
