@@ -10,7 +10,7 @@ const TurnoFiltradoForm = ({ onFilter, onReset }) => {
     onFilter({
       date: dateFilter,
       pacienteApellido: patientFilter,
-      pacienteNombre: patientFilter,
+      pacienteNombre: patientNametFilter,
     });
   };
 

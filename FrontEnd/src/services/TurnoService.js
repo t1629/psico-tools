@@ -7,7 +7,9 @@ export async function getAll() {
 }
 
 export async function getByRange(desde, hasta) {
-  return fetchApi(`${BASE_API_URL}/api/turno?range=${desde}&hasta=${hasta}`);
+  return fetchApi(
+    `${BASE_API_URL}/api/turno/range?desde=${desde}&hasta=${hasta}`,
+  );
 }
 export async function getById(id) {
   return fetchApi(`${BASE_API_URL}/api/turno/${id}`);
