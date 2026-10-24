@@ -1,15 +1,79 @@
 .turnos-all-page {
-  padding: 20px;
+  padding: 32px 16px;
   background-color: var(--color-bg-base);
-  min-height: 100vh;
+  min-height: 100svh;
 }
 
-.turnos-all-page h1 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
+/* Tarjeta flotante centrada: todo el apartado vive dentro de esta panel
+   en lugar de estirarse de punta a punta. */
+.turnos-panel {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 28px 32px;
+}
+
+/* Cabecera tipo calendar-page. Scoped: esas clases ya estan estiladas en
+   Inicio.css, pero esta pantalla no la importa, asi que se define aqui. */
+.turnos-all-page .calendar-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  /* Separacion generosa entre el bloque de titulo y el filtro. */
+  margin-bottom: 32px;
+}
+
+.turnos-all-page .calendar-page__header h1 {
+  margin: 0 0 10px;
+  text-align: left;
+  font-size: 26px;
+}
+
+.turnos-all-page .calendar-page__eyebrow {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+}
+
+.turnos-all-page .calendar-page__description {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.turnos-all-page .calendar-page__summary {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  padding: 12px 16px;
+  background-color: var(--tint-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.turnos-all-page .calendar-page__summary strong {
+  font-size: 22px;
   color: var(--color-text-primary);
+}
+
+.turnos-all-page .calendar-page__summary span {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 560px) {
+  .turnos-all-page .calendar-page__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 .calendar-page__notice {
@@ -50,6 +114,63 @@
 
 .turnos-list__item:hover {
   background-color: var(--tint-primary);
+}
+
+/* Dentro de la tarjeta flotante el filtro deja de ser una doble tarjeta:
+   se aplana con borde inset y sin sombra propia. */
+.turnos-all-page .turno-filter {
+  margin: 0 0 20px;
+  box-shadow: none;
+  border: 1px solid var(--color-border-subtle);
+}
+
+@media (max-width: 600px) {
+  .turnos-all-page {
+    padding: 20px 12px;
+  }
+
+  .turnos-panel {
+    padding: 20px 16px;
+  }
+}
+
+/* Estado vacio del filtro: mensaje + accion para limpiar los filtros. */
+.turnos-list__empty {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+  padding: 32px 16px;
+  margin-bottom: 20px;
+  background-color: var(--color-bg-base);
+  border: 1px dashed var(--color-border-input);
+  border-radius: var(--radius-md);
+}
+
+.turnos-list__empty p {
+  margin: 0;
+  font-size: 15px;
+  text-align: center;
+  color: var(--color-text-secondary);
+}
+
+.turnos-list__empty button {
+  min-height: 44px;
+  padding: 10px 18px;
+  background-color: var(--tint-primary);
+  border: 1px solid var(--color-action-hover);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.turnos-list__empty button:hover {
+  background-color: var(--tint-primary-strong);
+}
+
+.turnos-list__empty button:focus-visible {
+  outline: 3px solid var(--color-action-secondary);
+  outline-offset: 2px;
 }
 
 .calendar-tools__primary {

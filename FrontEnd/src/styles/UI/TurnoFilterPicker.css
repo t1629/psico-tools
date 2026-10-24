@@ -1,7 +1,10 @@
+/* Panel de filtros: centrado y con ancho acotado (no ocupa todo el ancho) */
 .turno-filter {
-  margin: 16px 0;
+  max-width: 480px;
+  margin: 16px auto;
   padding: 12px;
   background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow);
 }
@@ -35,4 +38,24 @@
 
 .turno-filter button:hover {
   background-color: var(--color-action-hover);
+}
+
+/* Pantallas anchas: filtros en fila, boton al final. */
+@media (min-width: 700px) {
+  .turno-filter {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+  }
+
+  .turno-filter label {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .turno-filter button {
+    margin-top: 0;
+    min-height: 44px;
+    align-self: flex-end;
+  }
 }

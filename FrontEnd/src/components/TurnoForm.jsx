@@ -3,9 +3,11 @@ import { useTurno } from "../hooks/useTurno";
 import * as psicologosService from "../services/PsicologoService";
 import * as pacientesService from "../services/PacienteService";
 import * as planesService from "../services/PlanTurnoService";
+import { useToast } from "../hooks/useToast";
 
 export default function TurnoForm({ selectedTurno, onReset, onSave }) {
-  const { saveTurno } = useTurno();
+  const { saveTurno, loading } = useTurno();
+  const toast = useToast();
 
   const [psicologos, setPsicologos] = useState([]);
   const [pacientes, setPacientes] = useState([]);
@@ -44,15 +46,20 @@ export default function TurnoForm({ selectedTurno, onReset, onSave }) {
         planTurnoId: turno.planTurno?.planTurnoId,
       };
       await saveTurno(payload);
+      toast.success(
+        selectedTurno
+          ? "Turno actualizado con éxito."
+          : "Turno creado con éxito.",
+      );
       onSave(payload);
       onReset?.();
     } catch (error) {
-      alert(error.message);
+      toast.error(error.message ?? "No se pudo guardar el turno.");
     }
   };
 
   return (
-    <form className="calendar-tools__editor" onSubmit={handleSubmit}>
+    <form className="turno-form" onSubmit={handleSubmit}>
       <label>
         Psicólogo
         <select
@@ -128,14 +135,14 @@ export default function TurnoForm({ selectedTurno, onReset, onSave }) {
         />
       </label>
 
-      <div className="calendar-tools__editor-actions">
-        <button type="submit">
+      <div className="turno-form__actions">
+        <button type="submit" disabled={loading}>
           {selectedTurno ? "Guardar cambios" : "Crear turno"}
         </button>
         {selectedTurno && onReset && (
           <button
             type="button"
-            className="calendar-tools__secondary"
+            className="turno-form__secondary"
             onClick={onReset}
           >
             Nuevo

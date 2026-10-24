@@ -1,39 +1,51 @@
 const firstValue = (item, keys, fallback = "") =>
   keys
     .map((key) => item?.[key])
-    .find((value) => value !== undefined && value !== null) ?? fallback;
+    .find((value) => value !== undefined && value !== null && value !== "") ??
+  fallback;
 
-const toDate = (value) => {
-  if (!value) return null;
-  const date = value instanceof Date ? value : new Date(value);
+const toDate = (dateStr, timeStr) => {
+  if (!dateStr) return null;
+
+  const fechaLimpia =
+    typeof dateStr === "string" ? dateStr.split("T")[0] : dateStr;
+
+  const dateTimeString = timeStr ? `${fechaLimpia}T${timeStr}` : fechaLimpia;
+  const date = new Date(dateTimeString);
+
   return Number.isNaN(date.getTime()) ? null : date;
 };
 
 export function toCalendarEvents(appointments = []) {
   return appointments.flatMap((appointment, index) => {
-    const date = firstValue(appointment, ["fecha", "date", "dia", "start"]);
-    const start = toDate(
-      firstValue(appointment, ["inicio", "horaInicio", "start"], date),
-    );
-    const end = toDate(
-      firstValue(appointment, ["fin", "horaFin", "end"], start),
-    );
+    const date = firstValue(appointment, ["fecha", "date", "dia"]);
+
+    const startTime = firstValue(appointment, ["horaInicio", "inicio"]);
+    const endTime = firstValue(appointment, ["horaFin", "fin"]);
+
+    const start = toDate(date, startTime);
+    const end = toDate(date, endTime);
 
     if (!start || !end) return [];
 
     const patient = firstValue(
       appointment,
-      ["pacienteNombre", "paciente", "nombrePaciente"],
-      "Paciente",
+      ["titulo", "pacienteNombre", "paciente"],
+      "Turno",
     );
+
     const title =
       typeof patient === "object"
-        ? (patient.nombre ?? patient.name ?? "Paciente")
+        ? (patient.nombre ?? patient.name ?? "Turno")
         : patient;
 
     return [
       {
-        id: appointment.id ?? appointment.idTurno ?? index,
+        id:
+          appointment.agendaId ??
+          appointment.id ??
+          appointment.idTurno ??
+          index,
         title: String(title),
         start,
         end: end <= start ? new Date(start.getTime() + 30 * 60 * 1000) : end,

@@ -6,19 +6,24 @@
         //TurnoDto solo muestra el id de psicologo y planTurno
 
 
-        public int TurnoId { get; set; }
-        public DateOnly Fecha { get; set; }
-        public TimeOnly Hora { get; set; }
-        public string Estado { get; set; }
-        public bool? Asistencia { get; set; }
-        public string? Url { get; set; }
-        public string? Descripcion { get; set; }
+            public int TurnoId { get; set; }
+            public DateOnly Fecha { get; set; }
+            public TimeOnly Hora { get; set; }
+            public string Estado { get; set; }
 
-        
-        public PacienteDto Paciente { get; set; }
-        public PsicologoDto Psicologo { get; set; }
-        public PlanTurnoDto PlanTurno { get; set; }
+            public int? Minutos { get; set; }
+            public bool ModalidadVirtual { get; set; }
+            public int? CantidadTurnos { get; set; }
 
-       
+            public bool? Asistencia { get; set; }
+            public string? Url { get; set; }
+            public string? Descripcion { get; set; }
+
+            public PacienteDto? Paciente { get; set; }
+            public PsicologoDto? Psicologo { get; set; }
+            public PlanTurnoDto? PlanTurno { get; set; }
+      
+
+
     }
 }

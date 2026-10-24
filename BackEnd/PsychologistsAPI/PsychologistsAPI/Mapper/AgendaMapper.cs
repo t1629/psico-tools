@@ -14,14 +14,16 @@ namespace PsychologistsAPI.Mapper
 
                 ConsultorioId = entity.ConsultorioId,
                 ConsultorioNombre = entity.Consultorio?.Nombre,
-                DiaSemana = entity.DiaSemana,
                 HoraInicio = entity.HoraInicio,
                 HoraFin = entity.HoraFin,
                 PacienteId = entity.PacienteId,
                 PacienteNombre = entity.Paciente?.Nombre,
                 PacienteApellido = entity.Paciente?.Apellido,
                 Descripcion = entity.Descripcion,
-                Titulo  =  entity.Titulo
+                Titulo  =  entity.Titulo,
+                Fecha = entity.Fecha,
+                // FIX: exponer Estado; sin esto el PUT de edicion lo sobrescribia con null.
+                Estado = entity.Estado,
 
 
             };
@@ -34,7 +36,7 @@ namespace PsychologistsAPI.Mapper
                 AgendaId = dto.AgendaId,
                 PsicologoId = dto.PsicologoId,
                 ConsultorioId = dto.ConsultorioId,
-                DiaSemana = dto.DiaSemana,
+                Fecha = dto.Fecha,
                 HoraInicio = dto.HoraInicio,
                 HoraFin = dto.HoraFin,
                 PacienteId = dto.PacienteId,

@@ -22,7 +22,10 @@ namespace PsychologistsAPI.Services
 
         public async Task<List<AgendaDto>> GetByDate(DateOnly? fecha)
         {
-            var agendas = await _repo.GetByDateAsync(fecha);
+            if (!fecha.HasValue)
+                return await GetAll();
+
+            var agendas = await _repo.GetByDateAsync(fecha.Value);
             return agendas.Select(a => AgendaMapper.ToDto(a)).ToList();
         }
 
@@ -59,11 +62,19 @@ namespace PsychologistsAPI.Services
 
             // Actualizar campos
             agenda.ConsultorioId = dto.ConsultorioId;
-            agenda.DiaSemana = dto.DiaSemana;
+            agenda.Fecha = dto.Fecha;
             agenda.Estado = dto.Estado;
             agenda.HoraInicio = dto.HoraInicio;
             agenda.HoraFin = dto.HoraFin;
             agenda.PsicologoId = dto.PsicologoId;
+
+            // FIX: la pantalla de detalle muestra titulo/descripcion/paciente;
+            // el modo edicion los cargaba pero el PUT los descartaba.
+            // Trim: Titulo es nchar(50) y EF devuelve el padding de espacios;
+            // sin trim el PUT con texto largo desbordaba la columna (500).
+            agenda.Titulo = dto.Titulo?.Trim() ?? agenda.Titulo;
+            agenda.Descripcion = dto.Descripcion?.Trim() ?? agenda.Descripcion;
+            agenda.PacienteId = dto.PacienteId;
 
             await _repo.UpdateAsync(agenda);
             return AgendaMapper.ToDto(agenda);

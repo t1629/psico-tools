@@ -1,3 +1,7 @@
+// App.css va PRIMERO: define la base `.app-content { padding: 0 }`. Si se
+// importa después de las páginas, esa regla gana la cascada y anula el
+// padding/separación propio de cada vista (bug observado en /inicio).
+import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useContext } from "react";
 import LoginForm from "./components/LoginForm";
@@ -5,15 +9,16 @@ import Inicio from "./pages/Inicio";
 import Turnos from "./pages/Turnos";
 // import Paciente from "./pages/Paciente";
 import { UserProvider } from "./hooks/UseProvider";
+import ToastProvider from "./components/ToastProvider";
 import { Login as AuthContext } from "./context/authContext";
 import MainLayout from "./components/MainLayout";
 import Consultorio from "./pages/Consultorio";
 import AgendaForm from "./components/AgendaForm";
 import PsicologoPage from "./pages/Psicologo";
-import Header from "./components/Header";
+import PacientePage from "./pages/Paciente";
 import PlanTurnoForm from "./pages/PlanTurnoForm";
 import TurnoAll from "./pages/TurnoAll";
-import "./App.css";
+import DetalleAgenda from "./components/DetalleAgenda";
 
 // Motivo: ProtectedRoute leía `true` fijo (bypass). Ahora lee `token` real:
 // sin token expulsa a /login, con token renderiza la vista.
@@ -39,8 +44,9 @@ function RootRedirect() {
 function App() {
   return (
     <div className="app-shell">
-      <UserProvider>
-        <Routes>
+      <ToastProvider>
+        <UserProvider>
+          <Routes>
           <Route path="/" element={<RootRedirect />} />
           <Route
             path="/login"
@@ -59,14 +65,23 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            {/* <Route
+
+            <Route
+              path="/agenda/:id"
+              element={
+                <ProtectedRoute>
+                  <DetalleAgenda />
+                </ProtectedRoute>
+              }
+            />
+            <Route
               path="/paciente"
               element={
                 <ProtectedRoute>
-                  <Paciente />
+                  <PacientePage />
                 </ProtectedRoute>
               }
-            /> */}
+            />
             <Route
               path="/turnos"
               element={
@@ -128,8 +143,9 @@ function App() {
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </UserProvider>
+          </Routes>
+        </UserProvider>
+      </ToastProvider>
     </div>
   );
 }

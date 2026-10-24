@@ -7,7 +7,6 @@ import { useCalendar } from "../hooks/useCalendar";
 import { toCalendarEvents } from "../utils/calendarEvents";
 import "../styles/layout/Inicio.css";
 import { useNavigate } from "react-router-dom";
-import TurnoFiltradoForm from "../components/TurnoFiltradoForm";
 
 const locales = { es };
 const localizer = dateFnsLocalizer({
@@ -34,37 +33,19 @@ const messages = {
 };
 
 const Inicio = () => {
-  const { agendas, loading, error, reload, getByDate, getByPatient, getById } =
-    useCalendar();
+  const { agenda, loading, error, reload } = useCalendar();
   const [actionError, setActionError] = useState(null);
   const [currentView, setCurrentView] = useState("week");
   const [currentDate, setCurrentDate] = useState(new Date());
-  const navigate = useNavigate();
 
-  const runAction = async (action) => {
-    setActionError(null);
-    try {
-      await action();
-    } catch (err) {
-      setActionError(err.message ?? "No se pudo completar la operación.");
-    }
-  };
+  const navigate = useNavigate();
 
   const handleSelectEvent = (event) => {
     const id = event.resource?.agendaId ?? event.id;
     navigate(`/agenda/${id}`);
   };
 
-  const handleFilter = ({ date, patientId, agendaId }) => {
-    runAction(() => {
-      if (date) return getByDate(date);
-      if (patientId) return getByPatient(patientId);
-      if (agendaId) return getById(agendaId);
-      return reload();
-    });
-  };
-
-  const events = toCalendarEvents(agendas);
+  const events = toCalendarEvents(agenda);
 
   return (
     <main className="app-content calendar-page">
@@ -100,9 +81,9 @@ const Inicio = () => {
         </div>
       )}
 
-      <section className="calendar-tools" aria-label="Herramientas de agenda">
+      {/* <section className="calendar-tools" aria-label="Herramientas de agenda">
         <TurnoFiltradoForm onFilter={handleFilter} onReset={reload} />
-      </section>
+      </section> */}
 
       <section className="calendar-panel" aria-label="Calendario de turnos">
         {loading ? (
@@ -126,7 +107,8 @@ const Inicio = () => {
             endAccessor="end"
             titleAccessor="title"
             eventPropGetter={(task) => {
-              const text = `${task?.title ?? ""} ${task?.resource?.descripcion ?? ""} ${task?.resource?.type ?? ""}`.toLowerCase();
+              const text =
+                `${task?.title ?? ""} ${task?.resource?.descripcion ?? ""} ${task?.resource?.type ?? ""}`.toLowerCase();
               const isRest = text.includes("descanso");
               return {
                 style: {

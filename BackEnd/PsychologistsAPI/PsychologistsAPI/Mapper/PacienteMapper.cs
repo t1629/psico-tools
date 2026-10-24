@@ -1,4 +1,3 @@
-
 using PsychologistsAPI.Models;
 using PsychologistsAPI.Dtos;
 
@@ -6,8 +5,11 @@ namespace PsychologistsAPI.Mapper
 {
     public class PacienteMapper
     {
-        public static PacienteDto ToDto(Paciente paciente)
+        public static PacienteDto? ToDto(Paciente paciente)
         {
+            if (paciente == null)
+                return null;
+
             return new PacienteDto
             {
                 PacienteId = paciente.PacienteId,

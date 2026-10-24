@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Archivos locales de Visual Studio
 .vs/
 **/.vs/
@@ -16,3 +17,21 @@
 *.log
 *.tmp
 *.bak
+=======
+# --- BackEnd (.NET): artefactos de compilacion ---
+bin/
+obj/
+*.user
+appsettings.*.json
+
+# --- FrontEnd (Node/Vite) ---
+node_modules/
+dist/
+*.local
+
+# --- Editor / sistema ---
+.vs/
+.idea/
+.DS_Store
+Thumbs.db
+>>>>>>> origin/Corregir_agenda

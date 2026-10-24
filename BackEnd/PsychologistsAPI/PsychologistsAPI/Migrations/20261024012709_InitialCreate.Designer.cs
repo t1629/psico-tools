@@ -12,8 +12,8 @@ using PsychologistsAPI.Data;
 namespace PsychologistsAPI.Migrations
 {
     [DbContext(typeof(PsyClinicDbContext))]
-    [Migration("20261014154414_Baseline")]
-    partial class Baseline
+    [Migration("20261024012709_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,17 +44,15 @@ namespace PsychologistsAPI.Migrations
                         .HasColumnName("descripcion")
                         .IsFixedLength();
 
-                    b.Property<string>("DiaSemana")
-                        .HasMaxLength(15)
-                        .HasColumnType("nchar(15)")
-                        .HasColumnName("diaSemana")
-                        .IsFixedLength();
-
                     b.Property<string>("Estado")
                         .HasMaxLength(15)
                         .HasColumnType("nchar(15)")
                         .HasColumnName("estado")
                         .IsFixedLength();
+
+                    b.Property<DateOnly?>("Fecha")
+                        .HasColumnType("date")
+                        .HasColumnName("fecha");
 
                     b.Property<TimeOnly>("HoraFin")
                         .HasColumnType("time")
@@ -104,27 +102,19 @@ namespace PsychologistsAPI.Migrations
                         .HasColumnName("calle")
                         .IsFixedLength();
 
-                    b.Property<string>("Nomrbe")
+                    b.Property<string>("Nombre")
                         .HasMaxLength(100)
                         .HasColumnType("nchar(100)")
-                        .HasColumnName("nomrbe")
+                        .HasColumnName("nombre")
                         .IsFixedLength();
 
-                    b.Property<int?>("Nuemro")
+                    b.Property<int?>("Numero")
                         .HasColumnType("int")
-                        .HasColumnName("nuemro");
-
-                    b.Property<bool?>("Presencial")
-                        .HasColumnType("bit")
-                        .HasColumnName("presencial");
+                        .HasColumnName("numero");
 
                     b.Property<int?>("TipoModalidadId")
                         .HasColumnType("int")
                         .HasColumnName("tipoModalidadId");
-
-                    b.Property<bool?>("Virtual")
-                        .HasColumnType("bit")
-                        .HasColumnName("virtual");
 
                     b.HasKey("ConsultorioId");
 
@@ -272,13 +262,13 @@ namespace PsychologistsAPI.Migrations
                         .HasColumnType("int")
                         .HasColumnName("cantidadTurno");
 
+                    b.Property<DateOnly>("FechaFin")
+                        .HasColumnType("date")
+                        .HasColumnName("fechaFin");
+
                     b.Property<DateOnly>("FechaInicio")
                         .HasColumnType("date")
                         .HasColumnName("fechaInicio");
-
-                    b.Property<DateOnly>("FehcaFin")
-                        .HasColumnType("date")
-                        .HasColumnName("fehcaFin");
 
                     b.HasKey("PlanTurnoId");
 
@@ -412,7 +402,7 @@ namespace PsychologistsAPI.Migrations
 
                     b.Property<DateOnly>("Fecha")
                         .HasColumnType("date")
-                        .HasColumnName("fehca");
+                        .HasColumnName("fecha");
 
                     b.Property<TimeOnly>("Hora")
                         .HasColumnType("time")
@@ -524,7 +514,7 @@ namespace PsychologistsAPI.Migrations
                         .WithMany("Agenda")
                         .HasForeignKey("PsicologoId")
                         .IsRequired()
-                        .HasConstraintName("FK_agenda_psciologo");
+                        .HasConstraintName("FK_agenda_psicologo");
 
                     b.Navigation("Consultorio");
 
@@ -597,7 +587,7 @@ namespace PsychologistsAPI.Migrations
                         .HasConstraintName("FK_turno_paciente");
 
                     b.HasOne("PsychologistsAPI.Models.PlanTurno", "PlanTurno")
-                        .WithMany("Turnos")
+                        .WithMany()
                         .HasForeignKey("PlanTurnoId");
 
                     b.HasOne("PsychologistsAPI.Models.Psicologo", "Psicologo")
@@ -632,8 +622,6 @@ namespace PsychologistsAPI.Migrations
             modelBuilder.Entity("PsychologistsAPI.Models.PlanTurno", b =>
                 {
                     b.Navigation("Pacientes");
-
-                    b.Navigation("Turnos");
                 });
 
             modelBuilder.Entity("PsychologistsAPI.Models.Psicologo", b =>

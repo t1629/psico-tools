@@ -1,13 +1,52 @@
+# =========================
+# .NET
+# =========================
 bin/
 obj/
+**/bin/
+**/obj/
+
+publish/
+
+# =========================
+# Visual Studio
+# =========================
 .vs/
+**/.vs/
+
 *.user
 *.suo
+
+# =========================
+# Bases locales y temporales
+# =========================
 *.sqlite
 *.db
 *.log
-publish/
 *.tmp
 *.bak
-.env*
+
+# =========================
+# Variables de entorno
+# =========================
+.env
+.env.*
 appsettings.Development.json
+
+# =========================
+# React / Node / Vite
+# =========================
+node_modules/
+dist/
+
+# =========================
+# Herramientas y caché
+# =========================
+graphify-out/
+CopilotSnapshots/
+
+# =========================
+# Sistema operativo
+# =========================
+.DS_Store
+Thumbs.db

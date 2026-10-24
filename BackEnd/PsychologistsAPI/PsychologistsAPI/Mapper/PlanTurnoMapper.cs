@@ -6,8 +6,11 @@ namespace PsychologistsAPI.Mapper
 {
     public class PlanTurnoMapper
     {
-        public static PlanTurnoDto ToDto(PlanTurno planTurno)
+        public static PlanTurnoDto? ToDto(PlanTurno? planTurno)
         {
+            if (planTurno == null)
+                return null;
+
             return new PlanTurnoDto
             {
                 PlanTurnoId = planTurno.PlanTurnoId,
@@ -16,9 +19,9 @@ namespace PsychologistsAPI.Mapper
                 CantidadTurno = planTurno.CantidadTurno,
                 Pacientes = planTurno.Pacientes?.Select(p => new PacienteDto
                 {
-                     PacienteId = p.PacienteId,
-                     Nombre = p.Nombre,
-                     Apellido = p.Apellido
+                    PacienteId = p.PacienteId,
+                    Nombre = p.Nombre,
+                    Apellido = p.Apellido
                 }).ToList()
             };
         }

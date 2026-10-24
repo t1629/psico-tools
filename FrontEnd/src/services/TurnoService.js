@@ -7,7 +7,9 @@ export async function getAll() {
 }
 
 export async function getByRange(desde, hasta) {
-  return fetchApi(`${BASE_API_URL}/api/turno?range=${desde}&hasta=${hasta}`);
+  return fetchApi(
+    `${BASE_API_URL}/api/turno/range?desde=${desde}&hasta=${hasta}`,
+  );
 }
 export async function getById(id) {
   return fetchApi(`${BASE_API_URL}/api/turno/${id}`);
@@ -22,7 +24,9 @@ export async function getTurnosByPaciente(id, pacienteId) {
 }
 
 export async function create(data) {
-  return fetchApi(`${BASE_API_URL}/api/turnos`, {
+  // FIX: el controller expone api/turno ([Route("api/[controller]")]);
+  // POST a /api/turnos devolvía 404 y los turnos no entraban al listado/filtro.
+  return fetchApi(`${BASE_API_URL}/api/turno`, {
     method: "POST",
     body: JSON.stringify(data),
   });

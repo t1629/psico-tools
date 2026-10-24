@@ -1,49 +1,69 @@
-/* TurnoForm — migrado a tokens semánticos (elimina :root morado previo/previo prohibido).
-   Botón primario lima+oscuro AA; peligro en tinta (sólido dark falla 4.5). */
+/* Ruta Turno — estilos propios y con nombre propio (antes duplicaban
+   .calendar-tools__editor de Inicio.css, y colisionaban en el CSS global).
+   100% tokens semánticos de index.css (sin hex externos).
+   Contraste verificado (design system 1.4):
+   - eyebrow en secondary en light (lima como texto pequeño falla 2.62:1);
+     en dark usa action-primary (7.87:1).
+   - Botón primario lima + texto oscuro (9.08:1 dark) AA en ambos modos. */
 
 .turnos-page {
   background: var(--color-bg-base);
   color: var(--color-text-secondary);
   padding: 32px 24px 48px;
   min-height: 100svh;
+  box-sizing: border-box;
 }
 
-.calendar-tools__editor {
-  background: var(--color-bg-surface);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-md);
-  border-top: 4px solid var(--color-action-primary);
-  padding: 1.25rem;
+/* Título superior descriptivo + separación explícita debajo del mismo */
+.turnos-page__header {
+  max-width: 720px;
+  margin: 0 auto 28px;
+}
+
+.turnos-page__eyebrow {
+  margin: 0 0 4px 2px;
   color: var(--color-text-secondary);
-  box-shadow: var(--shadow);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .turnos-page__eyebrow {
+  color: var(--color-action-primary);
+}
+
+.turnos-page h1 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.05;
+}
+
+.turnos-page__description {
+  margin-top: 8px;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
+/* Tarjeta del formulario: superficie + acento lima superior */
+.turno-form {
   display: grid;
   gap: 0.9rem;
   max-width: 720px;
   margin: 0 auto;
-}
-
-.calendar-tools__editor-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  border-bottom: 1px solid var(--color-border-subtle);
-  padding-bottom: 0.75rem;
-  margin-bottom: 0.5rem;
-}
-
-.calendar-tools__editor-heading strong {
-  color: var(--color-text-primary);
-  font-size: 1.05rem;
-  letter-spacing: -0.2px;
-}
-
-.calendar-tools__editor-heading span {
-  font-size: 0.85rem;
+  padding: 1.25rem;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  border-top: 4px solid var(--color-action-primary);
   color: var(--color-text-secondary);
+  box-shadow: var(--shadow);
 }
 
-.calendar-tools__editor label {
+.turno-form label {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -52,31 +72,9 @@
   color: var(--color-text-primary);
 }
 
-.checkbox-label {
-  display: flex;
-  flex-direction: row !important;
-  align-items: center;
-  gap: 0.6rem;
-  min-height: 44px;
-  font-size: 0.9rem;
-  color: var(--color-text-primary);
-  border: none;
-  background: transparent;
-  padding: 0;
-  cursor: pointer;
-}
-
-.checkbox-label input[type="checkbox"] {
-  width: 22px;
-  height: 22px;
-  flex: none;
-  cursor: pointer;
-  accent-color: var(--color-action-primary);
-}
-
-.calendar-tools__editor input,
-.calendar-tools__editor select,
-.calendar-tools__editor textarea {
+.turno-form input,
+.turno-form select,
+.turno-form textarea {
   background: var(--color-bg-base);
   border: 1px solid var(--color-border-input);
   border-radius: 6px;
@@ -88,22 +86,22 @@
   box-sizing: border-box;
 }
 
-.calendar-tools__editor input:focus,
-.calendar-tools__editor select:focus,
-.calendar-tools__editor textarea:focus {
+.turno-form input:focus,
+.turno-form select:focus,
+.turno-form textarea:focus {
   outline: none;
   border-color: var(--color-action-hover);
   box-shadow: 0 0 0 3px var(--tint-primary-strong);
 }
 
-.calendar-tools__editor-actions {
+.turno-form__actions {
   display: flex;
   gap: 0.75rem;
   margin-top: 0.5rem;
   flex-wrap: wrap;
 }
 
-.calendar-tools__editor-actions button {
+.turno-form__actions button {
   border-radius: 6px;
   padding: 0.65rem 1rem;
   min-height: 44px;
@@ -116,59 +114,43 @@
     color 0.15s ease;
 }
 
-/* Crear/Guardar: lima + oscuro (5.91 light / 9.08 dark) */
-.calendar-tools__editor-actions button[type="submit"] {
+/* Crear/Guardar: lima + texto oscuro (AA en ambos modos) */
+.turno-form__actions button[type="submit"] {
   background: var(--color-action-primary);
   color: var(--global-dark-bg);
   border-color: var(--color-action-hover);
 }
 
-.calendar-tools__editor-actions button[type="submit"]:hover {
+.turno-form__actions button[type="submit"]:hover:not(:disabled) {
   background: var(--color-action-secondary);
   border-color: var(--color-action-secondary);
   color: var(--global-dark-bg);
 }
 
-.calendar-tools__secondary {
+.turno-form__secondary {
   background: var(--tint-primary);
   border: 1px solid var(--color-action-hover);
   color: var(--color-text-primary);
 }
 
-.calendar-tools__secondary:hover {
+.turno-form__secondary:hover {
   background: var(--tint-primary-strong);
   border-color: var(--color-action-hover);
   color: var(--color-text-primary);
 }
 
-/* Eliminar: tinta de error + primario (sólido falla texto en dark) */
-.calendar-tools__danger {
-  background: var(--tint-error);
-  border: 1px solid var(--color-feedback-error);
-  color: var(--color-text-primary);
-  padding: 0.65rem 1rem;
-  min-height: 44px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 700;
+.turno-form__actions button:disabled {
+  background: var(--color-bg-base);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
 }
 
-.calendar-tools__danger:hover {
-  background: var(--color-feedback-error);
-  border-color: var(--color-feedback-error);
-  color: var(--global-gray-50);
-}
+@media (max-width: 700px) {
+  .turnos-page {
+    padding: 24px 14px 40px;
+  }
 
-[data-theme="dark"] .calendar-tools__danger:hover {
-  background: var(--color-feedback-warning);
-  border-color: var(--color-feedback-warning);
-  color: var(--global-dark-bg);
-}
-
-.turno-form__presencial {
-  font-size: 0.85rem;
-  color: var(--color-text-secondary);
-  font-style: italic;
-  border-left: 3px solid var(--color-action-hover);
-  padding-left: 10px;
+  .turno-form {
+    padding: 1rem;
+  }
 }

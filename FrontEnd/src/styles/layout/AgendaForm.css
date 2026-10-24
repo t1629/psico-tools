@@ -1,9 +1,56 @@
+/* Ruta Crear Agenda — 100% tokens semánticos de index.css (sin hex externos).
+   Cabecera de página alineada al design system (patrón de Inicio). */
+.agenda-page {
+  min-height: 100svh;
+  box-sizing: border-box;
+  padding: 48px 40px 48px;
+  background: var(--color-bg-base);
+  color: var(--color-text-secondary);
+  text-align: left;
+}
+
+.agenda-page__header {
+  /* Punto 4: todo el encabezado alineado a la izquierda (sin centrado automático) */
+  max-width: 720px;
+  margin: 0 0 28px;
+}
+
+.agenda-page__eyebrow {
+  margin: 0 0 4px 2px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .agenda-page__eyebrow {
+  color: var(--color-action-primary);
+}
+
+.agenda-page h1 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.05;
+}
+
+.agenda-page__description {
+  margin-top: 8px;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
 .agenda-form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 400px;
-  margin: 24px auto;
+  /* Punto 2: el formulario se extiende en el eje X (grid de 3 columnas).
+     Punto 4 (comanda previa): sigue alineado a la izquierda bajo el encabezado. */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px 16px;
+  max-width: 840px;
+  margin: 0;
   padding: 20px;
   background: var(--color-bg-surface);
   border: 1px solid var(--color-border-subtle);
@@ -11,6 +58,28 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   color: var(--color-text-secondary);
+  box-sizing: border-box;
+}
+
+.agenda-field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.agenda-field--full {
+  grid-column: 1 / -1;
+}
+
+.agenda-form__footer {
+  display: grid;
+  gap: 10px;
+}
+
+.agenda-form label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-primary);
 }
 
 .agenda-input {
@@ -25,19 +94,13 @@
   box-sizing: border-box;
 }
 
-.agenda-form label {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--color-text-primary);
-  margin-bottom: -6px;
-}
-
 .agenda-input:focus {
   outline: none;
   border-color: var(--color-action-hover);
   box-shadow: 0 0 0 3px var(--tint-primary-strong);
 }
 
+/* Botón primario: lima + texto oscuro (AA en ambos modos) */
 .agenda-button {
   background-color: var(--color-action-primary);
   color: var(--global-dark-bg);
@@ -59,4 +122,25 @@
 .agenda-button:focus-visible {
   outline: 3px solid var(--color-action-secondary);
   outline-offset: 2px;
+}
+
+.agenda-error {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--color-feedback-error);
+  border-radius: var(--radius-sm);
+  background: var(--tint-error);
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+@media (max-width: 700px) {
+  .agenda-page {
+    padding: 28px 14px 40px;
+  }
+
+  /* En pantallas angostas el grid colapsa a una columna */
+  .agenda-form {
+    grid-template-columns: 1fr;
+  }
 }
