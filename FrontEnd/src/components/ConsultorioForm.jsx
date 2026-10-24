@@ -87,13 +87,14 @@ export default function ConsultorioForm() {
 
   const handleEdit = (item) => {
     setForm({
-      Id: item.Id,
-      nombre: item.Nombre,
-      calle: item.Calle || "",
-      numero: item.Numero || "",
+      Id: item.id ?? item.Id,
+      nombre: item.nombre ?? item.Nombre,
+      calle: item.calle ?? item.Calle ?? "",
+      numero: item.numero ?? item.Numero ?? "",
       presencial: false,
       virtual: false,
-      tipoModalidadNombre: item.TipoModalidadNombre,
+      tipoModalidadNombre:
+        item.tipoModalidadNombre ?? item.TipoModalidadNombre ?? "",
     });
   };
 
@@ -196,14 +197,15 @@ export default function ConsultorioForm() {
 
       <h2>Consultorios Registrados</h2>
       <ul>
-        {consultorios.map((c) => (
-          <li key={c.Id}>
-            <strong>{c.Nombre}</strong> — {c.Calle} {c.Numero} (
-            {c.TipoModalidadNombre})
+        {consultorios.map((c, index) => (
+          <li key={c.id ?? c.Id ?? index}>
+            <strong>{c.nombre ?? c.Nombre}</strong> —{" "}
+            {c.calle ?? c.Calle} {c.numero ?? c.Numero} (
+            {c.tipoModalidadNombre ?? c.TipoModalidadNombre})
             <button type="button" onClick={() => handleEdit(c)}>
               Editar
             </button>
-            <button type="button" onClick={() => remove(c.Id)}>
+            <button type="button" onClick={() => remove(c.id ?? c.Id)}>
               Eliminar
             </button>
           </li>
