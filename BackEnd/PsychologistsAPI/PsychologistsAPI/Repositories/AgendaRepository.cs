@@ -17,6 +17,8 @@ namespace PsychologistsAPI.Repositories
         {
             return await _context.Agenda
                 .Include(a => a.Psicologo)
+                .Include(a => a.Paciente)
+                .Include(a => a.Consultorio)
                 .ToListAsync();
         }
 
