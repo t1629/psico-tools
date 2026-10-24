@@ -8,7 +8,14 @@ export default function PsicologoPage() {
 
   return (
     <div className="psicologo-page">
-      <h1>Psicólogo</h1>
+      <header className="psicologo-page__header">
+        <p className="psicologo-page__eyebrow">Equipo profesional</p>
+        <h1>Psicólogo</h1>
+        <p className="psicologo-page__description">
+          Registra y administra los psicólogos de la consulta: datos de
+          contacto y perfil profesional.
+        </p>
+      </header>
 
       <section className="psicologo-form-section">
         <PsicologoForm />

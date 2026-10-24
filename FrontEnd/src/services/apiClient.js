@@ -19,8 +19,21 @@ export async function fetchApi(url, options = {}) {
 
       console.error("Detalle del backend:", errorData);
 
+      // Armar un mensaje legible desde ProblemDetails / ModelState
+      let detalle = errorData?.message || errorData?.title || "";
+
+      if (errorData?.errors) {
+        const items = Object.entries(errorData.errors).map(
+          ([campo, mensajes]) =>
+            `${campo}: ${
+              Array.isArray(mensajes) ? mensajes.join(", ") : mensajes
+            }`
+        );
+        detalle = detalle ? `${detalle} — ${items.join(" | ")}` : items.join(" | ");
+      }
+
       throw new Error(
-        `Error ${response.status} ${response.statusText}`
+        detalle || `Error ${response.status} ${response.statusText}`
       );
     }
 

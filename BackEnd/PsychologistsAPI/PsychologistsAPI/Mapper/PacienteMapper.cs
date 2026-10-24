@@ -7,9 +7,12 @@ namespace PsychologistsAPI.Mapper
     {
         
         
-            public static PacienteDto ToDto(Paciente paciente)
+            public static PacienteDto? ToDto(Paciente paciente)
             {
-                return new PacienteDto
+            if (paciente == null)
+                return null;
+
+            return new PacienteDto
                 {
                     PacienteId = paciente.PacienteId,
                     Nombre = paciente.Nombre,

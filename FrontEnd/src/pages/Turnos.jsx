@@ -52,6 +52,13 @@ const Turnos = () => {
 
   return (
     <main className="app-content turnos-page">
+      <header className="turnos-page__header">
+        <p className="turnos-page__eyebrow">Programación</p>
+        <h1>Gestión de Turnos</h1>
+        <p className="turnos-page__description">
+          Crea y administra los turnos de tu consulta.
+        </p>
+      </header>
       {loading && <p>Cargando turno...</p>}
       {error && (
         <div className="calendar-page__notice" role="alert">

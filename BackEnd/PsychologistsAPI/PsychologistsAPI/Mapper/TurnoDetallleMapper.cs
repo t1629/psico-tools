@@ -13,13 +13,26 @@ namespace PsychologistsAPI.Mapper
                 Fecha = turno.Fecha,
                 Hora = turno.Hora,
                 Estado = turno.Estado,
+
+                Minutos = turno.Minutos,
+                ModalidadVirtual = turno.ModalidadVirtual,
+                CantidadTurnos = turno.CantidadTurnos,
+
                 Asistencia = turno.Asistencia,
                 Url = turno.Url,
                 Descripcion = turno.Descripcion,
-                Paciente = PacienteMapper.ToDto(turno.Paciente),
-                Psicologo = PsicologoMapper.ToDto(turno.Psicologo),
-                PlanTurno = PlanTurnoMapper.ToDto(turno.PlanTurno),
-           
+
+                Paciente = turno.Paciente != null
+         ? PacienteMapper.ToDto(turno.Paciente)
+         : null,
+
+                Psicologo = turno.Psicologo != null
+         ? PsicologoMapper.ToDto(turno.Psicologo)
+         : null,
+
+                PlanTurno = turno.PlanTurno != null
+         ? PlanTurnoMapper.ToDto(turno.PlanTurno)
+         : null
             };
         }
 

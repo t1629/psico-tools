@@ -12,6 +12,7 @@ export default function PlanTurnoForm() {
     paciente: null,
     fechaInicio: "",
     fechaFin: "",
+    cantidadTurno: "",
   });
 
   const [formError, setFormError] = useState(null);
@@ -35,7 +36,7 @@ export default function PlanTurnoForm() {
 
     if (name === "pacienteId") {
       const pacienteSeleccionado =
-        pacientes.find((p) => p.Id === Number(value)) || null;
+        pacientes.find((p) => p.pacienteId === Number(value)) || null;
 
       setForm((prev) => ({
         ...prev,
@@ -67,6 +68,11 @@ export default function PlanTurnoForm() {
       return;
     }
 
+    if (!form.cantidadTurno || Number(form.cantidadTurno) < 1) {
+      setFormError("La cantidad de turnos es obligatoria y debe ser mayor a 0.");
+      return;
+    }
+
     const fechaInicio = new Date(form.fechaInicio);
     const fechaFin = new Date(form.fechaFin);
 
@@ -79,16 +85,17 @@ export default function PlanTurnoForm() {
     }
 
     if (fechaFin <= fechaInicio) {
-      setFormError("La fecha de fin debe ser posterior a la fecha de inicio.");
+      setFormError(
+        "La fecha y hora de fin debe ser posterior a la fecha y hora de inicio."
+      );
       return;
     }
 
     const payload = {
-      pacienteId: form.paciente.Id,
-      pacienteNombre: form.paciente.Nombre,
-      pacienteApellido: form.paciente.Apellido,
+      pacienteId: form.paciente.pacienteId,
       fechaInicio: form.fechaInicio,
       fechaFin: form.fechaFin,
+      cantidadTurno: Number(form.cantidadTurno),
     };
 
     try {
@@ -101,6 +108,7 @@ export default function PlanTurnoForm() {
           paciente: null,
           fechaInicio: "",
           fechaFin: "",
+          cantidadTurno: "",
         });
       } else {
         setFormError(result.error || "Error al crear el plan de turno.");
@@ -156,15 +164,15 @@ export default function PlanTurnoForm() {
               className="planturno-select"
               id="pacienteId"
               name="pacienteId"
-              value={form.paciente?.Id ?? ""}
+              value={form.paciente?.pacienteId ?? ""}
               onChange={handleChange}
               required
             >
               <option value="">Seleccione un paciente...</option>
 
               {pacientes.map((p) => (
-                <option key={p.Id} value={p.Id}>
-                  {p.Nombre} {p.Apellido}
+                <option key={p.pacienteId} value={p.pacienteId}>
+                  {p.nombre} {p.apellido}
                 </option>
               ))}
             </select>
@@ -172,7 +180,7 @@ export default function PlanTurnoForm() {
 
           <div className="planturno-field-group">
             <label className="planturno-label" htmlFor="fechaInicio">
-              Fecha y hora de inicio
+              Fecha y hora de inicio (desde)
             </label>
 
             <input
@@ -188,7 +196,7 @@ export default function PlanTurnoForm() {
 
           <div className="planturno-field-group">
             <label className="planturno-label" htmlFor="fechaFin">
-              Fecha y hora de fin
+              Fecha y hora de fin (hasta)
             </label>
 
             <input
@@ -197,6 +205,23 @@ export default function PlanTurnoForm() {
               name="fechaFin"
               type="datetime-local"
               value={form.fechaFin}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="planturno-field-group">
+            <label className="planturno-label" htmlFor="cantidadTurno">
+              Cantidad de turnos
+            </label>
+
+            <input
+              className="planturno-input"
+              id="cantidadTurno"
+              name="cantidadTurno"
+              type="number"
+              min="1"
+              value={form.cantidadTurno}
               onChange={handleChange}
               required
             />
@@ -260,13 +285,19 @@ export default function PlanTurnoForm() {
 
                 <div className="planturno-card-body">
                   <p>
-                    <strong>Nombre:</strong>{" "}
-                    {item.paciente?.Nombre ?? item.pacienteNombre ?? "N/A"}
+                    <strong>Paciente(s):</strong>{" "}
+                    {Array.isArray(item.pacientes) && item.pacientes.length > 0
+                      ? item.pacientes
+                          .map((pac) =>
+                            `${pac.nombre ?? ""} ${pac.apellido ?? ""}`.trim()
+                          )
+                          .join(", ")
+                      : "N/A"}
                   </p>
 
                   <p>
-                    <strong>Apellido:</strong>{" "}
-                    {item.paciente?.Apellido ?? item.pacienteApellido ?? "N/A"}
+                    <strong>Cantidad de turnos:</strong>{" "}
+                    {item.cantidadTurno ?? "N/A"}
                   </p>
 
                   <p>

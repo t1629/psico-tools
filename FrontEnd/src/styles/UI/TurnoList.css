@@ -1,7 +1,7 @@
 .turnos-all-page {
   padding: 32px 16px;
   background-color: var(--color-bg-base);
-  min-height: 100vh;
+  min-height: 100svh;
 }
 
 /* Tarjeta flotante centrada: todo el apartado vive dentro de esta panel
@@ -15,14 +15,6 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
   padding: 28px 32px;
-}
-
-.turnos-all-page h1 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: center;
-  color: var(--color-text-primary);
 }
 
 /* Cabecera tipo calendar-page. Scoped: esas clases ya estan estiladas en
