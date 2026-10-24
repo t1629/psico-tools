@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { usePsicologo } from "../hooks/usePsicologo";
+import { useToast } from "../hooks/useToast";
 import "../styles/layout/Psicologo.css";
 
 export default function PsicologoForm() {
-  const { create, loading, error } = usePsicologo();
+  const { create, loading } = usePsicologo();
+  const toast = useToast();
 
   const [form, setForm] = useState({
     nombre: "",
@@ -14,7 +16,6 @@ export default function PsicologoForm() {
   });
 
   const [formError, setFormError] = useState(null);
-  const [successMsg, setSuccessMsg] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +25,6 @@ export default function PsicologoForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError(null);
-    setSuccessMsg(null);
 
     // Validaciones básicas
     if (!form.nombre || !form.apellido) {
@@ -43,7 +43,7 @@ export default function PsicologoForm() {
     const result = await create(form);
 
     if (result.success) {
-      setSuccessMsg("¡Psicólogo creado con éxito!");
+      toast.success("¡Psicólogo creado con éxito!");
       setForm({
         nombre: "",
         apellido: "",
@@ -51,14 +51,13 @@ export default function PsicologoForm() {
         telefono: "",
       });
     } else {
-      setFormError(result.error);
+      toast.error(result.error ?? "No se pudo crear el psicólogo");
     }
   };
 
   return (
     <form className="psicologo-form" onSubmit={handleSubmit}>
       <h2>Nuevo Psicólogo</h2>
-
       <label>Nombre</label>
       <input
         type="text"
@@ -95,9 +94,11 @@ export default function PsicologoForm() {
         {loading ? "Guardando..." : "Crear Psicólogo"}
       </button>
 
-      {formError && <p className="form-error">{formError}</p>}
-      {successMsg && <p className="form-success">{successMsg}</p>}
-      {error && <p className="form-error">Error: {error.message}</p>}
+      {formError && (
+        <p className="form-error" role="alert">
+          {formError}
+        </p>
+      )}
     </form>
   );
 }

@@ -7,7 +7,6 @@ import { useCalendar } from "../hooks/useCalendar";
 import { toCalendarEvents } from "../utils/calendarEvents";
 import "../styles/layout/Inicio.css";
 import { useNavigate } from "react-router-dom";
-import TurnoFiltradoForm from "../components/TurnoFiltradoForm";
 
 const locales = { es };
 const localizer = dateFnsLocalizer({
@@ -34,7 +33,7 @@ const messages = {
 };
 
 const Inicio = () => {
-  const { agenda, loading, error, reload, getByDate } = useCalendar();
+  const { agenda, loading, error, reload } = useCalendar();
   const [actionError, setActionError] = useState(null);
   const [currentView, setCurrentView] = useState("week");
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -46,32 +45,7 @@ const Inicio = () => {
     navigate(`/agenda/${id}`);
   };
 
-  const handleFilter = ({ titulo, date }) => {
-    if (titulo?.trim()) {
-      const agendaEncontrada = agenda.find((a) =>
-        a.titulo?.trim().toLowerCase().includes(titulo.trim().toLowerCase()),
-      );
-
-      if (agendaEncontrada) {
-        navigate(`/agenda/${agendaEncontrada.agendaId}`);
-        return;
-      }
-
-      setActionError("No se encontró la agenda.");
-      return;
-    }
-
-    if (date) {
-      getByDate(date);
-      return;
-    }
-
-    reload();
-  };
-
   const events = toCalendarEvents(agenda);
-
-  console.log(agenda);
 
   return (
     <main className="app-content calendar-page">

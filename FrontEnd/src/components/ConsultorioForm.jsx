@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useConsultorio } from "../hooks/useConsultorio";
+import { useToast } from "../hooks/useToast";
 import "../styles/UI/Consultorio.css";
 
 export default function ConsultorioForm() {
   const { consultorios, fetchAll, create, update, remove, loading, error } =
     useConsultorio();
+  const toast = useToast();
 
   const [form, setForm] = useState({
     Id: "",
@@ -17,7 +19,6 @@ export default function ConsultorioForm() {
   });
 
   const [formError, setFormError] = useState(null);
-  const [successMsg, setSuccessMsg] = useState(null);
 
   useEffect(() => {
     fetchAll();
@@ -34,7 +35,6 @@ export default function ConsultorioForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormError(null);
-    setSuccessMsg(null);
 
     if (!form.nombre.trim()) {
       setFormError(
@@ -66,19 +66,23 @@ export default function ConsultorioForm() {
 
     const result = await create(payload);
     if (result?.success) {
-      setSuccessMsg("¡Consultorio creado con éxito!");
-      setForm({
-        Id: "",
-        nombre: "",
-        calle: "",
-        numero: "",
-        presencial: false,
-        virtual: false,
-        tipoModalidadNombre: "",
-      });
+      toast.success("¡Consultorio creado con éxito!");
+      resetForm();
     } else {
-      setFormError(result?.error || "No se pudo crear el consultorio");
+      toast.error(result?.error || "No se pudo crear el consultorio");
     }
+  };
+
+  const resetForm = () => {
+    setForm({
+      Id: "",
+      nombre: "",
+      calle: "",
+      numero: "",
+      presencial: false,
+      virtual: false,
+      tipoModalidadNombre: "",
+    });
   };
 
   const handleEdit = (item) => {
@@ -102,18 +106,10 @@ export default function ConsultorioForm() {
       TipoModalidadNombre: form.tipoModalidadNombre.trim(),
     });
     if (result?.success) {
-      setSuccessMsg("¡Consultorio actualizado con éxito!");
-      setForm({
-        Id: "",
-        nombre: "",
-        calle: "",
-        numero: "",
-        presencial: false,
-        virtual: false,
-        tipoModalidadNombre: "",
-      });
+      toast.success("¡Consultorio actualizado con éxito!");
+      resetForm();
     } else {
-      setFormError(result?.error || "No se pudo actualizar el consultorio");
+      toast.error(result?.error || "No se pudo actualizar el consultorio");
     }
   };
 
@@ -187,18 +183,29 @@ export default function ConsultorioForm() {
         </button>
       </form>
 
-      {formError && <p className="form-error">{formError}</p>}
-      {successMsg && <p className="form-success">{successMsg}</p>}
-      {error && <p className="form-error">Error: {String(error)}</p>}
+      {formError && (
+        <p className="form-error" role="alert">
+          {formError}
+        </p>
+      )}
+      {error && (
+        <p className="form-error" role="alert">
+          Error: {String(error)}
+        </p>
+      )}
 
       <h2>Consultorios Registrados</h2>
       <ul>
         {consultorios.map((c) => (
-          <li key={c.id}>
-            <strong>{c.nombre}</strong> — {c.calle} {c.numero} (
-            {c.tipoModalidadNombre})
-            <button onClick={() => handleEdit(c)}>Editar</button>
-            <button onClick={() => remove(c.Id)}>Eliminar</button>
+          <li key={c.Id}>
+            <strong>{c.Nombre}</strong> — {c.Calle} {c.Numero} (
+            {c.TipoModalidadNombre})
+            <button type="button" onClick={() => handleEdit(c)}>
+              Editar
+            </button>
+            <button type="button" onClick={() => remove(c.Id)}>
+              Eliminar
+            </button>
           </li>
         ))}
       </ul>

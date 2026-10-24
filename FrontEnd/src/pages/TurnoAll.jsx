@@ -7,7 +7,6 @@ import "../styles/UI/TurnoList.css";
 
 export default function TurnoAll() {
   const {
-    turnos,
     filterTurnos,
     fetchTurnosALL,
     removeTurno,
@@ -36,7 +35,14 @@ export default function TurnoAll() {
 
   return (
     <main className="app-content turnos-all-page">
-      <h1>Listado de Turnos</h1>
+      <header className="turnos-all-page__header">
+        <p className="turnos-all-page__eyebrow">Programación</p>
+        <h1>Listado de Turnos</h1>
+        <p className="turnos-all-page__description">
+          Consulta y filtra todos los turnos agendados; edita o elimina cada
+          cita cuando lo necesites.
+        </p>
+      </header>
 
       {loading && <p>Cargando turnos...</p>}
       {error && (

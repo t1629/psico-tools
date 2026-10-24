@@ -1,15 +1,49 @@
 .turnos-all-page {
-  padding: 20px;
+  padding: 32px 24px 48px;
   background-color: var(--color-bg-base);
-  min-height: 100vh;
+  min-height: 100svh;
+}
+
+/* Encabezado descriptivo del listado (patrón del design system) */
+.turnos-all-page__header {
+  max-width: 720px;
+  margin: 0 auto 24px;
+  text-align: center;
+}
+
+.turnos-all-page__eyebrow {
+  margin: 0 0 4px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .turnos-all-page__eyebrow {
+  color: var(--color-action-primary);
 }
 
 .turnos-all-page h1 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
+  margin: 0;
+  font-size: clamp(28px, 3.5vw, 40px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.05;
   text-align: center;
   color: var(--color-text-primary);
+}
+
+.turnos-all-page__description {
+  margin: 8px auto 0;
+  max-width: 60ch;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
+.turnos-all-page__header + p {
+  text-align: center;
+  color: var(--color-text-secondary);
 }
 
 .calendar-page__notice {
