@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import * as turnosService from "../services/TurnoService";
 import { getWeekRange, isValidDate } from "../utils/dateUtils";
 
@@ -9,7 +9,9 @@ export function useTurno() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchTurnosALL = async () => {
+  // useCallback: referencia estable para que las pantallas puedan incluirlo
+  // en las dependencias del useEffect sin disparar el fetch en cada render.
+  const fetchTurnosALL = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -20,7 +22,7 @@ export function useTurno() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const fetchTurnosSemana = async (date = new Date()) => {
     setLoading(true);
@@ -95,8 +97,12 @@ export function useTurno() {
     try {
       await turnosService.remove(id);
       await fetchTurnosSemana();
+      // FIX: devolver el resultado para que la pantalla decida que hacer
+      // (el modal de confirmacion solo redirige a inicio si el borrado OK).
+      return { success: true };
     } catch {
       setError("Error al eliminar turno");
+      return { success: false };
     } finally {
       setLoading(false);
     }

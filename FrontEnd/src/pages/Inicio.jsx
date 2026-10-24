@@ -107,9 +107,9 @@ const Inicio = () => {
         </div>
       )}
 
-      <section className="calendar-tools" aria-label="Herramientas de agenda">
+      {/* <section className="calendar-tools" aria-label="Herramientas de agenda">
         <TurnoFiltradoForm onFilter={handleFilter} onReset={reload} />
-      </section>
+      </section> */}
 
       <section className="calendar-panel" aria-label="Calendario de turnos">
         {loading ? (
