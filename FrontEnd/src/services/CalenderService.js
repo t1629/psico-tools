@@ -7,7 +7,10 @@ export async function getAll() {
 }
 
 export async function getByDate(date) {
-  return fetchApi(`${BASE_API_URL}/api/agenda?fecha${date}`);
+  // FIX: faltaba el "=" del query string (?fecha2026-... => ?fecha=2026-...)
+  return fetchApi(
+    `${BASE_API_URL}/api/agenda?fecha=${encodeURIComponent(date)}`,
+  );
 }
 
 export async function getById(id) {

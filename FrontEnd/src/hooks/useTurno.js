@@ -61,7 +61,11 @@ export function useTurno() {
       );
     }
     if (estado) {
-      filtrados = filtrados.filter((t) => t.estado === estado);
+      // FIX: comparación case-insensitive; los estados guardados
+      // ("Pendiente" / "pendiente" / "ACTIVO") deben matchear igual.
+      filtrados = filtrados.filter(
+        (t) => (t.estado ?? "").trim().toLowerCase() === estado.toLowerCase(),
+      );
     }
     return filtrados;
   };
@@ -98,10 +102,23 @@ export function useTurno() {
     }
   };
 
+  // FIX: antes se enviaba solo { asistencia } al PUT general y el backend
+  // sobrescribia Fecha/Hora/Estado con defaults -> el turno se corrompia y
+  // desaparecia de los filtros por fecha/estado. Ahora se obtiene el turno
+  // actual (GET /{id}, con includes) y se envia el registro completo.
   const markAsistio = async (id) => {
     try {
-      const updated = await turnosService.update(id, { asistencia: true });
-      setTurnos((prev) => prev.map((t) => (t.turnoId === id ? updated : t)));
+      const current = await turnosService.getById(id);
+      if (!current) {
+        return { success: false, error: "No se encontró el turno" };
+      }
+      const updated = await turnosService.update(id, {
+        ...current,
+        asistencia: true,
+      });
+      setTurnos((prev) =>
+        prev.map((t) => (String(t.turnoId) === String(id) ? (updated ?? t) : t)),
+      );
       return { success: true };
     } catch (err) {
       return {
@@ -113,8 +130,17 @@ export function useTurno() {
 
   const markAusente = async (id) => {
     try {
-      const updated = await turnosService.update(id, { asistencia: false });
-      setTurnos((prev) => prev.map((t) => (t.turnoId === id ? updated : t)));
+      const current = await turnosService.getById(id);
+      if (!current) {
+        return { success: false, error: "No se encontró el turno" };
+      }
+      const updated = await turnosService.update(id, {
+        ...current,
+        asistencia: false,
+      });
+      setTurnos((prev) =>
+        prev.map((t) => (String(t.turnoId) === String(id) ? (updated ?? t) : t)),
+      );
       return { success: true };
     } catch (err) {
       return {
