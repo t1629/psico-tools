@@ -18,12 +18,17 @@ namespace PsychologistsAPI.Controllers
         }
 
 
+        // GET: api/agenda
+        // GET: api/agenda?fecha=2026-09-13
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] DateOnly? fecha)
         {
             try
             {
-                var agendas = await _service.GetAll();
+                var agendas = fecha.HasValue
+                    ? await _service.GetByDate(fecha)
+                    : await _service.GetAll();
+
                 return Ok(agendas);
             }
             catch (Exception ex)
@@ -35,29 +40,6 @@ namespace PsychologistsAPI.Controllers
                 });
             }
         }
-
-
-        // GET: api/agenda
-        // GET: api/agenda?fecha=2026-09-13
-        //[HttpGet]
-        //public async Task<IActionResult> Get(
-        //    [FromQuery] DateOnly? fecha)
-        //{
-        //    try
-        //    {
-        //        var agenda = await _service.GetByDate(fecha);
-
-        //        return Ok(agenda);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, new
-        //        {
-        //            message = "Error al obtener la agenda.",
-        //            error = ex.Message
-        //        });
-        //    }
-        //}
 
         // GET: api/agenda/5
         [HttpGet("{id}")]

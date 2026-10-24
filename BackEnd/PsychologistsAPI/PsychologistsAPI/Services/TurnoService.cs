@@ -129,7 +129,14 @@ namespace PsychologistsAPI.Services
                 PacienteId = turno.PacienteId,
                 CantidadTurnos = turno.CantidadTurnos,
                 ModalidadVirtual = turno.ModalidadVirtual,
-                Descripcion = turno.Descripcion
+                Descripcion = turno.Descripcion,
+
+                // FIX: el filtro por apellido (y la tarjeta) necesita estos campos;
+                // antes /range los entregaba nulos aunque el repo incluyera los includes.
+                PsicologoNombre = turno.Psicologo?.Nombre,
+                PsicologoApellido = turno.Psicologo?.Apellido,
+                PacienteNombre = turno.Paciente?.Nombre,
+                PacienteApellido = turno.Paciente?.Apellido
             };
         }
     }

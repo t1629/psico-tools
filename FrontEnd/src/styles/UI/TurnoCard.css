@@ -1,9 +1,12 @@
+/* Tarjeta de turno — tokens semanticos de index.css (sin hex externos). */
+
 .turno-card {
-  background-color: #fff;
-  border-radius: 8px;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
   padding: 12px;
   margin: 12px 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow);
   transition: transform 0.15s ease;
 }
 
@@ -15,39 +18,69 @@
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 6px;
-  color: #333;
+  color: var(--color-text-primary);
 }
 
 .turno-card__subtitle {
   font-size: 14px;
   margin-bottom: 4px;
-  color: #555;
+  color: var(--color-text-secondary);
 }
 
 .turno-card__detail {
   font-size: 12px;
-  color: #777;
+  color: var(--color-text-secondary);
   margin-bottom: 4px;
 }
 
 .turno-card__actions {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   margin-top: 10px;
 }
 
+/* Editar: accion primaria (lima + texto oscuro, contraste AA light/dark). */
 .turno-card__actions button {
-  padding: 6px 12px;
+  min-height: 44px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-action-primary);
+  color: var(--global-dark-bg);
+  font-weight: 700;
+  font-size: 14px;
   cursor: pointer;
 }
 
 .turno-card__actions button:hover {
-  opacity: 0.9;
+  background-color: var(--color-action-hover);
 }
 
+/* Eliminar: accion destructiva con patron "notice" (tinte error + borde),
+   legible en ambos temas sin inventar hex. */
 .turno-card__actions .danger {
-  background-color: #e74c3c;
-  color: #fff;
+  background-color: var(--tint-error);
+  border: 1px solid var(--color-feedback-error);
+  color: var(--color-text-primary);
+}
+
+.turno-card__actions .danger:hover {
+  background-color: var(--color-feedback-error);
+  color: var(--global-dark-bg);
+}
+
+.turno-card__actions button:focus-visible {
+  outline: 3px solid var(--color-action-secondary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turno-card {
+    transition: none;
+  }
+
+  .turno-card:hover {
+    transform: none;
+  }
 }

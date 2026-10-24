@@ -22,6 +22,8 @@ namespace PsychologistsAPI.Mapper
                 Descripcion = entity.Descripcion,
                 Titulo  =  entity.Titulo,
                 Fecha = entity.Fecha,
+                // FIX: exponer Estado; sin esto el PUT de edicion lo sobrescribia con null.
+                Estado = entity.Estado,
 
 
             };
