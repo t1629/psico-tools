@@ -20,16 +20,17 @@ namespace PsychologistsAPI.Services
             return turnos.Select(TurnoDetallleMapper.ToDetalleDto).ToList();
         }
 
-        public async Task<List<TurnoDto>> GetByDateRange(DateOnly? desde, DateOnly? hasta)
+        public async Task<List<TurnoDetalleDto>> GetByDateRange(DateOnly? desde, DateOnly? hasta)
         {
             var turnos = await _repo.GetByDateRangeAsync(desde, hasta);
-            return turnos.Select(MapToDto).ToList();
+            return turnos.Select(TurnoDetallleMapper.ToDetalleDto).ToList();
+          
         }
 
-        public async Task<TurnoDto?> GetById(int id)
+        public async Task<TurnoDetalleDto?> GetById(int id)
         {
             var turno = await _repo.GetByIdAsync(id);
-            return turno == null ? null : MapToDto(turno);
+            return turno == null ? null : TurnoDetallleMapper.ToDetalleDto(turno);
         }
         public async Task<TurnoDto?> GetByIdWithPaciente(int id)
         {
@@ -52,7 +53,7 @@ namespace PsychologistsAPI.Services
             await _repo.UpdateAsync(turno);
             return true;
         }
-        public async Task<TurnoDto> Create(TurnoDto dto)
+        public async Task<TurnoDetalleDto> Create(TurnoDto dto)
         {
             var turno = new Turno
             {
@@ -71,10 +72,12 @@ namespace PsychologistsAPI.Services
             };
 
             await _repo.AddAsync(turno);
-            return MapToDto(turno);
+
+            var turnoCreado = await _repo.GetByIdAsync(turno.TurnoId);
+            return TurnoDetallleMapper.ToDetalleDto(turnoCreado!);
         }
 
-        public async Task<TurnoDto?> Update(int id, TurnoDto dto)
+        public async Task<TurnoDetalleDto?> Update(int id, TurnoDto dto)
         {
             var turno = await _repo.GetByIdAsync(id);
             if (turno == null) return null;
@@ -93,9 +96,10 @@ namespace PsychologistsAPI.Services
             turno.PlanTurnoId = dto.PlanTurnoId;
 
             await _repo.UpdateAsync(turno);
-            return MapToDto(turno);
-        }
 
+            var turnoActualizado = await _repo.GetByIdAsync(id);
+            return TurnoDetallleMapper.ToDetalleDto(turnoActualizado!);
+        }
         public async Task<bool> Delete(int id)
         {
             var turno = await _repo.GetByIdAsync(id);
