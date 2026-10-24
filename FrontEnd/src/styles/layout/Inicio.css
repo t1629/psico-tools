@@ -6,10 +6,12 @@
    - Lima como texto pequeño en light falla (2.62:1) → eyebrow usa secondary en light,
      action-primary solo en dark (7.87:1). */
 
+/* Ruta Inicio: separación visual explícita y generosa entre la barra de
+   navegación (header sticky) y el contenedor principal del calendario. */
 .calendar-page {
   min-height: 100svh;
   box-sizing: border-box;
-  padding: 56px 40px 48px;
+  padding: 72px 40px 48px;
   background: var(--color-bg-base);
   color: var(--color-text-secondary);
   text-align: left;
@@ -400,7 +402,7 @@
 @media (max-width: 700px) {
   .calendar-page {
     margin-left: 0;
-    padding: 36px 14px;
+    padding: 44px 14px 40px;
   }
   .calendar-page__header {
     align-items: flex-start;

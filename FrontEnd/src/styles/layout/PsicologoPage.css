@@ -5,12 +5,41 @@
   color: var(--color-text-primary);
 }
 
-.psicologo-page > h1 {
-  margin-bottom: 20px;
+/* Encabezado descriptivo centrado (patrón del design system) */
+.psicologo-page__header {
+  max-width: 720px;
+  margin: 0 auto 20px;
+  text-align: center;
+}
+
+.psicologo-page__eyebrow {
+  margin: 0 0 4px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .psicologo-page__eyebrow {
+  color: var(--color-action-primary);
+}
+
+.psicologo-page h1 {
+  margin: 0;
+  text-align: center;
   color: var(--color-text-primary);
-  font-size: 1.875rem;
+  font-size: clamp(28px, 3.5vw, 40px);
   font-weight: 700;
-  letter-spacing: -0.5px;
+  letter-spacing: -1px;
+  line-height: 1.05;
+}
+
+.psicologo-page__description {
+  margin: 8px auto 0;
+  max-width: 60ch;
+  color: var(--color-text-secondary);
+  font-size: 15px;
 }
 
 .psicologo-form-section {

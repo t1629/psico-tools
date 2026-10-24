@@ -1,0 +1,239 @@
+/* Vista Paciente — 100% tokens semánticos de index.css (sin hex externos).
+   Contraste verificado (design system 1.4):
+   - eyebrow en secondary en light (lima como texto pequeño falla 2.62:1);
+     en dark se usa action-primary (7.87:1).
+   - Botón eliminar: fondo tint-error + borde feedback-error + texto primario
+     (el rojo sólido falla 4.5:1 como texto en dark); hover sólido usa gris-50. */
+
+.paciente-page {
+  min-height: 100svh;
+  box-sizing: border-box;
+  padding: 56px 40px 48px;
+  background: var(--color-bg-base);
+  color: var(--color-text-secondary);
+  text-align: left;
+}
+
+.paciente-page__header {
+  max-width: 1280px;
+  margin: 0 auto 28px;
+}
+
+.paciente-page__eyebrow {
+  margin: 0 0 4px 2px;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+[data-theme="dark"] .paciente-page__eyebrow {
+  color: var(--color-action-primary);
+}
+
+.paciente-page h1 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  line-height: 1.05;
+}
+
+.paciente-page__description {
+  margin-top: 8px;
+  color: var(--color-text-secondary);
+  font-size: 15px;
+}
+
+/* Dos columnas: formulario fijo + lista fluida. Colapsa en < 900px. */
+.paciente-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
+  gap: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.paciente-form-card,
+.paciente-list-card {
+  padding: 20px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  color: var(--color-text-secondary);
+}
+
+.paciente-form-card {
+  border-top: 4px solid var(--color-action-primary);
+}
+
+.paciente-page h2 {
+  margin: 0 0 16px;
+  color: var(--color-text-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* Formulario: labels 700 a 13px (jerarquía del DS), inputs táctiles 44px */
+.paciente-form {
+  display: grid;
+  gap: 14px;
+}
+
+.paciente-form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 480px) {
+  .paciente-form__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.paciente-form__field {
+  display: grid;
+  gap: 6px;
+  /* Evita que inputs con ancho intrínseco grande (p. ej. date) desborden la columna */
+  min-width: 0;
+}
+
+.paciente-form__field label {
+  color: var(--color-text-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.paciente-form input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font: inherit;
+  box-sizing: border-box;
+}
+
+.paciente-form input:focus {
+  outline: none;
+  border-color: var(--color-action-hover);
+  box-shadow: 0 0 0 3px var(--tint-primary-strong);
+}
+
+/* Botón primario: lima + texto oscuro AA en ambos modos */
+.paciente-form button[type="submit"] {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--color-action-hover);
+  border-radius: var(--radius-sm);
+  background: var(--color-action-primary);
+  color: var(--global-dark-bg);
+  font-weight: 700;
+}
+
+.paciente-form button[type="submit"]:hover:not(:disabled) {
+  background: var(--color-action-secondary);
+  border-color: var(--color-action-secondary);
+  color: var(--global-dark-bg);
+}
+
+.paciente-form button[type="submit"]:disabled {
+  background: var(--color-bg-base);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.paciente-form__error {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--color-feedback-error);
+  border-radius: var(--radius-sm);
+  background: var(--tint-error);
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+/* Lista: tarjetas de superficie, iguales a las de Consultorio */
+.paciente-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.paciente-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow);
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+.paciente-card__name {
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+/* Peligro en tinta (sólido falla 4.5:1 en dark): borde + texto primario */
+.paciente-card__danger {
+  align-self: flex-start;
+  min-height: 44px;
+  margin-top: 8px;
+  padding: 0 14px;
+  border: 1px solid var(--color-feedback-error);
+  border-radius: var(--radius-sm);
+  background: var(--tint-error);
+  color: var(--color-text-primary);
+  font-weight: 700;
+}
+
+.paciente-card__danger:hover:not(:disabled) {
+  background: var(--color-feedback-error);
+  border-color: var(--color-feedback-error);
+  color: var(--global-gray-50);
+}
+
+[data-theme="dark"] .paciente-card__danger:hover:not(:disabled) {
+  background: var(--color-feedback-warning);
+  border-color: var(--color-feedback-warning);
+  color: var(--global-dark-bg);
+}
+
+.paciente-card__danger:disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.paciente-list__state {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .paciente-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .paciente-page {
+    padding: 36px 14px 40px;
+  }
+}
