@@ -10,3 +10,4 @@ publish/
 *.tmp
 *.bak
 .env*
+appsettings.Development.json

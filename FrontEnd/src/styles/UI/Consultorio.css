@@ -1,0 +1,234 @@
+.consultorios-page {
+  min-height: 100vh;
+  padding: 1.5rem;
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
+}
+
+.consultorios-page > h1 {
+  margin-bottom: 1.5rem;
+  color: var(--color-text-primary);
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.psicologo-form {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  padding: 1.5rem;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.psicologo-form h2,
+.consultorios-page > h2 {
+  margin-bottom: 1rem;
+  color: var(--color-text-primary);
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.psicologo-form h2 {
+  text-align: center;
+}
+
+.consultorios-form label {
+  display: block;
+  margin-bottom: 0.375rem;
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.consultorios-form input[type="text"],
+.consultorios-form input[type="number"],
+.consultorios-form select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.875rem;
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  font-size: 0.875rem;
+  transition: border-color 0.2s ease;
+}
+
+.consultorios-form input:focus-visible,
+.consultorios-form select:focus-visible {
+  border-color: var(--color-action-secondary);
+}
+
+.consultorios-form section {
+  margin-bottom: 1rem;
+}
+
+.consultorios-form section h4 {
+  margin-bottom: 0.5rem;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.consultorios-form label:has(input[type="radio"]) {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.375rem;
+  margin-right: 1rem;
+  margin-bottom: 0;
+}
+
+.consultorios-form label input[type="radio"] {
+  accent-color: var(--color-action-primary);
+}
+
+.consultorios-form button,
+.consultorios-page .actions button {
+  min-height: 44px;
+  padding: 0.625rem 1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.consultorios-form button {
+  margin-right: 0.625rem;
+  margin-bottom: 0.5rem;
+}
+
+.consultorios-form button[type="submit"],
+.consultorios-page .actions button:first-child {
+  background: var(--color-action-primary);
+  color: var(--global-dark-bg);
+}
+
+.consultorios-form button[type="submit"]:hover:not(:disabled),
+.consultorios-page .actions button:first-child:hover {
+  background: var(--color-action-hover);
+}
+
+.consultorios-form button[type="button"] {
+  background: var(--color-action-secondary);
+  color: var(--global-dark-bg);
+}
+
+.consultorios-form button:disabled {
+  background: var(--color-bg-base);
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.psicologo-form .form-error,
+.consultorios-page .form-error {
+  margin-top: 0.625rem;
+  padding: 0.75rem;
+  border: 1px solid var(--color-feedback-error);
+  border-radius: var(--radius-sm);
+  background: var(--tint-error);
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.psicologo-form .form-success {
+  margin-top: 0.625rem;
+  padding: 0.75rem;
+  border: 1px solid var(--color-feedback-success);
+  border-radius: var(--radius-sm);
+  background: var(--tint-primary);
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.consultorios-page > p:not(.form-error) {
+  margin-bottom: 0.75rem;
+  color: var(--color-text-secondary);
+}
+
+.consultorios-list,
+.psicologo-form > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+  gap: 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.consultorios-list > li,
+.psicologo-form > ul > li {
+  padding: 1rem;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  box-shadow: var(--shadow);
+  color: var(--color-text-secondary);
+}
+
+.consultorios-list > li > strong,
+.psicologo-form > ul > li > strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.consultorios-list > li > span {
+  display: block;
+  margin-top: 0.375rem;
+  color: var(--color-text-secondary);
+}
+
+.consultorios-page .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.875rem;
+}
+
+.consultorios-page .actions .delete-btn {
+  border: 1px solid var(--color-feedback-error);
+  background: var(--tint-error);
+  color: var(--color-text-primary);
+}
+
+.consultorios-page .actions .delete-btn:hover {
+  box-shadow: 0 0 0 2px var(--tint-error);
+}
+
+.psicologo-form > ul > li button {
+  min-height: 44px;
+  margin: 0.75rem 0.5rem 0 0;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.psicologo-form > ul > li button:hover {
+  background: var(--tint-primary);
+}
+
+@media (max-width: 480px) {
+  .consultorios-page {
+    padding: 1rem;
+  }
+
+  .psicologo-form {
+    padding: 1rem;
+  }
+
+  .consultorios-form button {
+    width: 100%;
+    margin-right: 0;
+  }
+}

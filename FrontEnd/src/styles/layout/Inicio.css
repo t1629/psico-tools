@@ -1,24 +1,17 @@
-:root {
-  --text: #9ca3af;
-  --text-h: #f3f4f6;
-  --bg: #16171d;
-  --border: #2e303a;
-  --code-bg: #1f2028;
-  --accent: #c084fc;
-  --accent-bg: rgba(192, 132, 252, 0.15);
-  --accent-border: rgba(192, 132, 252, 0.5);
-  --social-bg: rgba(47, 48, 58, 0.5);
-  --nav-bg: #1d1e26;
-  --shadow:
-    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-}
+/* Calendario / Inicio — 100% tokens semánticos de index.css (sin hex externos).
+   Contraste verificado:
+   - primario tono-primario / secondary tono-secundario sobre base (15.48 / 7.14:1 light)
+   - primario tono-claro / secondary gris-claro sobre base (17.59 / 7.08:1 dark)
+   - botón lima + texto oscuro fondo-oscuro (6+:1 light / 9.08:1 dark)
+   - Lima como texto pequeño en light falla (2.62:1) → eyebrow usa secondary en light,
+     action-primary solo en dark (7.87:1). */
 
 .calendar-page {
   min-height: 100svh;
   box-sizing: border-box;
-  padding: 42px 40px 48px;
-  background: var(--bg);
-  color: var(--text);
+  padding: 56px 40px 48px;
+  background: var(--color-bg-base);
+  color: var(--color-text-secondary);
   text-align: left;
 }
 
@@ -32,26 +25,33 @@
 }
 
 .calendar-page__eyebrow {
-  margin: 0 0 8px;
-  color: var(--accent);
+  margin: 20px 8px;
+  /* Light: secondary 7.14:1 (lima 2.62 falla). Dark se sobrescribe abajo. */
+  color: var(--color-text-secondary);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 1.4px;
   text-transform: uppercase;
 }
 
+[data-theme="dark"] .calendar-page__eyebrow {
+  color: var(--color-action-primary);
+}
+
 .calendar-page h1 {
   margin: 0;
-  color: var(--text-h);
+  color: var(--color-text-primary);
   font-size: clamp(32px, 4vw, 48px);
   font-weight: 700;
   letter-spacing: -1px;
+  line-height: 1.05;
 }
 
 .calendar-page__description {
   margin-top: 8px;
-  color: var(--text);
+  color: var(--color-text-secondary);
   font-size: 15px;
+  max-width: 60ch;
 }
 
 .calendar-page__summary {
@@ -59,13 +59,18 @@
   flex-direction: column;
   min-width: 132px;
   padding: 14px 18px;
-  border-left: 3px solid var(--accent);
-  background: var(--code-bg);
-  color: var(--text);
+  border-left: 3px solid var(--color-action-hover);
+  border-top: 1px solid var(--color-border-subtle);
+  border-right: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  box-shadow: var(--shadow);
 }
 
 .calendar-page__summary strong {
-  color: var(--text-h);
+  color: var(--color-text-primary);
   font-size: 26px;
   line-height: 1;
 }
@@ -82,80 +87,161 @@
   margin: 0 auto;
   padding: 20px;
   box-sizing: border-box;
-  background: var(--code-bg);
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
 }
 
 .calendar-panel .rbc-calendar {
   height: 100%;
-  color: var(--text);
+  color: var(--color-text-secondary);
   font-size: 14px;
 }
+
 .calendar-panel .rbc-toolbar {
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 18px;
 }
+
 .calendar-panel .rbc-toolbar-label {
-  color: var(--text-h);
+  color: var(--color-text-primary);
   font-size: 18px;
   font-weight: 700;
 }
+
+.calendar-panel .rbc-btn-group {
+  display: inline-flex;
+  gap: 0;
+}
+
 .calendar-panel .rbc-btn-group button {
-  border-color: var(--border);
-  color: var(--text);
+  border: 1px solid var(--color-border-input);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  min-height: 36px;
+  padding: 6px 12px;
+  font-weight: 500;
 }
+
 .calendar-panel .rbc-btn-group button:hover,
-.calendar-panel .rbc-btn-group button.rbc-active {
-  background: var(--accent-bg);
-  color: var(--accent);
+.calendar-panel .rbc-btn-group button.rbc-active,
+.calendar-panel .rbc-btn-group button:focus-visible {
+  background: var(--tint-primary-strong);
+  color: var(--color-text-primary);
+  border-color: var(--color-action-hover);
 }
+
 .calendar-panel .rbc-header {
   padding: 10px 4px;
-  border-bottom: 2px solid var(--accent);
-  color: var(--text);
+  border-bottom: 2px solid var(--color-action-hover);
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  color: var(--color-text-secondary);
   font-weight: 700;
 }
+
 .calendar-panel .rbc-today {
-  background: var(--accent-bg);
+  background: var(--tint-primary);
 }
-.calendar-panel .rbc-event {
-  background: var(--accent);
+
+.calendar-panel .rbc-off-range-bg {
+  background: var(--color-border-subtle);
+}
+
+.calendar-panel .rbc-time-slot {
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.calendar-panel .rbc-timeslot-group,
+.calendar-panel .rbc-day-slot .rbc-time-slot,
+.calendar-panel .rbc-month-view,
+.calendar-panel .rbc-time-view,
+.calendar-panel .rbc-agenda-view table,
+.calendar-panel .rbc-header,
+.calendar-panel .rbc-time-header,
+.calendar-panel .rbc-time-content {
+  border-color: var(--color-border-subtle);
+}
+
+.calendar-panel .rbc-time-content,
+.calendar-panel .rbc-agenda-view {
+  color: var(--color-text-secondary);
+}
+
+.calendar-panel .rbc-agenda-date-cell,
+.calendar-panel .rbc-agenda-time-cell {
+  color: var(--color-text-primary);
+}
+
+/* Eventos: sobrescribe inline lightgray/lightblue de Inicio.jsx (JSX protegido).
+   Lima + texto oscuro pasa AA en ambos modos. */
+.calendar-panel .rbc-event,
+.calendar-panel .rbc-event.rbc-selected {
+  background: var(--color-action-primary) !important;
+  border: 1px solid var(--color-action-hover) !important;
   border-radius: 4px;
   padding: 3px 6px;
-  color: #fff;
+  color: var(--global-dark-bg) !important;
+  font-weight: 500;
 }
-.calendar-panel .rbc-off-range-bg {
-  background: var(--accent-border);
+
+.calendar-panel .rbc-event:focus-visible,
+.calendar-panel .rbc-event-content:focus-visible {
+  outline: 3px solid var(--color-action-secondary);
+  outline-offset: 2px;
 }
 
 .calendar-panel__state {
   display: grid;
   height: 100%;
   place-items: center;
-  color: var(--text);
+  color: var(--color-text-secondary);
 }
 
+/* Avisos: color + role=alert + botón con texto (no solo color).
+   Texto primario sobre tinta (15:1), borde/ícono en feedback-error (5.75 light / 3.88 dark UI). */
 .calendar-page__notice {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 16px;
   max-width: 1280px;
   margin: 0 auto 16px;
   padding: 12px 16px;
-  border: 1px solid var(--accent-border);
-  background: var(--accent-bg);
-  color: var(--accent);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-feedback-error);
+  border-left-width: 4px;
+  background: var(--tint-error);
+  color: var(--color-text-primary);
 }
 
 .calendar-page__notice button {
-  border: 0;
-  background: transparent;
-  color: inherit;
+  flex: none;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-feedback-error);
+  background: var(--color-bg-surface);
+  color: var(--color-text-primary);
   cursor: pointer;
   font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.calendar-page__notice button:hover {
+  background: var(--color-feedback-error);
+  color: var(--global-gray-50);
+  text-decoration-thickness: 2px;
+}
+
+[data-theme="dark"] .calendar-page__notice button:hover {
+  color: var(--global-dark-bg);
+  background: var(--color-feedback-warning);
+  border-color: var(--color-feedback-warning);
 }
 
 .calendar-tools {
@@ -172,11 +258,14 @@
   align-items: flex-end;
   gap: 10px;
   padding: 16px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--code-bg);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
   margin-bottom: 20px;
+  box-shadow: var(--shadow);
 }
+
 .calendar-tools__filters {
   display: flex;
   flex-wrap: wrap;
@@ -190,75 +279,108 @@
   gap: 6px;
   flex: 1;
   min-width: 220px;
-  color: var(--text-h);
+  color: var(--color-text-primary);
   font-size: 12px;
   font-weight: 700;
 }
 
 .calendar-tools input,
-.calendar-tools textarea {
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  background: var(--bg);
-  color: var(--text-h);
+.calendar-tools textarea,
+.calendar-tools select {
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-base);
+  color: var(--color-text-primary);
   font: inherit;
-  border-color: var(--accent-border);
+}
+
+.calendar-tools input:focus,
+.calendar-tools textarea:focus,
+.calendar-tools select:focus {
+  outline: none;
+  border-color: var(--color-action-hover);
+  box-shadow: 0 0 0 3px var(--tint-primary-strong);
 }
 
 .calendar-tools input {
-  min-height: 36px;
-  padding: 0 9px;
-}
-.calendar-tools button {
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 12px;
-  border: 0;
-  border-radius: 5px;
-  background: var(--accent);
-  color: #fff;
-  cursor: pointer;
-  font-weight: 700;
-  background: var(--accent-bg);
-  color: var(--accent);
-}
-.calendar-tools button:hover {
-  background: var(--accent);
-  color: var(--border);
-  border-color: var(--border);
-}
-.calendar-tools__secondary {
-  background: var(--accent-bg) !important;
-  color: var(--accent) !important;
-}
-.calendar-tools__secondary :hover {
-  background: var(--accent) !important;
-  color: var(--border) !important;
-  border-color: var(--border);
 }
 
+/* Botón primario: lima + texto oscuro (AA ambos modos) */
+.calendar-tools button {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--color-action-hover);
+  border-radius: var(--radius-sm);
+  background: var(--color-action-primary);
+  color: var(--global-dark-bg);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.calendar-tools button:hover {
+  background: var(--color-action-secondary);
+  border-color: var(--color-action-secondary);
+  color: var(--global-dark-bg);
+}
+
+.calendar-tools__secondary {
+  background: var(--tint-primary) !important;
+  border: 1px solid var(--color-action-hover) !important;
+  color: var(--color-text-primary) !important;
+}
+
+.calendar-tools__secondary:hover {
+  background: var(--tint-primary-strong) !important;
+  color: var(--color-text-primary) !important;
+  border-color: var(--color-action-hover) !important;
+}
+
+/* Peligro en tinta (sólido falla texto 4.5 en dark): borde+texto primario */
 .calendar-tools__danger {
-  background: #ef4444 !important;
-  color: #fff !important;
+  background: var(--tint-error) !important;
+  border: 1px solid var(--color-feedback-error) !important;
+  color: var(--color-text-primary) !important;
+}
+
+.calendar-tools__danger:hover {
+  background: var(--color-feedback-error) !important;
+  color: var(--global-gray-50) !important;
+}
+
+[data-theme="dark"] .calendar-tools__danger:hover {
+  background: var(--color-feedback-warning) !important;
+  border-color: var(--color-feedback-warning) !important;
+  color: var(--global-dark-bg) !important;
 }
 
 .calendar-tools__editor {
   display: grid;
   align-items: stretch;
 }
+
 .calendar-tools__editor-heading {
   display: flex;
   justify-content: space-between;
   gap: 12px;
   align-items: flex-start;
 }
+
 .calendar-tools__editor-heading div {
   display: grid;
   gap: 4px;
 }
+
+.calendar-tools__editor-heading strong {
+  color: var(--color-text-primary);
+}
+
 .calendar-tools__editor-heading span {
-  color: var(--text);
+  color: var(--color-text-secondary);
   font-size: 12px;
 }
+
 .calendar-tools textarea {
   width: 100%;
   box-sizing: border-box;
@@ -266,21 +388,19 @@
   resize: vertical;
   font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
   font-size: 12px;
+  min-height: 44px;
 }
+
 .calendar-tools__editor-actions {
   display: flex;
   gap: 8px;
-}
-
-.calendar-panel .rbc-time-slot {
-  height: 60px;
-  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
 }
 
 @media (max-width: 700px) {
   .calendar-page {
-    margin-left: 190px;
-    padding: 28px 14px;
+    margin-left: 0;
+    padding: 36px 14px;
   }
   .calendar-page__header {
     align-items: flex-start;

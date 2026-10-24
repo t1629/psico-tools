@@ -1,32 +1,41 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getById, create, update, remove } from "../services/TurnoService";
+import { useTurno } from "../hooks/useTurno";
 import TurnoForm from "../components/TurnoForm";
 import "../styles/UI/TurnoForm.css";
+
 const Turnos = () => {
-  const { id } = useParams(); // si viene /turnos/:id
+  const { id } = useParams();
   const navigate = useNavigate();
+  const {
+    turnos,
+    fetchTurnosALL,
+    saveTurno,
+    removeTurno,
+    loading,
+    error,
+    setError,
+  } = useTurno();
   const [selectedTurno, setSelectedTurno] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (id) {
-      setLoading(true);
-      getById(id)
-        .then((res) => setSelectedTurno(res?.data ?? res))
-        .catch((err) => setError(err.message))
-        .finally(() => setLoading(false));
-    }
+    const cargarTurno = async () => {
+      await fetchTurnosALL();
+      if (id) {
+        const turnoEncontrado = turnos.find(
+          (t) => String(t.turnoId) === String(id),
+        );
+        setSelectedTurno(turnoEncontrado ?? null);
+      }
+    };
+    cargarTurno();
   }, [id]);
 
   const handleSave = async (turno) => {
     try {
-      setError(null);
-      const response = selectedTurno
-        ? await update(selectedTurno.turnoId, turno)
-        : await create(turno);
-      setSelectedTurno(response?.data ?? response);
+      await saveTurno(turno);
+      setSelectedTurno(null);
+      navigate("/");
     } catch (err) {
       setError(err.message ?? "No se pudo guardar el turno.");
     }
@@ -34,7 +43,7 @@ const Turnos = () => {
 
   const handleRemove = async (turnoId) => {
     try {
-      await remove(turnoId);
+      await removeTurno(turnoId);
       navigate("/");
     } catch (err) {
       setError(err.message ?? "No se pudo eliminar el turno.");

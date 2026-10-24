@@ -1,6 +1,7 @@
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PsychologistsAPI.Models;
+using PsychologistsAPI.Dtos;
 using PsychologistsAPI.Services;
 
 namespace PsychologistsAPI.Controllers

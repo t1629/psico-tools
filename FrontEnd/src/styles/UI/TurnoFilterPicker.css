@@ -1,0 +1,38 @@
+.turno-filter {
+  margin: 16px 0;
+  padding: 12px;
+  background-color: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+}
+
+.turno-filter label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.turno-filter select {
+  width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+  border: 1px solid var(--color-border-input);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-surface);
+}
+
+.turno-filter button {
+  margin-top: 8px;
+  padding: 8px 14px;
+  background-color: var(--color-action-primary);
+  color: var(--global-dark-bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.turno-filter button:hover {
+  background-color: var(--color-action-hover);
+}

@@ -1,5 +1,5 @@
-﻿using Data.Entities;
-using PsychologistsAPI.Models;
+﻿using PsychologistsAPI.Models;
+using PsychologistsAPI.Dtos;
 
 namespace PsychologistsAPI.Mapper
 {
@@ -18,7 +18,11 @@ namespace PsychologistsAPI.Mapper
                 Url = turno.Url,
                 CantidadTurnos = turno.CantidadTurnos,
                 PsicologoId = turno.PsicologoId,
+                PsicologoNombre = turno.Psicologo?.Nombre,
+                PsicologoApellido = turno.Psicologo?.Apellido,
                 PacienteId = turno.PacienteId,
+                PacienteNombre = turno.Paciente?.Nombre,
+                PacienteApellido = turno.Paciente?.Apellido,
                 PlanTurnoId = turno.PlanTurnoId,
                 Descripcion = turno.Descripcion
             };

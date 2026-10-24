@@ -1,5 +1,5 @@
-﻿using Data.Entities;
-using PsychologistsAPI.Models;
+﻿using PsychologistsAPI.Models;
+using PsychologistsAPI.Dtos;
 using System.Numerics;
 
 namespace PsychologistsAPI.Mapper
@@ -12,7 +12,7 @@ namespace PsychologistsAPI.Mapper
             {
                 PlanTurnoId = planTurno.PlanTurnoId,
                 FechaInicio = planTurno.FechaInicio,
-                FehcaFin = planTurno.FehcaFin,
+                FechaFin = planTurno.FechaFin,
                 CantidadTurno = planTurno.CantidadTurno,
                 Pacientes = planTurno.Pacientes?.Select(p => new PacienteDto
                 {

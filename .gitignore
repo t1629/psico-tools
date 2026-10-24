@@ -1,0 +1,18 @@
+# Archivos locales de Visual Studio
+.vs/
+**/.vs/
+
+# Archivos generados por compilacion .NET
+**/bin/
+**/obj/
+
+# Archivos de usuario y entorno
+*.user
+*.suo
+.env
+.env.*
+
+# Logs y archivos temporales
+*.log
+*.tmp
+*.bak

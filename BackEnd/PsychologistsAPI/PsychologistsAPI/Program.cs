@@ -1,25 +1,19 @@
-﻿
-using Data.Context;
-using Data.Entities;
+
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
+using PsychologistsAPI.Data;
+using PsychologistsAPI.Repositories;
 using PsychologistsAPI.Services;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --------------------------------------------------
 // 1. Cargar variables de entorno
-// --------------------------------------------------
-
-// Buscar .env.backend en el directorio de trabajo.
-// Si no existe allí, intentar localizarlo desde el
-// directorio del proyecto.
 var envPath = Path.Combine(
-    Directory.GetCurrentDirectory(),
+    builder.Environment.ContentRootPath,
     ".env.backend"
 );
 
@@ -38,25 +32,15 @@ if (File.Exists(envPath))
 else
 {
     Console.WriteLine(
-        "ADVERTENCIA: No se encontró .env.backend."
+        "ADVERTENCIA: No se encontro .env.backend."
     );
 }
 
-// Incorporar las variables de entorno a IConfiguration.
-// Las variables Jwt__Key, Jwt__Issuer y Jwt__Audience
-// se leen como Jwt:Key, Jwt:Issuer y Jwt:Audience.
 builder.Configuration.AddEnvironmentVariables();
 
-// --------------------------------------------------
-// 2. Controladores
-// --------------------------------------------------
-
+// 2. Controladores y Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-// --------------------------------------------------
-// 3. Swagger + JWT
-// --------------------------------------------------
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -69,8 +53,7 @@ builder.Services.AddSwaggerGen(options =>
             Scheme = "bearer",
             BearerFormat = "JWT",
             In = ParameterLocation.Header,
-            Description =
-                "Ingresá el token JWT obtenido mediante POST /api/login."
+            Description = "Ingresá el token JWT obtenido mediante POST /api/login."
         }
     );
 
@@ -78,25 +61,28 @@ builder.Services.AddSwaggerGen(options =>
         new OpenApiSecurityRequirement
         {
             [
-                new OpenApiSecuritySchemeReference(
-                    "Bearer",
-                    document
-                )
+                new OpenApiSecuritySchemeReference("Bearer", document)
             ] = new List<string>()
         }
     );
 });
 
-// --------------------------------------------------
-// 4. Autorización
-// --------------------------------------------------
+// 3. Contexto de base de datos
+var connectionString =
+    builder.Configuration["DB_CONNECTION_STRING"];
 
-builder.Services.AddAuthorization();
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException(
+        "Falta DB_CONNECTION_STRING. Verifica la configuracion de .env.backend."
+    );
+}
 
-// --------------------------------------------------
-// 5. Servicios
-// --------------------------------------------------
+builder.Services.AddDbContext<PsyClinicDbContext>(
+    options => options.UseSqlServer(connectionString)
+);
 
+// 4. Servicios
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<sessionService>();
 builder.Services.AddScoped<TurnoService>();
@@ -104,11 +90,21 @@ builder.Services.AddScoped<AgendaService>();
 builder.Services.AddScoped<PlanTurnoService>();
 builder.Services.AddScoped<usuarioService>();
 builder.Services.AddScoped<PacienteService>();
+builder.Services.AddScoped<PsicologoService>();
+builder.Services.AddScoped<ConsultorioService>();
 
-// --------------------------------------------------
+// 5. Repositorios
+builder.Services.AddScoped<AgendaRepository>();
+builder.Services.AddScoped<LoginRepository>();
+builder.Services.AddScoped<PlanTurnoRepository>();
+builder.Services.AddScoped<SessionRepository>();
+builder.Services.AddScoped<TurnoRepository>();
+builder.Services.AddScoped<UsuarioRepository>();
+builder.Services.AddScoped<ConsultorioRepository>();
+builder.Services.AddScoped<PsicologoRepository>();
+builder.Services.AddScoped<PacienteRepository>();
+
 // 6. CORS
-// --------------------------------------------------
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("DevPolicy", policy =>
@@ -119,6 +115,15 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 
+    options.AddPolicy("ReactNativeDev", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithExposedHeaders("Authorization");
+    });
+
     options.AddPolicy("ProdPolicy", policy =>
     {
         policy
@@ -126,73 +131,24 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
-
-    options.AddPolicy("ReactNativeDev", policy =>
-    {
-        policy
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });
 });
 
-// --------------------------------------------------
-// 7. Base de datos SQL Server
-// --------------------------------------------------
-
-var connectionString =
-    builder.Configuration.GetConnectionString(
-        "DefaultConnection"
-    );
-
-if (string.IsNullOrWhiteSpace(connectionString))
-{
-    throw new InvalidOperationException(
-        "No se encontró ConnectionStrings:DefaultConnection."
-    );
-}
-
-builder.Services.AddDbContext<PsychologistContext>(
-    options => options.UseSqlServer(connectionString)
-);
-
-// --------------------------------------------------
-// 8. Validar configuración JWT
-// --------------------------------------------------
-
+// 7. Configuracion JWT
 var jwtKey = builder.Configuration["Jwt:Key"];
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
 var jwtAudience = builder.Configuration["Jwt:Audience"];
 
-if (string.IsNullOrWhiteSpace(jwtKey))
+if (string.IsNullOrWhiteSpace(jwtKey) ||
+    string.IsNullOrWhiteSpace(jwtIssuer) ||
+    string.IsNullOrWhiteSpace(jwtAudience))
 {
     throw new InvalidOperationException(
-        "Falta Jwt:Key. Verificá la carga de .env.backend."
+        "Falta configuracion JWT. Verifica Jwt__Key, Jwt__Issuer y Jwt__Audience."
     );
 }
-
-if (string.IsNullOrWhiteSpace(jwtIssuer))
-{
-    throw new InvalidOperationException(
-        "Falta Jwt:Issuer. Verificá la carga de .env.backend."
-    );
-}
-
-if (string.IsNullOrWhiteSpace(jwtAudience))
-{
-    throw new InvalidOperationException(
-        "Falta Jwt:Audience. Verificá la carga de .env.backend."
-    );
-}
-
-// --------------------------------------------------
-// 9. Autenticación JWT
-// --------------------------------------------------
 
 builder.Services
-    .AddAuthentication(
-        JwtBearerDefaults.AuthenticationScheme
-    )
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters =
@@ -202,17 +158,13 @@ builder.Services
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-
                 ValidIssuer = jwtIssuer,
                 ValidAudience = jwtAudience,
-
-                IssuerSigningKey =
-                    new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(jwtKey)
-                    )
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(jwtKey)
+                )
             };
 
-        // Diagnóstico solo durante desarrollo.
         if (builder.Environment.IsDevelopment())
         {
             options.Events = new JwtBearerEvents
@@ -220,55 +172,24 @@ builder.Services
                 OnAuthenticationFailed = context =>
                 {
                     Console.WriteLine(
-                        $"Auth failed: {context.Exception.Message}"
+                        $"Error de autenticacion: {context.Exception.Message}"
                     );
-
-                    return Task.CompletedTask;
-                },
-
-                OnMessageReceived = context =>
-                {
-                    Console.WriteLine(
-                        "Token recibido: " +
-                        (!string.IsNullOrEmpty(context.Token)
-                            ? "Sí"
-                            : "No")
-                    );
-
-                    return Task.CompletedTask;
-                },
-
-                OnTokenValidated = context =>
-                {
-                    Console.WriteLine(
-                        "Token JWT validado correctamente."
-                    );
-
                     return Task.CompletedTask;
                 }
             };
         }
     });
 
-// --------------------------------------------------
-// 10. Construir aplicación
-// --------------------------------------------------
+builder.Services.AddAuthorization();
 
+// 8. Construir la aplicacion
 var app = builder.Build();
-
-// --------------------------------------------------
-// 11. Swagger
-// --------------------------------------------------
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// --------------------------------------------------
-// 12. Middleware
-// --------------------------------------------------
 
 app.UseCors(
     app.Environment.IsDevelopment()
@@ -278,10 +199,6 @@ app.UseCors(
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-// --------------------------------------------------
-// 13. Endpoints
-// --------------------------------------------------
 
 app.MapControllers();
 

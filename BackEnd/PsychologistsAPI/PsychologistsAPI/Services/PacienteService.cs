@@ -1,26 +1,23 @@
 
-using Data.Context;
-using Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using PsychologistsAPI.Dtos;
 using PsychologistsAPI.Mapper;
-using PsychologistsAPI.Models;
+using PsychologistsAPI.Repositories;
 
 namespace PsychologistsAPI.Services
 {
     public class PacienteService
     {
-        private readonly PsychologistContext _context;
+        private readonly PacienteRepository _repo;
 
-        public PacienteService(PsychologistContext context)
+        public PacienteService(PacienteRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         public async Task<List<PacienteDto>> GetAll()
         {
-            var pacientes = await _context.Pacientes
-                .AsNoTracking()
-                .ToListAsync();
+            var pacientes = await _repo.GetAllAsync();
 
             return pacientes
                 .Select(PacienteMapper.ToDto)
@@ -29,59 +26,50 @@ namespace PsychologistsAPI.Services
 
         public async Task<PacienteDto?> GetById(int id)
         {
-            var paciente = await _context.Pacientes
-                .AsNoTracking()
-                .FirstOrDefaultAsync(p => p.PacienteId == id);
+            var paciente = await _repo.GetByIdAsync(id);
 
-            if (paciente == null)
-                return null;
-
-            return PacienteMapper.ToDto(paciente);
+            return paciente == null
+                ? null
+                : PacienteMapper.ToDto(paciente);
         }
 
         public async Task<PacienteDto> Create(PacienteDto dto)
         {
             var paciente = PacienteMapper.ToEntity(dto);
 
-            _context.Pacientes.Add(paciente);
-            await _context.SaveChangesAsync();
+            await _repo.AddAsync(paciente);
 
             return PacienteMapper.ToDto(paciente);
         }
 
-        public async Task<PacienteDto?> Update(
-            int id,
-            PacienteDto dto)
+        public async Task<PacienteDto?> Update(int id, PacienteDto dto)
         {
-            var paciente = await _context.Pacientes
-                .FirstOrDefaultAsync(p => p.PacienteId == id);
+            var paciente = await _repo.GetByIdAsync(id);
 
             if (paciente == null)
                 return null;
 
             PacienteMapper.UpdateEntity(paciente, dto);
 
-            await _context.SaveChangesAsync();
+            await _repo.UpdateAsync(paciente);
 
             return PacienteMapper.ToDto(paciente);
         }
 
         public async Task<bool> Delete(int id)
         {
-            var paciente = await _context.Pacientes
-                .Include(p => p.Turnos)
-                .FirstOrDefaultAsync(p => p.PacienteId == id);
+            var paciente = await _repo.GetByIdAsync(id);
 
             if (paciente == null)
                 return false;
 
-            // No eliminar pacientes que tengan historial de turnos.
-            if (paciente.Turnos.Any())
+            if (await _repo.HasTurnosAsync(id))
+            {
                 throw new InvalidOperationException(
                     "No se puede eliminar el paciente porque tiene turnos asociados.");
+            }
 
-            _context.Pacientes.Remove(paciente);
-            await _context.SaveChangesAsync();
+            await _repo.DeleteAsync(paciente);
 
             return true;
         }
