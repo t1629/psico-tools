@@ -1,0 +1,98 @@
+/* Tarjeta flotante de confirmacion de eliminacion —
+   replica el patron de LogoutCard con tokens del sistema, sin hex externos. */
+
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: color-mix(in srgb, var(--global-dark-bg) 55%, transparent);
+}
+
+.confirm-card {
+  width: 100%;
+  max-width: 360px;
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  /* Borde superior en rojo del sistema: sena visual de accion destructiva */
+  border-top: 4px solid var(--color-feedback-error);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  color: var(--color-text-primary);
+  animation: confirm-rise 0.25s ease;
+}
+
+@keyframes confirm-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.confirm-card p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+}
+
+.confirm-card__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.confirm-card__actions button {
+  flex: 1;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* Si: fondo teñido de error + texto primario y borde rojo (AA ambos modos,
+   mismo patron que .calendar-page__notice) */
+.confirm-card__danger {
+  background: var(--tint-error);
+  border: 1px solid var(--color-feedback-error);
+  color: var(--color-text-primary);
+}
+
+.confirm-card__danger:hover {
+  background: var(--color-feedback-error);
+  color: var(--global-dark-bg);
+}
+
+/* No: tinta primaria + texto primario (AA ambos modos) */
+.confirm-card__cancel {
+  background: var(--tint-primary);
+  border: 1px solid var(--color-action-hover);
+  color: var(--color-text-primary);
+}
+
+.confirm-card__cancel:hover {
+  background: var(--tint-primary-strong);
+}
+
+.confirm-card__danger:focus-visible,
+.confirm-card__cancel:focus-visible {
+  outline: 3px solid var(--color-action-secondary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confirm-card {
+    animation: none;
+  }
+}

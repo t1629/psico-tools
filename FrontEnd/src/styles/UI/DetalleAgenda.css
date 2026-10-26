@@ -1,0 +1,210 @@
+/* Detalle del turno agendado — tokens semanticos de index.css, sin hex externos. */
+
+.agenda-detail {
+  padding: 32px 16px;
+  background-color: var(--color-bg-base);
+  min-height: 100vh;
+}
+
+/* Tarjeta flotante centrada: los datos del turno agendado viven dentro
+   de este panel en lugar de estirarse de punta a punta. */
+.agenda-panel {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 28px 32px;
+}
+
+/* Cabecera tipo calendar-page. */
+.agenda-detail__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  /* Separacion generosa entre el bloque de titulo y los datos. */
+  margin-bottom: 32px;
+}
+
+.agenda-detail__eyebrow {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+}
+
+.agenda-detail__header h1 {
+  margin: 0 0 10px;
+  font-size: 26px;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.agenda-detail__description {
+  margin: 0;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.agenda-detail__badge {
+  display: grid;
+  gap: 2px;
+  justify-items: center;
+  padding: 10px 16px;
+  background-color: var(--tint-primary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+}
+
+.agenda-detail__badge strong {
+  font-size: 14px;
+  color: var(--color-text-primary);
+}
+
+.agenda-detail__badge span {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* Tarjeta de datos: filas etiqueta/valor con separadores sutiles. La
+   sombra la aporta la tarjeta flotante padre; aqui queda plana. */
+.agenda-detail__card {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 6px 0;
+}
+
+.agenda-detail__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.agenda-detail__row:last-child {
+  border-bottom: none;
+}
+
+/* La descripcion ocupa su propio bloque (texto multilinea). */
+.agenda-detail__row--wide {
+  flex-direction: column;
+  gap: 6px;
+}
+
+.agenda-detail__label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+}
+
+.agenda-detail__value {
+  font-size: 15px;
+  color: var(--color-text-primary);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.agenda-detail__row--wide .agenda-detail__value {
+  text-align: left;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+/* Acciones: Editar primaria, Eliminar destructiva (patron notice AA ambos
+   temas), tactil >= 44px y foco visible con el ambar del sistema. */
+.agenda-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.agenda-detail__button {
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.agenda-detail__button--primary {
+  background-color: var(--color-action-primary);
+  border: 1px solid transparent;
+  color: var(--global-dark-bg);
+}
+
+.agenda-detail__button--primary:hover {
+  background-color: var(--color-action-hover);
+}
+
+.agenda-detail__button--danger {
+  background-color: var(--tint-error);
+  border: 1px solid var(--color-feedback-error);
+  color: var(--color-text-primary);
+}
+
+.agenda-detail__button--danger:hover {
+  background-color: var(--color-feedback-error);
+  color: var(--global-dark-bg);
+}
+
+.agenda-detail__button:focus-visible {
+  outline: 3px solid var(--color-action-secondary);
+  outline-offset: 2px;
+}
+
+/* Aviso de carga / error al traer los datos, mismo patron que la lista. */
+.agenda-detail__state {
+  font-size: 15px;
+  color: var(--color-text-secondary);
+}
+
+.agenda-detail__notice {
+  background-color: var(--tint-error);
+  border: 1px solid var(--color-feedback-error);
+  color: var(--color-text-primary);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.agenda-detail__notice button {
+  background: none;
+  border: none;
+  color: var(--color-text-primary);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 560px) {
+  .agenda-detail {
+    padding: 20px 12px;
+  }
+
+  .agenda-panel {
+    padding: 20px 16px;
+  }
+
+  .agenda-detail__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .agenda-detail__value {
+    text-align: left;
+  }
+}

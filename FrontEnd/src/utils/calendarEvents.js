@@ -47,6 +47,7 @@ export function toCalendarEvents(appointments = []) {
           appointment.idTurno ??
           index,
         title: String(title),
+        description: appointment.descripcion,
         start,
         end: end <= start ? new Date(start.getTime() + 30 * 60 * 1000) : end,
         resource: appointment,

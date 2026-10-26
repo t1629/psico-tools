@@ -35,7 +35,13 @@ namespace PsychologistsAPI.Repositories
             if (hasta.HasValue)
                 query = query.Where(t => t.Fecha <= hasta.Value);
 
-            return await query.ToListAsync();
+            // FIX: incluir las navegaciones para que el DTO expuesto por /range
+            // traiga paciente/psiologo/planTurno y el filtro del frontend pueda usarse.
+            return await query
+                .Include(t => t.Paciente)
+                .Include(t => t.Psicologo)
+                .Include(t => t.PlanTurno)
+                .ToListAsync();
         }
 
         public async Task<Turno?> GetByIdAsync(int id)
@@ -56,13 +62,18 @@ namespace PsychologistsAPI.Repositories
 
         public async Task<AttendanceStatsDto> GetAttendanceAsync(int anio, int mes)
         {
+          
+            var inicioMes = new DateOnly(anio, mes, 1);
+            var finMes = inicioMes.AddMonths(1).AddDays(-1);
+
             var turnos = await _context.Turnos
-                .Where(t => t.Fecha.Year == anio && t.Fecha.Month == mes)
+                .Where(t => t.Fecha >= inicioMes && t.Fecha <= finMes)
                 .ToListAsync();
 
             int total = turnos.Count;
             int presentes = turnos.Count(t => t.Asistencia == true);
             int ausentes = turnos.Count(t => t.Asistencia == false);
+
 
             double porcentaje = total > 0 ? (presentes * 100.0 / total) : 0;
 
@@ -71,7 +82,7 @@ namespace PsychologistsAPI.Repositories
                 TotalTurnos = total,
                 Presentes = presentes,
                 Ausentes = ausentes,
-                PorcentajeAsistencia = porcentaje
+                PorcentajeAsistencia = Math.Round(porcentaje, 2) 
             };
         }
 

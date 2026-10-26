@@ -82,21 +82,26 @@ namespace PsychologistsAPI.Services
             var turno = await _repo.GetByIdAsync(id);
             if (turno == null) return null;
 
-            turno.Fecha = dto.Fecha;
-            turno.Hora = dto.Hora;
-            turno.Estado = dto.Estado;
-            turno.Minutos = dto.Minutos;
+            
+            if (dto.Fecha != default) turno.Fecha = dto.Fecha;
+            if (dto.Hora != default) turno.Hora = dto.Hora;
+            if (!string.IsNullOrEmpty(dto.Estado)) turno.Estado = dto.Estado;
+            if (dto.Minutos > 0) turno.Minutos = dto.Minutos;
+
+            
             turno.Asistencia = dto.Asistencia;
-            turno.Url = dto.Url;
-            turno.PsicologoId = dto.PsicologoId;
-            turno.PacienteId = dto.PacienteId;
+
+            if (dto.Url != null) turno.Url = dto.Url;
+            if (dto.PsicologoId.HasValue && dto.PsicologoId > 0) turno.PsicologoId = dto.PsicologoId.Value;
+            if (dto.PacienteId.HasValue && dto.PacienteId > 0) turno.PacienteId = dto.PacienteId.Value;
+            if (dto.PlanTurnoId.HasValue) turno.PlanTurnoId = dto.PlanTurnoId;
+            if (dto.CantidadTurnos > 0) turno.CantidadTurnos = dto.CantidadTurnos;
             turno.ModalidadVirtual = dto.ModalidadVirtual;
-            turno.CantidadTurnos = dto.CantidadTurnos;
-            turno.Descripcion = dto.Descripcion;
-            turno.PlanTurnoId = dto.PlanTurnoId;
+            if (dto.Descripcion != null) turno.Descripcion = dto.Descripcion;
 
             await _repo.UpdateAsync(turno);
 
+       
             var turnoActualizado = await _repo.GetByIdAsync(id);
             return TurnoDetallleMapper.ToDetalleDto(turnoActualizado!);
         }
@@ -124,7 +129,14 @@ namespace PsychologistsAPI.Services
                 PacienteId = turno.PacienteId,
                 CantidadTurnos = turno.CantidadTurnos,
                 ModalidadVirtual = turno.ModalidadVirtual,
-                Descripcion = turno.Descripcion
+                Descripcion = turno.Descripcion,
+
+                // FIX: el filtro por apellido (y la tarjeta) necesita estos campos;
+                // antes /range los entregaba nulos aunque el repo incluyera los includes.
+                PsicologoNombre = turno.Psicologo?.Nombre,
+                PsicologoApellido = turno.Psicologo?.Apellido,
+                PacienteNombre = turno.Paciente?.Nombre,
+                PacienteApellido = turno.Paciente?.Apellido
             };
         }
     }
