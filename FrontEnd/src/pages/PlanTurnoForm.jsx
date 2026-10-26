@@ -93,8 +93,9 @@ export default function PlanTurnoForm() {
 
     const payload = {
       pacienteId: form.paciente.pacienteId,
-      fechaInicio: form.fechaInicio,
-      fechaFin: form.fechaFin,
+      // El backend usa DateOnly: solo acepta "YYYY-MM-DD" (sin hora).
+      fechaInicio: form.fechaInicio.slice(0, 10),
+      fechaFin: form.fechaFin.slice(0, 10),
       cantidadTurno: Number(form.cantidadTurno),
     };
 
