@@ -32,6 +32,14 @@ const messages = {
   noEventsInRange: "No hay turnos en este período.",
 };
 
+const EventComponent = ({ event }) => (
+  <div>
+    <strong>{event.title}</strong>
+    <br />
+    <small>{event.resource?.descripcion}</small>
+  </div>
+);
+
 const Inicio = () => {
   const { agenda, loading, error, reload } = useCalendar();
   const [actionError, setActionError] = useState(null);
@@ -106,6 +114,9 @@ const Inicio = () => {
             startAccessor="start"
             endAccessor="end"
             titleAccessor="title"
+            components={{
+              event: EventComponent,
+            }}
             eventPropGetter={(task) => {
               const text =
                 `${task?.title ?? ""} ${task?.resource?.descripcion ?? ""} ${task?.resource?.type ?? ""}`.toLowerCase();
