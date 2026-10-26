@@ -22,6 +22,17 @@ namespace PsychologistsAPI.Repositories
                 .ToListAsync();
         }
 
+        // FIX: soporte para GET /api/agenda?fecha=YYYY-MM-DD (filtro del calendario).
+        public async Task<List<Agenda>> GetByDateAsync(DateOnly fecha)
+        {
+            return await _context.Agenda
+                .Include(a => a.Psicologo)
+                .Include(p => p.Paciente)
+                .Include(c => c.Consultorio)
+                .Where(a => a.Fecha == fecha)
+                .ToListAsync();
+        }
+
 
         public async Task<Agenda?> GetByIdAsync(int id)
         {

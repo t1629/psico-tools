@@ -21,7 +21,7 @@ const TurnoFiltradoForm = ({ onFilter, onReset }) => {
           type="text"
           value={tituloFilter}
           onChange={(e) => setTituloFilter(e.target.value)}
-          placeholder="Ej. Prueba"
+          placeholder="Ingrese el título o motivo"
         />
       </label>
 

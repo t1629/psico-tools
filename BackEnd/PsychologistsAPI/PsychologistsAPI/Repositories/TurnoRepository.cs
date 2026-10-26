@@ -35,7 +35,13 @@ namespace PsychologistsAPI.Repositories
             if (hasta.HasValue)
                 query = query.Where(t => t.Fecha <= hasta.Value);
 
-            return await query.ToListAsync();
+            // FIX: incluir las navegaciones para que el DTO expuesto por /range
+            // traiga paciente/psiologo/planTurno y el filtro del frontend pueda usarse.
+            return await query
+                .Include(t => t.Paciente)
+                .Include(t => t.Psicologo)
+                .Include(t => t.PlanTurno)
+                .ToListAsync();
         }
 
         public async Task<Turno?> GetByIdAsync(int id)

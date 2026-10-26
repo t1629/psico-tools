@@ -1,0 +1,19 @@
+# --- BackEnd (.NET): artefactos de compilacion ---
+bin/
+obj/
+*.user
+appsettings.*.json
+
+# --- FrontEnd (Node/Vite) ---
+node_modules/
+dist/
+*.local
+
+# --- Editor / sistema ---
+.vs/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- IA ---
+graphify-out/
