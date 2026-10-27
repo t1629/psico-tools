@@ -43,7 +43,7 @@ export function useConsultorio() {
     setLoading(true);
     setError(null);
     try {
-      const response = await ConsultorioService.update(consultorio, id);
+      const response = await ConsultorioService.update(id, consultorio);
       setConsultorios((prev) => prev.map((c) => (c.Id === id ? response : c)));
       return { success: true, data: response };
     } catch (err) {

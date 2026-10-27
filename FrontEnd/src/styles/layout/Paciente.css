@@ -1,10 +1,3 @@
-/* Vista Paciente — 100% tokens semánticos de index.css (sin hex externos).
-   Contraste verificado (design system 1.4):
-   - eyebrow en secondary en light (lima como texto pequeño falla 2.62:1);
-     en dark se usa action-primary (7.87:1).
-   - Botón eliminar: fondo tint-error + borde feedback-error + texto primario
-     (el rojo sólido falla 4.5:1 como texto en dark); hover sólido usa gris-50. */
-
 .paciente-page {
   min-height: 100svh;
   box-sizing: border-box;
@@ -47,7 +40,6 @@
   font-size: 15px;
 }
 
-/* Dos columnas: formulario fijo + lista fluida. Colapsa en < 900px. */
 .paciente-layout {
   display: grid;
   grid-template-columns: minmax(320px, 420px) minmax(0, 1fr);
@@ -79,7 +71,6 @@
   letter-spacing: -0.5px;
 }
 
-/* Formulario: labels 700 a 13px (jerarquía del DS), inputs táctiles 44px */
 .paciente-form {
   display: grid;
   gap: 14px;
@@ -100,7 +91,6 @@
 .paciente-form__field {
   display: grid;
   gap: 6px;
-  /* Evita que inputs con ancho intrínseco grande (p. ej. date) desborden la columna */
   min-width: 0;
 }
 
@@ -129,7 +119,6 @@
   box-shadow: 0 0 0 3px var(--tint-primary-strong);
 }
 
-/* Botón primario: lima + texto oscuro AA en ambos modos */
 .paciente-form button[type="submit"] {
   min-height: 44px;
   padding: 0 16px;
@@ -162,7 +151,6 @@
   font-weight: 500;
 }
 
-/* Lista: tarjetas de superficie, iguales a las de Consultorio */
 .paciente-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
@@ -190,7 +178,6 @@
   font-weight: 700;
 }
 
-/* Peligro en tinta (sólido falla 4.5:1 en dark): borde + texto primario */
 .paciente-card__danger {
   align-self: flex-start;
   min-height: 44px;

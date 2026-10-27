@@ -1,35 +1,88 @@
 import { useState, useEffect } from "react";
 import { useConsultorio } from "../hooks/useConsultorio";
+import * as psicologosService from "../services/PsicologoService";
 import { useToast } from "../hooks/useToast";
 import "../styles/UI/Consultorio.css";
 
-export default function ConsultorioForm() {
-  const { consultorios, fetchAll, create, update, remove, loading, error } =
-    useConsultorio();
+export default function ConsultorioForm({
+  consultorioAEditar,
+  onSaved,
+  onCancel,
+}) {
+  const { create, update, loading } = useConsultorio();
   const toast = useToast();
 
+  const [psicologos, setPsicologos] = useState([]);
+
   const [form, setForm] = useState({
-    Id: "",
+    consultorioId: "",
     nombre: "",
     calle: "",
     numero: "",
-    presencial: false,
-    virtual: false,
     tipoModalidadNombre: "",
+    psicologoId: "",
   });
 
   const [formError, setFormError] = useState(null);
 
+  // Cargar lista de psicólogos al montar
   useEffect(() => {
-    fetchAll();
+    const fetchPsicologos = async () => {
+      try {
+        const data = await psicologosService.getAll();
+        setPsicologos(data);
+      } catch (err) {
+        console.error("Error al cargar los psicólogos", err);
+      }
+    };
+    fetchPsicologos();
   }, []);
 
+  // Rellenar el formulario de forma segura ante cualquier formato de mayúsculas/minúsculas
+  useEffect(() => {
+    if (consultorioAEditar) {
+      setForm({
+        consultorioId:
+          consultorioAEditar.consultorioId ??
+          consultorioAEditar.ConsultorioId ??
+          consultorioAEditar.id ??
+          consultorioAEditar.Id ??
+          "",
+        nombre: consultorioAEditar.nombre ?? consultorioAEditar.Nombre ?? "",
+        calle: consultorioAEditar.calle ?? consultorioAEditar.Calle ?? "",
+        numero: consultorioAEditar.numero ?? consultorioAEditar.Numero ?? "",
+        tipoModalidadNombre:
+          consultorioAEditar.tipoModalidadNombre ??
+          consultorioAEditar.TipoModalidadNombre ??
+          "",
+        psicologoId:
+          consultorioAEditar.psicologoId ??
+          consultorioAEditar.PsicologoId ??
+          consultorioAEditar.psicologo?.psicologoId ??
+          consultorioAEditar.Psicologo?.PsicologoId ??
+          "",
+      });
+    } else {
+      resetFormState();
+    }
+  }, [consultorioAEditar]);
+
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    const { name, value } = e.target;
+
+    if (name === "numero") {
+      if (value === "") {
+        setForm({ ...form, [name]: "" });
+        return;
+      }
+      const num = Math.floor(Number(value));
+      if (!isNaN(num) && num >= 0) {
+        setForm({ ...form, [name]: num });
+      }
+      return;
+    }
+
+    setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -37,92 +90,76 @@ export default function ConsultorioForm() {
     setFormError(null);
 
     if (!form.nombre.trim()) {
-      setFormError(
-        "El nombre del consultorio es obligatorio, si no tiene puede poner 'Consultorio de {su nombre}' ",
-      );
-      return;
-    }
-    if (
-      form.numero !== "" &&
-      (!Number.isInteger(Number(form.numero)) || Number(form.numero) <= 0)
-    ) {
-      setFormError("Ingresá un número de calle válido");
+      setFormError("El nombre del consultorio es obligatorio.");
       return;
     }
     if (!form.tipoModalidadNombre.trim()) {
-      setFormError(
-        "El nombre de la modalidad es obligatorio, tiene que agregar si es prescencial o vitrual",
-      );
+      setFormError("El tipo de modalidad es obligatorio.");
       return;
     }
 
+    const isEditing = Boolean(form.consultorioId);
+
     const payload = {
-      id: form.Id,
+      consultorioId: isEditing ? Number(form.consultorioId) : 0,
       nombre: form.nombre.trim(),
       calle: form.calle.trim() === "" ? null : form.calle.trim(),
       numero: form.numero === "" ? null : Number(form.numero),
       tipoModalidadNombre: form.tipoModalidadNombre.trim(),
+      psicologoId: form.psicologoId ? Number(form.psicologoId) : null,
     };
 
-    const result = await create(payload);
-    if (result?.success) {
-      toast.success("¡Consultorio creado con éxito!");
-      resetForm();
+    let result;
+    if (isEditing) {
+      result = await update(form.consultorioId, payload);
     } else {
-      toast.error(result?.error || "No se pudo crear el consultorio");
+      result = await create(payload);
+    }
+
+    if (result?.success) {
+      toast.success(
+        isEditing
+          ? "¡Consultorio actualizado con éxito!"
+          : "¡Consultorio creado con éxito!",
+      );
+      resetFormState();
+      if (onSaved) onSaved();
+    } else {
+      toast.error(result?.error || "No se pudo guardar el consultorio.");
     }
   };
 
-  const resetForm = () => {
+  const resetFormState = () => {
     setForm({
-      Id: "",
+      consultorioId: "",
       nombre: "",
       calle: "",
       numero: "",
-      presencial: false,
-      virtual: false,
       tipoModalidadNombre: "",
+      psicologoId: "",
     });
-  };
-
-  const handleEdit = (item) => {
-    setForm({
-      Id: item.id ?? item.Id,
-      nombre: item.nombre ?? item.Nombre,
-      calle: item.calle ?? item.Calle ?? "",
-      numero: item.numero ?? item.Numero ?? "",
-      presencial: false,
-      virtual: false,
-      tipoModalidadNombre:
-        item.tipoModalidadNombre ?? item.TipoModalidadNombre ?? "",
-    });
-  };
-
-  const handleUpdate = async () => {
-    const result = await update(form.Id, {
-      Id: form.Id,
-      Nombre: form.nombre.trim(),
-      Calle: form.calle.trim() === "" ? null : form.calle.trim(),
-      Numero: form.numero === "" ? null : Number(form.numero),
-      TipoModalidadNombre: form.tipoModalidadNombre.trim(),
-    });
-    if (result?.success) {
-      toast.success("¡Consultorio actualizado con éxito!");
-      resetForm();
-    } else {
-      toast.error(result?.error || "No se pudo actualizar el consultorio");
-    }
+    setFormError(null);
   };
 
   return (
-    <div className="psicologo-form">
-      <h2>Nuevo Consultorio</h2>
+    <div className="psicologo-form" style={{ paddingBottom: "1rem" }}>
+      <h2>{form.consultorioId ? "Editar Consultorio" : "Nuevo Consultorio"}</h2>
       <form className="consultorios-form" onSubmit={handleSubmit}>
+        <label>Psicólogo Asociado</label>
+        <select
+          name="psicologoId"
+          value={form.psicologoId}
+          onChange={handleChange}
+        >
+          <option value="">Seleccione un psicólogo...</option>
+          {psicologos.map((p) => (
+            <option key={p.psicologoId} value={p.psicologoId}>
+              {p.nombre} {p.apellido}
+            </option>
+          ))}
+        </select>
+
         <label>Nombre</label>
-        <p>
-          Ingrese el nombre del consultorio o puede poenr 'Consultorio de (su
-          nombre)'
-        </p>
         <input
           type="text"
           name="nombre"
@@ -131,7 +168,6 @@ export default function ConsultorioForm() {
         />
 
         <label>Calle</label>
-        <p>Solo si su cosnultorio tiene dreccion prescencial</p>
         <input
           type="text"
           name="calle"
@@ -140,48 +176,68 @@ export default function ConsultorioForm() {
         />
 
         <label>Número</label>
-        <p>Solo si su cosnultorio tiene dreccion prescencial</p>
         <input
           type="number"
           name="numero"
+          min="0"
+          step="1"
           value={form.numero}
           onChange={handleChange}
         />
 
-        <section>
+        <section style={{ margin: "0.5rem 0" }}>
           <h4>Tipo de modalidad</h4>
-          <label>
-            <input
-              type="radio"
-              name="tipoModalidadNombre"
-              value="Presencial"
-              checked={form.tipoModalidadNombre === "Presencial"}
-              onChange={handleChange}
-            />
-            Presencial
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="tipoModalidadNombre"
-              value="Virtual"
-              checked={form.tipoModalidadNombre === "Virtual"}
-              onChange={handleChange}
-            />
-            Virtual
-          </label>
+          <div style={{ display: "flex", gap: "1rem", marginTop: "0.3rem" }}>
+            <label
+              style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}
+            >
+              <input
+                type="radio"
+                name="tipoModalidadNombre"
+                value="Presencial"
+                checked={form.tipoModalidadNombre === "Presencial"}
+                onChange={handleChange}
+              />
+              Presencial
+            </label>
+            <label
+              style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}
+            >
+              <input
+                type="radio"
+                name="tipoModalidadNombre"
+                value="Virtual"
+                checked={form.tipoModalidadNombre === "Virtual"}
+                onChange={handleChange}
+              />
+              Virtual
+            </label>
+          </div>
         </section>
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Guardando..." : "Crear Consultorio"}
-        </button>
-        <button
-          type="button"
-          onClick={handleUpdate}
-          disabled={loading || !form.Id}
-        >
-          {loading ? "Actualizando..." : "Actualizar Consultorio"}
-        </button>
+        <div className="form-actions" style={{ marginTop: "1rem" }}>
+          <button type="submit" disabled={loading}>
+            {loading
+              ? "Guardando..."
+              : form.consultorioId
+                ? "Guardar Cambios"
+                : "Crear Consultorio"}
+          </button>
+
+          {form.consultorioId && (
+            <button
+              type="button"
+              className="cancel-btn"
+              onClick={() => {
+                resetFormState();
+                if (onCancel) onCancel();
+              }}
+              disabled={loading}
+            >
+              Cancelar
+            </button>
+          )}
+        </div>
       </form>
 
       {formError && (
@@ -189,28 +245,6 @@ export default function ConsultorioForm() {
           {formError}
         </p>
       )}
-      {error && (
-        <p className="form-error" role="alert">
-          Error: {String(error)}
-        </p>
-      )}
-
-      <h2>Consultorios Registrados</h2>
-      <ul>
-        {consultorios.map((c, index) => (
-          <li key={c.id ?? c.Id ?? index}>
-            <strong>{c.nombre ?? c.Nombre}</strong> —{" "}
-            {c.calle ?? c.Calle} {c.numero ?? c.Numero} (
-            {c.tipoModalidadNombre ?? c.TipoModalidadNombre})
-            <button type="button" onClick={() => handleEdit(c)}>
-              Editar
-            </button>
-            <button type="button" onClick={() => remove(c.id ?? c.Id)}>
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 }
